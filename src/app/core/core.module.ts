@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 
+import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { LogoComponent } from './header/logo/logo.component';
 import { UserActionsComponent } from './header/user-actions/user-actions.component';
-import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     LogoComponent,
     UserActionsComponent,
-    FooterComponent
+    FooterComponent,
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
-  ]
+    FooterComponent,
+  ],
 })
 export class CoreModule { }

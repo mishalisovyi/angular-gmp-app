@@ -1,20 +1,68 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "target": "es2015",
-    "module": "es2020",
+    "typeRoots": [
+      "node_modules/@types",
+      "src/typings.d.ts"
+    ],
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ],
+      "@api": [
+        "app/api"
+      ],
+      "@api/*": [
+        "app/api/*"
+      ],
+      "@services": [
+        "app/core/services"
+      ],
+      "@services/*": [
+        "app/core/services/*"
+      ],
+      "@models": [
+        "app/_models"
+      ],
+      "@models-rules": [
+        "app/_models-rules"
+      ],
+      "@models-rules/*": [
+        "app/_models-rules/*"
+      ],
+      "@lodash": [
+        "app/_lodash"
+      ],
+      "@jspdf": [
+        "app/_jspdf"
+      ]
+    },
     "lib": [
-      "es2018",
+      "esnext",
       "dom"
-    ]
+    ],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictTemplates": true,
+    "strictInjectionParameters": true
   }
 }

@@ -8,7 +8,7 @@ describe('ActionsSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActionsSectionComponent ]
+      declarations: [ ActionsSectionComponent ],
     })
     .compileComponents();
   });
