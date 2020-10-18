@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { faPlusCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-actions-section',
   templateUrl: './actions-section.component.html',
   styleUrls: [ './actions-section.component.scss' ],
 })
-export class ActionsSectionComponent implements OnInit {
+export class ActionsSectionComponent {
+  public iconPlus: IconDefinition = faPlusCircle;
+  public searchString = '';
 
   constructor() { }
 
-  ngOnInit(): void {
+  public searchCourseHandler() {
+    // tslint:disable-next-line: no-console
+    console.log(this.searchString);
   }
-
 }

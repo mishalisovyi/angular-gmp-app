@@ -1,1 +1,28 @@
-<p>course-item works!</p>
+<section class="course-item-container">
+  <div class="course-item-header">
+    <h2 class="course-title">{{ course?.title }}</h2>
+    <div class="course-additional-info">
+      <div class="course-duration">
+        <fa-icon class="course-item-icon" [icon]="clockIcon"></fa-icon>
+        <span>{{ course?.duration | timeDuration }}</span>
+      </div>
+      <div class="course-creation-date">
+        <fa-icon class="course-item-icon" [icon]="calendarIcon"></fa-icon>
+        <span>{{ course?.creationDate | date:'MM/dd/yy' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="course-item-body">
+    <div class="course-item-description">{{ course?.description }}</div>
+    <div class="course-item-actions">
+      <button class="button button--small button--blue">
+        <fa-icon class="course-item-icon" [icon]="editCourseIcon"></fa-icon>
+        <span>Edit</span>   
+      </button>
+      <button class="button button--small button--blue" (click)="deleteCourseHandler(course.id)">
+        <fa-icon class="course-item-icon" [icon]="deleteCourseIcon"></fa-icon>
+        <span>Delete</span> 
+      </button>
+    </div>   
+  </div>
+</section>

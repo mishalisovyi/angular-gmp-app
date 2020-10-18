@@ -1,0 +1,17 @@
+.actions-section-container {
+  margin: 21px 0 17px;
+
+  .search-course-container {
+    display: flex;
+    
+    .form-group {
+      width: 240px;
+      margin-right: 12px;
+    }
+  }
+
+  .add-course-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,5 @@
+@import '../../../mixins';
+
+.courses-page-container {
+  @include padding-offset;
+}

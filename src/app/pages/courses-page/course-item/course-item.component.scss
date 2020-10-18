@@ -1,0 +1,62 @@
+@import "../../../../mixins";
+@import "../../../../colors";
+
+.course-item-container {
+  @include card-style;
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+
+  .course-item-header {
+    position: relative;
+    margin-bottom: 8px;
+
+    .course-title {
+      @include font-semibold;
+      color: $gray-dark-1;
+      margin: 0;
+    }
+
+    .course-additional-info {
+      @include font-regular;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 24px;
+      color: $gray-light-4;
+      font-size: 14px;
+
+      .course-duration,
+      .course-creation-date {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .course-item-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 40px;
+
+    .course-item-description {
+      @include font-regular;
+      font-size: 14px;
+      color: $gray-dark-2;
+    }
+
+    .course-item-actions {
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 12px;
+    }
+  }
+
+  .course-item-icon {
+    margin-right: 6px;
+    height: 16px;
+  }
+}

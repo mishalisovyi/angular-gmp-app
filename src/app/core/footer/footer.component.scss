@@ -1,0 +1,21 @@
+@import '../../../colors';
+@import '../../../mixins';
+
+.footer-container {
+  @include padding-offset;
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: $gray-dark-1;
+
+  .footer-text {
+    @include font-regular;
+    color: $white;
+    font-size: 12px;
+  }
+}
