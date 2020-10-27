@@ -1,7 +1,15 @@
-<app-breadcrumbs></app-breadcrumbs>
-
 <section class="courses-page-container">
-  <app-actions-section></app-actions-section>
-  <app-course-item *ngFor="let course of courses" [course]="course" (courseDelete)="onCourseDelete($event)"></app-course-item>
-  <app-load-more-panel></app-load-more-panel>
+  <div class="actions-section-container">
+    <app-search-input (search)="onCourseSearch($event)"></app-search-input>
+
+    <div class="add-course-container">
+      <button class="button button--large button--blue" (click)="onCourseAddClick()">
+        <fa-icon [icon]="iconPlus"></fa-icon>
+        <span>Add course</span>
+      </button>
+    </div>
+  </div>
+
+  <app-course-item *ngFor="let course of courses$ | async" [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>
+  <app-load-more-panel (loadMore)="onLoadMore()"></app-load-more-panel>
 </section>

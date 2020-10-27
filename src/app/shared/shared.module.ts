@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { SearchInputComponent } from './components/search-input/search-input.component';
 import { TimeDurationPipe } from './pipes/time-duration.pipe';
 
 @NgModule({
-  imports: [ FontAwesomeModule ],
+  imports: [ FormsModule ],
   declarations: [
-    BreadcrumbsComponent,
     TimeDurationPipe,
+    SearchInputComponent,
   ],
   exports: [
-    BreadcrumbsComponent,
     TimeDurationPipe,
+    SearchInputComponent,
     FontAwesomeModule,
   ],
 })

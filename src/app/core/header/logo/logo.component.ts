@@ -8,7 +8,5 @@ import { faPlayCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons'
   styleUrls: [ './logo.component.scss' ],
 })
 export class LogoComponent {
-  public iconPlay: IconDefinition = faPlayCircle;
-
-  constructor() { }
+  iconPlay: IconDefinition = faPlayCircle;
 }
