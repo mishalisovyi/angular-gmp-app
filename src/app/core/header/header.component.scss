@@ -1,0 +1,13 @@
+@import '../../../colors';
+@import '../../../mixins';
+
+.header-container {
+  @include padding-offset;
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $gray-dark-1;
+}

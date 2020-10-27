@@ -1,17 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ActionsSectionComponent } from './actions-section/actions-section.component';
-import { CourseItemComponent } from './course-item/course-item.component';
+import { CoursesModule } from '../../entities/courses/courses.module';
+import { SharedModule } from '../../shared/shared.module';
 import { CoursesPageComponent } from './courses-page.component';
-import { LoadMorePanelComponent } from './load-more-panel/load-more-panel.component';
 
 @NgModule({
-  declarations: [
-    CoursesPageComponent,
-    ActionsSectionComponent,
-    CourseItemComponent,
-    LoadMorePanelComponent,
+  imports: [
+    CommonModule,
+    CoursesModule,
+    SharedModule,
   ],
+  declarations: [ CoursesPageComponent ],
   exports: [ CoursesPageComponent ],
 })
 export class CoursesPageModule { }
