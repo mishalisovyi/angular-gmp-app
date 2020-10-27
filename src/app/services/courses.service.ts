@@ -47,6 +47,4 @@ export class CoursesService {
       creationDate: new Date(),
     } ])
   }
-
-  constructor() { }
 }
