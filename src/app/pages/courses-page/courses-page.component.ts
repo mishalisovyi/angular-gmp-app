@@ -17,6 +17,11 @@ export class CoursesPageComponent implements OnInit {
   courses$: Observable<Course[]>;
   iconPlus: IconDefinition = faPlusCircle;
 
+  courseSearchIsHandled = false;
+  courseAddingIsHandled = false;
+  courseDeletingIsHandled = false;
+  loadMoreCoursesIsHandled = false;
+
   constructor(private coursesService: CoursesService) { }
 
   ngOnInit() {
@@ -26,21 +31,25 @@ export class CoursesPageComponent implements OnInit {
   onCourseSearch(searchString: string) {
     // tslint:disable-next-line: no-console
     console.log('On course search: ', searchString);
+    this.courseSearchIsHandled = true;
   }
 
   onCourseAddClick() {
     // tslint:disable-next-line: no-console
     console.log('On course add');
+    this.courseAddingIsHandled = true;
   }
 
   onCourseDelete(courseId: number) {
     // tslint:disable-next-line: no-console
     console.log('On course delete: ', courseId);
+    this.courseDeletingIsHandled = true;
   }
 
   onLoadMore() {
     // tslint:disable-next-line: no-console
     console.log('On load more');
+    this.loadMoreCoursesIsHandled = true;
   }
 
   private getCourses() {

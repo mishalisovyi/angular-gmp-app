@@ -1,16 +1,27 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
+@Component({ selector: 'app-header' })
+class StubHeaderComponent { }
+
+@Component({ selector: 'app-breadcrumbs' })
+class StubBreadcrumbsComponent { }
+
+@Component({ selector: 'app-footer' })
+class StubFooterComponent { }
+
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-      ],
+      imports: [ RouterTestingModule ],
       declarations: [
         AppComponent,
+        StubHeaderComponent,
+        StubBreadcrumbsComponent,
+        StubFooterComponent,
       ],
     }).compileComponents();
   });
@@ -19,18 +30,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'angular-gmp-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-gmp-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-gmp-app app is running!');
   });
 });

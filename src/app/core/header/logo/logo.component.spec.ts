@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { LogoComponent } from './logo.component';
 
 describe('LogoComponent', () => {
@@ -8,6 +10,7 @@ describe('LogoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FontAwesomeModule ],
       declarations: [ LogoComponent ],
     })
     .compileComponents();
