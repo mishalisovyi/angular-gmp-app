@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { UserPanelComponent } from './user-panel.component';
 
 describe('UserPanelComponent', () => {
@@ -8,6 +10,7 @@ describe('UserPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FontAwesomeModule ],
       declarations: [ UserPanelComponent ],
     })
     .compileComponents();

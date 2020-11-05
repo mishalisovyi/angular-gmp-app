@@ -1,25 +1,81 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { mockCoursesServiceProvider } from '@app/services/courses.service.mock';
+import { getFixtureDebugElementBySelector } from '@app/util/util';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { MockCourseItemComponent } from '../../entities/courses/components/course-item/course-item.component.mock';
+import { MockLoadMorePanelComponent } from '../../entities/courses/components/load-more-panel/load-more-panel.component.mock';
+import { CoursesService } from '../../services/courses.service';
+import { MockSearchInputComponent } from '../../shared/components/search-input/search-input.component.mock';
 import { CoursesPageComponent } from './courses-page.component';
 
 describe('CoursesPageComponent', () => {
   let component: CoursesPageComponent;
-  let fixture: ComponentFixture<CoursesPageComponent>;
+  let componentFixture: ComponentFixture<CoursesPageComponent>;
+  let coursesService: CoursesService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CoursesPageComponent ],
+      imports: [ FontAwesomeModule ],
+      declarations: [
+        CoursesPageComponent,
+        MockSearchInputComponent,
+        MockCourseItemComponent,
+        MockLoadMorePanelComponent,
+      ],
+      providers: [ mockCoursesServiceProvider ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CoursesPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    coursesService = TestBed.inject(CoursesService);
+
+    componentFixture = TestBed.createComponent(CoursesPageComponent);
+    component = componentFixture.componentInstance;
+    componentFixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call method from service for courses loading', () => {
+    const getCoursesSpy = spyOn(coursesService, 'getCourses$');
+    component.ngOnInit();
+
+    expect(getCoursesSpy).toHaveBeenCalled();
+  });
+
+  it('should proper handle course search event', () => {
+    const onCourseSearchSpy = spyOn(component, 'onCourseSearch').and.callThrough();
+    const textForSearch = 'test'
+    getFixtureDebugElementBySelector(componentFixture, '#course-search-button').triggerEventHandler('click', textForSearch);
+
+    expect(onCourseSearchSpy).toHaveBeenCalledWith(textForSearch);
+  });
+
+  it('should proper handle course add event', () => {
+    const onCourseAddSpy = spyOn(component, 'onCourseAddClick').and.callThrough();
+    getFixtureDebugElementBySelector(componentFixture, '.button.button--large.button--blue').triggerEventHandler('click', null);
+
+    expect(onCourseAddSpy).toHaveBeenCalled();
+  });
+
+  it('should proper handle course delete event', () => {
+    const onCourseDeleteSpy = spyOn(component, 'onCourseDelete').and.callThrough();
+    const idForDelete = 343
+    getFixtureDebugElementBySelector(componentFixture, '#course-delete-button').triggerEventHandler('click', idForDelete);
+
+    expect(onCourseDeleteSpy).toHaveBeenCalledWith(idForDelete);
+  });
+
+  it('should proper handle course load more event', () => {
+    const onLoadMoreSpy = spyOn(component, 'onLoadMore').and.callThrough();
+    getFixtureDebugElementBySelector(componentFixture, '#load-more-courses-button').triggerEventHandler('click', null);
+
+    expect(onLoadMoreSpy).toHaveBeenCalled();
   });
 });

@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+
+import { getFixtureDebugElementBySelector } from '@app/util/util';
 
 import { SearchInputComponent } from './search-input.component';
 
@@ -8,6 +11,7 @@ describe('SearchInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ SearchInputComponent ],
     })
     .compileComponents();
@@ -21,5 +25,17 @@ describe('SearchInputComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit `search` event when click on `Search` button', () => {
+    const searchEmitSpy = spyOn(component.search, 'emit');
+
+    const mockSearchString = 'test';
+    component.searchString = mockSearchString;
+
+    const searchButton = getFixtureDebugElementBySelector(fixture, '.button.button--large.button--green')
+    searchButton.triggerEventHandler('click', null);
+
+    expect(searchEmitSpy).toHaveBeenCalledWith(mockSearchString);
   });
 });

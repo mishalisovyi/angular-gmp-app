@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { HeaderComponent } from './header.component';
+import { MockLogoComponent } from './logo/logo.component.mock';
+import { MockUserPanelComponent } from './user-panel/user-panel.component.mock';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,7 +12,12 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
+      imports: [ FontAwesomeModule ],
+      declarations: [
+        HeaderComponent,
+        MockLogoComponent,
+        MockUserPanelComponent,
+      ],
     })
     .compileComponents();
   });

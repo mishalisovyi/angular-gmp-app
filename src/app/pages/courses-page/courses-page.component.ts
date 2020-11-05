@@ -44,6 +44,6 @@ export class CoursesPageComponent implements OnInit {
   }
 
   private getCourses() {
-    this.courses$ = this.coursesService.getCourses();
+    this.courses$ = this.coursesService.getCourses$();
   }
 }

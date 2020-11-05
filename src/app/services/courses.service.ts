@@ -8,7 +8,7 @@ import { Course } from '@app/interfaces/course.interface';
   providedIn: 'root',
 })
 export class CoursesService {
-  getCourses(): Observable<Course[]> {
+  getCourses$(): Observable<Course[]> {
     return of([ {
       id: 1,
       title: 'Video Course 1. Name 1',
