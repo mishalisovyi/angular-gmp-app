@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+
+import { getFixtureDebugElementBySelector } from '@app/util/util';
 
 import { LoadMorePanelComponent } from './load-more-panel.component';
 
@@ -27,7 +28,7 @@ describe('LoadMorePanelComponent', () => {
   it('should emit `loadMore` event when click on `Load more` button', () => {
     const onLoadMoreEmitSpy = spyOn(component.loadMore, 'emit');
 
-    const loadMoreButton = fixture.debugElement.query(By.css('.button.button--link'))
+    const loadMoreButton = getFixtureDebugElementBySelector(fixture, '.button.button--link')
     loadMoreButton.triggerEventHandler('click', null);
 
     expect(onLoadMoreEmitSpy).toHaveBeenCalled();

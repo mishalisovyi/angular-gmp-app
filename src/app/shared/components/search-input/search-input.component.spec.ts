@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+
+import { getFixtureDebugElementBySelector } from '@app/util/util';
 
 import { SearchInputComponent } from './search-input.component';
 
@@ -32,7 +33,7 @@ describe('SearchInputComponent', () => {
     const mockSearchString = 'test';
     component.searchString = mockSearchString;
 
-    const searchButton = fixture.debugElement.query(By.css('.button.button--large.button--green'))
+    const searchButton = getFixtureDebugElementBySelector(fixture, '.button.button--large.button--green')
     searchButton.triggerEventHandler('click', null);
 
     expect(searchEmitSpy).toHaveBeenCalledWith(mockSearchString);

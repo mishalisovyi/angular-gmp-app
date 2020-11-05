@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser'
 
 import { Course } from '@app/interfaces/course.interface';
 
-import { SharedModule } from '../../../../../shared/shared.module';
+import { SharedModule } from '../../../../../../shared/shared.module';
+import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector } from '../../../../../../util/util';
 import { CourseItemComponent } from '../../course-item.component';
 
 @Component({
@@ -44,7 +44,7 @@ describe('CourseItemComponent', () => {
   beforeEach(() => {
     hostComponentFixture = TestBed.createComponent(HostComponent);
     hostComponent = hostComponentFixture.componentInstance;
-    childComponent = hostComponentFixture.debugElement.query(By.css('app-course-item')).componentInstance
+    childComponent = getFixtureDebugElementBySelector(hostComponentFixture, 'app-course-item').componentInstance
     hostComponentFixture.detectChanges();
   });
 
@@ -55,7 +55,7 @@ describe('CourseItemComponent', () => {
   it('should properly handle course deletion', () => {
     const onCourseDeleteSpy = spyOn(hostComponent, 'onCourseDelete');
 
-    const [ , deleteButton ] = hostComponentFixture.debugElement.queryAll(By.css('.button.button--small.button--blue'))
+    const [ , deleteButton ] = getFixtureDebugElementsArrayBySelector(hostComponentFixture, '.button.button--small.button--blue');
     deleteButton.triggerEventHandler('click', null);
 
     expect(onCourseDeleteSpy).toHaveBeenCalledWith(hostComponent.course.id);

@@ -1,17 +1,10 @@
-import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
-
-@Component({ selector: 'app-header' })
-class StubHeaderComponent { }
-
-@Component({ selector: 'app-breadcrumbs' })
-class StubBreadcrumbsComponent { }
-
-@Component({ selector: 'app-footer' })
-class StubFooterComponent { }
+import { MockBreadcrumbsComponent } from './core/breadcrumbs/breadcrumbs.component.mock';
+import { MockFooterComponent } from './core/footer/footer.component.mock';
+import { MockHeaderComponent } from './core/header/header.component.mock';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -19,9 +12,9 @@ describe('AppComponent', () => {
       imports: [ RouterTestingModule ],
       declarations: [
         AppComponent,
-        StubHeaderComponent,
-        StubBreadcrumbsComponent,
-        StubFooterComponent,
+        MockBreadcrumbsComponent,
+        MockFooterComponent,
+        MockHeaderComponent,
       ],
     }).compileComponents();
   });

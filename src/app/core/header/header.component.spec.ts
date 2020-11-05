@@ -1,15 +1,10 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HeaderComponent } from './header.component';
-
-@Component({ selector: 'app-logo' })
-class StubLogoComponent { }
-
-@Component({ selector: 'app-user-panel' })
-class StubUserPanelComponent { }
+import { MockLogoComponent } from './logo/logo.component.mock';
+import { MockUserPanelComponent } from './user-panel/user-panel.component.mock';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -20,8 +15,8 @@ describe('HeaderComponent', () => {
       imports: [ FontAwesomeModule ],
       declarations: [
         HeaderComponent,
-        StubLogoComponent,
-        StubUserPanelComponent,
+        MockLogoComponent,
+        MockUserPanelComponent,
       ],
     })
     .compileComponents();

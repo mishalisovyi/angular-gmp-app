@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 
-import { SharedModule } from '../../../../../shared/shared.module';
+import { getFixtureDebugElementsArrayBySelector } from '@app/util/util';
+
+import { SharedModule } from '../../../../../../shared/shared.module';
 import { CourseItemComponent } from '../../course-item.component';
 
 describe('CourseItemComponent', () => {
@@ -38,7 +39,7 @@ describe('CourseItemComponent', () => {
   it('should properly handle course deletion', () => {
     const onCourseDeleteClickSpy = spyOn(component, 'onCourseDeleteClick');
 
-    const [ , deleteButton ] = fixture.debugElement.queryAll(By.css('.button.button--small.button--blue'))
+    const [ , deleteButton ] = getFixtureDebugElementsArrayBySelector(fixture, '.button.button--small.button--blue');
     deleteButton.triggerEventHandler('click', null);
 
     expect(onCourseDeleteClickSpy).toHaveBeenCalledWith(component.course.id);

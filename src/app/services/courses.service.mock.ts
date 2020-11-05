@@ -1,5 +1,7 @@
 import { of } from 'rxjs';
 
+import { CoursesService } from './courses.service';
+
 const mockCourses = [ {
   id: 1,
   title: 'Video Course 1. Name 1',
@@ -14,8 +16,10 @@ const mockCourses = [ {
   creationDate: new Date(),
 } ]
 
-export const MockCoursesService = {
-  getCourses() {
+class MockCoursesService {
+  getCourses$() {
     return of(mockCourses);
-  },
+  }
 }
+
+export const mockCoursesServiceProvider = { provide: CoursesService, useClass: MockCoursesService }

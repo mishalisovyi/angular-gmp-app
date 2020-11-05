@@ -1,5 +1,5 @@
-@import '../../../../colors';
-@import '../../../../mixins';
+@import '../../../../../colors';
+@import '../../../../../mixins';
 
 .load-more-container {
   @include card-style;
