@@ -7,30 +7,41 @@
   margin-bottom: 24px;
   padding: 24px;
   box-sizing: border-box;
+  border: solid 4px transparent;
+
+  &--top-rated {
+    background-color: $yellow-light;
+  }
 
   .course-item-header {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 8px;
 
-    .course-title {
-      @include font-semibold;
-      color: $gray-dark-1;
-      margin: 0;
+    .course-item-main-info {
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: 10px;
+      align-items: center;
+
+      .course-item-title {
+        @include font-semibold;
+        color: $gray-dark-1;
+        margin: 0;
+      }
     }
 
-    .course-additional-info {
+    .course-item-additional-info {
       @include font-regular;
-      position: absolute;
-      top: 0;
-      right: 0;
       display: grid;
       grid-template-columns: auto auto;
       column-gap: 24px;
       color: $gray-light-4;
       font-size: 14px;
 
-      .course-duration,
-      .course-creation-date {
+      .course-item-duration,
+      .course-item-creation-date {
         display: flex;
         align-items: center;
       }
@@ -58,5 +69,9 @@
   .course-item-icon {
     margin-right: 6px;
     height: 16px;
+
+    &--gold {
+      color: gold;
+    }
   }
 }

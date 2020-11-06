@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { faCalendar, faClock, faPen, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faClock, faPen, faStar, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { Course } from '../../../../interfaces/course.interface';
 
@@ -17,6 +17,7 @@ export class CourseItemComponent {
   calendarIcon: IconDefinition = faCalendar;
   editCourseIcon: IconDefinition = faPen;
   deleteCourseIcon: IconDefinition = faTrash;
+  topRatedIcon: IconDefinition = faStar;
 
   constructor() {
     this.courseDeleted = new EventEmitter<number>();

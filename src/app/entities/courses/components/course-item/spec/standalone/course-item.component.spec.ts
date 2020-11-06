@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { getFixtureDebugElementsArrayBySelector } from '@app/util/util';
 
 import { SharedModule } from '../../../../../../shared/shared.module';
+import { ShowCourseStatusDirective } from '../../../../directives/show-course-status/show-course-status.directive';
 import { CourseItemComponent } from '../../course-item.component';
 
 describe('CourseItemComponent', () => {
@@ -12,7 +13,10 @@ describe('CourseItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ SharedModule ],
-      declarations: [ CourseItemComponent ],
+      declarations: [
+        CourseItemComponent,
+        ShowCourseStatusDirective,
+      ],
     })
     .compileComponents();
   });
@@ -27,6 +31,7 @@ describe('CourseItemComponent', () => {
       creationDate: new Date(),
       duration: 100,
       description: 'Test description',
+      topRated: true,
     }
 
     fixture.detectChanges();

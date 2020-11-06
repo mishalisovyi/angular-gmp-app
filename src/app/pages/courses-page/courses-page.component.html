@@ -10,6 +10,18 @@
     </div>
   </div>
 
-  <app-course-item *ngFor="let course of courses$ | async" [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>
-  <app-load-more-panel (loadMore)="onLoadMore()"></app-load-more-panel>
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <ng-container *ngIf="coursesForDisplay.length; else noDataTemplate">
+      <app-course-item *ngFor="let course of coursesForDisplay | orderBy: 'creationDate':'desc'" [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>
+      <app-load-more-panel (loadMore)="onLoadMore()"></app-load-more-panel>
+    </ng-container>
+  </ng-container>
 </section>
+
+<ng-template #noDataTemplate>
+  <app-no-data-message message="No data. Feel free to add new course"></app-no-data-message>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <app-spinner></app-spinner>
+</ng-template>
