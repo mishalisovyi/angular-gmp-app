@@ -1,4 +1,6 @@
-import { mockCourses } from '../../../services/courses.service.mock';
+
+import { mockCourses } from '@app/services/courses/courses.service.mock';
+
 import { SearchByPipe } from './search-by.pipe';
 
 describe('SearchByPipe', () => {

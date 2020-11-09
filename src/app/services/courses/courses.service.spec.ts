@@ -1,6 +1,7 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { Course } from '../interfaces/course.interface';
+import { Course } from '@app/interfaces/course.interface';
+
 import { CoursesService } from './courses.service';
 
 describe('CoursesService', () => {

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { finalize } from 'rxjs/operators';
-
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { Course } from '../../interfaces/course.interface';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '../../services/courses/courses.service';
+import { LoadingService } from '../../services/loading/loading.service';
 import { SearchByPipe } from '../../shared/pipes/search-by/search-by.pipe';
 
 const FIELD_NAME_FOR_COURSE_SEARCH = 'title';
@@ -22,9 +21,7 @@ export class CoursesPageComponent implements OnInit {
   coursesForDisplay: Course[];
   iconPlus: IconDefinition = faPlusCircle;
 
-  loading: boolean;
-
-  constructor(private coursesService: CoursesService, public searchByPipe: SearchByPipe) { }
+  constructor(private coursesService: CoursesService, private searchByPipe: SearchByPipe, public loadingService: LoadingService) { }
 
   ngOnInit() {
     this.getCourses();
@@ -50,16 +47,12 @@ export class CoursesPageComponent implements OnInit {
   }
 
   private getCourses() {
-    this.loading = true;
-
-    this.coursesService.getCourses$()
-      .pipe(finalize(() => this.loading = false))
-      .subscribe(
-        courses => {
-          this.courses = courses;
-          this.coursesForDisplay = courses;
-        },
-        () => alert('An error has occured during the courses loading'),
-      );
+    this.coursesService.getCourses$().subscribe(
+      courses => {
+        this.courses = courses;
+        this.coursesForDisplay = courses;
+      },
+      () => alert('An error has occured during the courses loading'),
+    );
   }
 }

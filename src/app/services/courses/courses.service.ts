@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, finalize } from 'rxjs/operators';
 
 import { Course } from '@app/interfaces/course.interface';
+import { LoadingService } from '@app/services/loading/loading.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
+  constructor(private loadingService: LoadingService) { }
+
   getCourses$(): Observable<Course[]> {
+    this.loadingService.startLoading();
+
     return of([ {
       id: 1,
       title: 'Video Course 1. Name 1',
@@ -52,6 +57,9 @@ export class CoursesService {
       duration: 192,
       creationDate: new Date(2020, 2, 23),
       topRated: false,
-    } ]).pipe(delay(2000));
+    } ]).pipe(
+      delay(2000),
+      finalize(() => this.loadingService.stopLoading()),
+    );
   }
 }

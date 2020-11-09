@@ -5,7 +5,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NoDataMessageComponent } from './components/no-data-message/no-data-message.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
 import { OrderByPipe } from './pipes/order-by/order-by.pipe';
 import { SearchByPipe } from './pipes/search-by/search-by.pipe';
 import { TimeDurationPipe } from './pipes/time-duration/time-duration.pipe';
@@ -17,7 +16,6 @@ import { TimeDurationPipe } from './pipes/time-duration/time-duration.pipe';
     OrderByPipe,
     SearchByPipe,
     SearchInputComponent,
-    SpinnerComponent,
     NoDataMessageComponent,
   ],
   exports: [
@@ -25,7 +23,6 @@ import { TimeDurationPipe } from './pipes/time-duration/time-duration.pipe';
     OrderByPipe,
     SearchByPipe,
     SearchInputComponent,
-    SpinnerComponent,
     NoDataMessageComponent,
     FontAwesomeModule,
   ],
