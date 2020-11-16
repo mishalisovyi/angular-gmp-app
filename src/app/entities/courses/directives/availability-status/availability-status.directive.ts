@@ -1,13 +1,13 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
 const FOURTEEN_DAYS_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 14;
-const COLORS = {
+export const COLORS = {
   BLUE: '#009ECC',
   GREEN: '#67A300',
   TRANSPARENT: 'transparent',
 }
 
-const calculateBorderColor = (courseCreationDate: Date) => {
+const getColorByDate = (courseCreationDate: Date) => {
   const courseCreationTimestamp = courseCreationDate.valueOf();
   const nowTimestamp = new Date().valueOf();
 
@@ -31,6 +31,6 @@ export class AvailabilityStatusDirective {
   borderColor = COLORS.TRANSPARENT;
 
   @Input() set availabilityDate(date: Date) {
-    this.borderColor = calculateBorderColor(date);
+    this.borderColor = getColorByDate(date);
   }
 }

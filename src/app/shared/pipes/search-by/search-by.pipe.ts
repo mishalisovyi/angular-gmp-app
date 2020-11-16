@@ -9,12 +9,12 @@ export interface SearchByPipeParams {
   name: 'searchBy',
 })
 export class SearchByPipe implements PipeTransform {
-  transform(array: any[], { field, searchString }: SearchByPipeParams): any[] {
+  transform(array: any[], { field, searchString = '' }: SearchByPipeParams): any[] {
     if (!Array.isArray(array)) {
       return [];
     }
 
-    const filteredArray = array.filter(item => item[field].toLowerCase().includes(searchString.toLowerCase()));
+    const filteredArray = array.filter(item => item[field] ? item[field].toLowerCase().includes(searchString.toLowerCase()) : true);
 
     return filteredArray;
   }

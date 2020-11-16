@@ -1,4 +1,4 @@
-import { AvailabilityStatusDirective } from './availability-status.directive';
+import { AvailabilityStatusDirective, COLORS } from './availability-status.directive';
 
 const CURRENT_DATE = new Date();
 const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
@@ -6,12 +6,6 @@ const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
 const OLD_DATE = new Date(CURRENT_DATE.getTime() - ONE_DAY_IN_MILLISECONDS * 30);
 const RECENT_DATE = new Date(CURRENT_DATE.getTime() - ONE_DAY_IN_MILLISECONDS * 7);
 const FUTURE_DATE = new Date(CURRENT_DATE.getTime() + ONE_DAY_IN_MILLISECONDS * 7);
-
-const COLORS = {
-  BLUE: '#009ECC',
-  GREEN: '#67A300',
-  TRANSPARENT: 'transparent',
-}
 
 describe('AvailabilityStatusDirective', () => {
   let directive: AvailabilityStatusDirective;

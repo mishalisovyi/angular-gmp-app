@@ -19,7 +19,6 @@ const FIELD_NAME_FOR_COURSE_SEARCH = 'title';
 export class CoursesPageComponent implements OnInit {
   isLoading$: Observable<boolean>;
   courses$: Observable<Course[]>;
-  coursesForDisplay: Course[];
   iconPlus: IconDefinition = faPlusCircle;
 
   constructor(private coursesService: CoursesService, private loadingService: LoadingService) {
