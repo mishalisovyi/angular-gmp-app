@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { LoadingService } from '@app/services/loading/loading.service';
 
 @Component({
@@ -8,5 +10,9 @@ import { LoadingService } from '@app/services/loading/loading.service';
   styleUrls: [ './spinner.component.scss' ],
 })
 export class SpinnerComponent {
-  constructor(public loadingService: LoadingService) { }
+  isLoading$: Observable<boolean>
+
+  constructor(private loadingService: LoadingService) {
+    this.isLoading$ = this.loadingService.loading$;
+  }
 }

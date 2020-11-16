@@ -34,7 +34,7 @@ export class CoursesService {
       title: 'Video Course 3. Name 3',
       description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
       duration: 125,
-      creationDate: new Date(2020, 9, 30),
+      creationDate: new Date(2020, 10, 14),
       topRated: true,
     }, {
       id: 4,
@@ -48,7 +48,7 @@ export class CoursesService {
       title: 'Video Course 5. Name 5',
       description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
       duration: 169,
-      creationDate: new Date(2020, 9, 31),
+      creationDate: new Date(2020, 10, 15),
       topRated: false,
     }, {
       id: 6,

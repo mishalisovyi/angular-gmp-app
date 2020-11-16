@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,11 +19,14 @@ const FIELD_NAME_FOR_COURSE_SEARCH = 'title';
   providers: [ SearchByPipe ],
 })
 export class CoursesPageComponent implements OnInit {
+  isLoading$: Observable<boolean>;
   courses: Course[];
   coursesForDisplay: Course[];
   iconPlus: IconDefinition = faPlusCircle;
 
-  constructor(private coursesService: CoursesService, private searchByPipe: SearchByPipe, public loadingService: LoadingService) { }
+  constructor(private coursesService: CoursesService, private searchByPipe: SearchByPipe, private loadingService: LoadingService) {
+    this.isLoading$ = this.loadingService.loading$;
+  }
 
   ngOnInit() {
     this.getCourses();

@@ -1,7 +1,7 @@
 @import "../../../../../mixins";
 @import "../../../../../colors";
 
-.course-item-container {
+.course-item {
   @include card-style;
   width: 100%;
   margin-bottom: 24px;
@@ -13,26 +13,26 @@
     background-color: $yellow-light;
   }
 
-  .course-item-header {
+  .course-item__header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 8px;
 
-    .course-item-main-info {
+    .course-item__main-info {
       display: grid;
       grid-template-columns: auto auto;
       column-gap: 10px;
       align-items: center;
 
-      .course-item-title {
+      .course-item__title {
         @include font-semibold;
         color: $gray-dark-1;
         margin: 0;
       }
     }
 
-    .course-item-additional-info {
+    .course-item__additional-info {
       @include font-regular;
       display: grid;
       grid-template-columns: auto auto;
@@ -40,33 +40,33 @@
       color: $gray-light-4;
       font-size: 14px;
 
-      .course-item-duration,
-      .course-item-creation-date {
+      .course-item__duration,
+      .course-item__creation-date {
         display: flex;
         align-items: center;
       }
     }
   }
 
-  .course-item-body {
+  .course-item__body {
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: 40px;
 
-    .course-item-description {
+    .course-item__description {
       @include font-regular;
       font-size: 14px;
       color: $gray-dark-2;
     }
 
-    .course-item-actions {
+    .course-item__actions {
       display: grid;
       grid-template-columns: auto auto;
       column-gap: 12px;
     }
   }
 
-  .course-item-icon {
+  .course-item__icon {
     margin-right: 6px;
     height: 16px;
 
