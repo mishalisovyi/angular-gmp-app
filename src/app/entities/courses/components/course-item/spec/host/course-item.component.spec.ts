@@ -5,7 +5,7 @@ import { Course } from '@app/interfaces/course.interface';
 
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector } from '../../../../../../util/util';
-import { ShowCourseStatusDirective } from '../../../../directives/show-course-status/show-course-status.directive';
+import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';
 import { CourseItemComponent } from '../../course-item.component';
 
 @Component({
@@ -38,7 +38,7 @@ describe('CourseItemComponent', () => {
       declarations: [
         CourseItemComponent,
         HostComponent,
-        ShowCourseStatusDirective,
+        AvailabilityStatusDirective,
       ],
     })
     .compileComponents();

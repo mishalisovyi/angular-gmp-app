@@ -1,6 +1,7 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Course } from '@app/interfaces/course.interface';
+import { SearchByPipe } from '@app/shared/pipes/search-by/search-by.pipe';
 
 import { CoursesService } from './courses.service';
 
@@ -8,7 +9,9 @@ describe('CoursesService', () => {
   let service: CoursesService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [ SearchByPipe ],
+    });
     service = TestBed.inject(CoursesService);
   });
 

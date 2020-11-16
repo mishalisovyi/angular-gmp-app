@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { getFixtureDebugElementsArrayBySelector } from '@app/util/util';
 
 import { SharedModule } from '../../../../../../shared/shared.module';
-import { ShowCourseStatusDirective } from '../../../../directives/show-course-status/show-course-status.directive';
+import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';
 import { CourseItemComponent } from '../../course-item.component';
 
 describe('CourseItemComponent', () => {
@@ -15,7 +15,7 @@ describe('CourseItemComponent', () => {
       imports: [ SharedModule ],
       declarations: [
         CourseItemComponent,
-        ShowCourseStatusDirective,
+        AvailabilityStatusDirective,
       ],
     })
     .compileComponents();

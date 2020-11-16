@@ -2,11 +2,11 @@
   <section
     class="course-item"
     [class.course-item--top-rated]="course.topRated"
-    [appShowCourseStatus]="course.creationDate">
+    appAvailabilityStatus [availabilityDate]="course.creationDate">
     <div class="course-item__header">
       <div class="course-item__main-info">
         <h2 class="course-item__title">{{ course?.title | uppercase }}</h2>
-        <fa-icon *ngIf="course.topRated" class="course-item__icon course-item__icon--gold" [icon]="topRatedIcon"></fa-icon>
+        <fa-icon *ngIf="course.topRated" class="course-item__icon icon--gold" [icon]="topRatedIcon"></fa-icon>
       </div>
 
       <div class="course-item__additional-info">

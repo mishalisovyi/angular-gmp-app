@@ -10,9 +10,9 @@
     </div>
   </div>
 
-  <ng-container *ngIf="!(isLoading$ | async)">
-    <ng-container *ngIf="coursesForDisplay.length; else noDataTemplate">
-      <app-course-item *ngFor="let course of coursesForDisplay | orderBy: 'creationDate':'desc'" [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>
+  <ng-container *ngIf="courses$ | async as courses">
+    <ng-container *ngIf="courses.length; else noDataTemplate">
+      <app-course-item *ngFor="let course of courses | orderBy: 'creationDate':'desc'" [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>
       <app-load-more-panel (loadMore)="onLoadMore()"></app-load-more-panel>
     </ng-container>
   </ng-container>

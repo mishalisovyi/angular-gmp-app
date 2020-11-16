@@ -9,69 +9,68 @@
   box-sizing: border-box;
   border: solid 4px transparent;
 
-  &--top-rated {
-    background-color: $yellow-light;
-  }
-
-  .course-item__header {
+  &__header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 8px;
-
-    .course-item__main-info {
-      display: grid;
-      grid-template-columns: auto auto;
-      column-gap: 10px;
-      align-items: center;
-
-      .course-item__title {
-        @include font-semibold;
-        color: $gray-dark-1;
-        margin: 0;
-      }
-    }
-
-    .course-item__additional-info {
-      @include font-regular;
-      display: grid;
-      grid-template-columns: auto auto;
-      column-gap: 24px;
-      color: $gray-light-4;
-      font-size: 14px;
-
-      .course-item__duration,
-      .course-item__creation-date {
-        display: flex;
-        align-items: center;
-      }
-    }
   }
 
-  .course-item__body {
+  &__main-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    align-items: center;
+  }
+
+  &__title {
+    @include font-semibold;
+    color: $gray-dark-1;
+    margin: 0;
+  }
+
+  &__additional-info {
+    @include font-regular;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 24px;
+    color: $gray-light-4;
+    font-size: 14px;
+  }
+
+  &__duration, &__creation-date {
+    display: flex;
+    align-items: center;
+  }
+
+  &__body {
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: 40px;
-
-    .course-item__description {
-      @include font-regular;
-      font-size: 14px;
-      color: $gray-dark-2;
-    }
-
-    .course-item__actions {
-      display: grid;
-      grid-template-columns: auto auto;
-      column-gap: 12px;
-    }
   }
 
-  .course-item__icon {
+  &__description {
+    @include font-regular;
+    font-size: 14px;
+    color: $gray-dark-2;
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 12px;
+  }
+
+  &__icon {
     margin-right: 6px;
     height: 16px;
 
-    &--gold {
+    &.icon--gold {
       color: gold;
     }
+  }
+
+  &--top-rated {
+    background-color: $yellow-light;
   }
 }
