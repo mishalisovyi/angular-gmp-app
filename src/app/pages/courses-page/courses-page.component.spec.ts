@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { mockCoursesServiceProvider } from '@app/services/courses.service.mock';
+import { CoursesService } from '@app/services/courses/courses.service';
+import { mockCoursesServiceProvider } from '@app/services/courses/courses.service.mock';
 import { getFixtureDebugElementBySelector } from '@app/util/util';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MockCourseItemComponent } from '../../entities/courses/components/course-item/course-item.component.mock';
 import { MockLoadMorePanelComponent } from '../../entities/courses/components/load-more-panel/load-more-panel.component.mock';
-import { CoursesService } from '../../services/courses.service';
 import { MockSearchInputComponent } from '../../shared/components/search-input/search-input.component.mock';
+import { OrderByPipe } from '../../shared/pipes/order-by/order-by.pipe';
 import { CoursesPageComponent } from './courses-page.component';
 
 describe('CoursesPageComponent', () => {
@@ -24,6 +25,7 @@ describe('CoursesPageComponent', () => {
         MockSearchInputComponent,
         MockCourseItemComponent,
         MockLoadMorePanelComponent,
+        OrderByPipe,
       ],
       providers: [ mockCoursesServiceProvider ],
     })
@@ -43,7 +45,7 @@ describe('CoursesPageComponent', () => {
   });
 
   it('should call method from service for courses loading', () => {
-    const getCoursesSpy = spyOn(coursesService, 'getCourses$');
+    const getCoursesSpy = spyOn(coursesService, 'getCourses$').and.callThrough();
     component.ngOnInit();
 
     expect(getCoursesSpy).toHaveBeenCalled();

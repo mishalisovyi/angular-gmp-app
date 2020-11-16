@@ -1,27 +1,35 @@
 <ng-container *ngIf="course">
-  <section class="course-item-container">
-    <div class="course-item-header">
-      <h2 class="course-title">{{ course?.title }}</h2>
-      <div class="course-additional-info">
-        <div class="course-duration">
-          <fa-icon class="course-item-icon" [icon]="clockIcon"></fa-icon>
+  <section
+    class="course-item"
+    [class.course-item--top-rated]="course.topRated"
+    appAvailabilityStatus [availabilityDate]="course.creationDate">
+    <div class="course-item__header">
+      <div class="course-item__main-info">
+        <h2 class="course-item__title">{{ course?.title | uppercase }}</h2>
+        <fa-icon *ngIf="course.topRated" class="course-item__icon icon--gold" [icon]="topRatedIcon"></fa-icon>
+      </div>
+
+      <div class="course-item__additional-info">
+        <div class="course-item__duration">
+          <fa-icon class="course-item__icon" [icon]="clockIcon"></fa-icon>
           <span>{{ course?.duration | timeDuration }}</span>
         </div>
-        <div class="course-creation-date">
-          <fa-icon class="course-item-icon" [icon]="calendarIcon"></fa-icon>
+        <div class="course-item__creation-date">
+          <fa-icon class="course-item__icon" [icon]="calendarIcon"></fa-icon>
           <span>{{ course?.creationDate | date:'MM/dd/yy' }}</span>
         </div>
       </div>
     </div>
-    <div class="course-item-body">
-      <div class="course-item-description">{{ course?.description }}</div>
-      <div class="course-item-actions">
+
+    <div class="course-item__body">
+      <div class="course-item__description">{{ course?.description }}</div>
+      <div class="course-item__actions">
         <button class="button button--small button--blue">
-          <fa-icon class="course-item-icon" [icon]="editCourseIcon"></fa-icon>
+          <fa-icon class="course-item__icon" [icon]="editCourseIcon"></fa-icon>
           <span>Edit</span>
         </button>
         <button class="button button--small button--blue" (click)="onCourseDeleteClick(course.id)">
-          <fa-icon class="course-item-icon" [icon]="deleteCourseIcon"></fa-icon>
+          <fa-icon class="course-item__icon" [icon]="deleteCourseIcon"></fa-icon>
           <span>Delete</span>
         </button>
       </div>

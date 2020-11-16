@@ -1,62 +1,76 @@
 @import "../../../../../mixins";
 @import "../../../../../colors";
 
-.course-item-container {
+.course-item {
   @include card-style;
   width: 100%;
   margin-bottom: 24px;
   padding: 24px;
   box-sizing: border-box;
+  border: solid 4px transparent;
 
-  .course-item-header {
-    position: relative;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 8px;
-
-    .course-title {
-      @include font-semibold;
-      color: $gray-dark-1;
-      margin: 0;
-    }
-
-    .course-additional-info {
-      @include font-regular;
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: grid;
-      grid-template-columns: auto auto;
-      column-gap: 24px;
-      color: $gray-light-4;
-      font-size: 14px;
-
-      .course-duration,
-      .course-creation-date {
-        display: flex;
-        align-items: center;
-      }
-    }
   }
 
-  .course-item-body {
+  &__main-info {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    align-items: center;
+  }
+
+  &__title {
+    @include font-semibold;
+    color: $gray-dark-1;
+    margin: 0;
+  }
+
+  &__additional-info {
+    @include font-regular;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 24px;
+    color: $gray-light-4;
+    font-size: 14px;
+  }
+
+  &__duration, &__creation-date {
+    display: flex;
+    align-items: center;
+  }
+
+  &__body {
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: 40px;
+  }
 
-    .course-item-description {
-      @include font-regular;
-      font-size: 14px;
-      color: $gray-dark-2;
-    }
+  &__description {
+    @include font-regular;
+    font-size: 14px;
+    color: $gray-dark-2;
+  }
 
-    .course-item-actions {
-      display: grid;
-      grid-template-columns: auto auto;
-      column-gap: 12px;
+  &__actions {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 12px;
+  }
+
+  &__icon {
+    margin-right: 6px;
+    height: 16px;
+
+    &.icon--gold {
+      color: gold;
     }
   }
 
-  .course-item-icon {
-    margin-right: 6px;
-    height: 16px;
+  &--top-rated {
+    background-color: $yellow-light;
   }
 }

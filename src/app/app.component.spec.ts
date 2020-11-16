@@ -2,9 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
-import { MockBreadcrumbsComponent } from './core/breadcrumbs/breadcrumbs.component.mock';
-import { MockFooterComponent } from './core/footer/footer.component.mock';
-import { MockHeaderComponent } from './core/header/header.component.mock';
+import { MockBreadcrumbsComponent } from './core/components/breadcrumbs/breadcrumbs.component.mock';
+import { MockFooterComponent } from './core/components/footer/footer.component.mock';
+import { MockHeaderComponent } from './core/components/header/header.component.mock';
+import { SpinnerComponent } from './core/components/spinner/spinner.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
         MockBreadcrumbsComponent,
         MockFooterComponent,
         MockHeaderComponent,
+        SpinnerComponent,
       ],
     }).compileComponents();
   });
