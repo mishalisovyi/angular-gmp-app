@@ -73,15 +73,11 @@ export class CoursesService {
     }
     this.COURSES.push(newCourse)
 
-    this.loadingService.startLoading();
-
     return of({ statusCode: 200 });
   }
 
   getById$(courseId: number): Observable<Course> {
     const course = this.COURSES.find(({ id }) => id === courseId)
-
-    this.loadingService.startLoading();
 
     return iif(
       () => !!course,
