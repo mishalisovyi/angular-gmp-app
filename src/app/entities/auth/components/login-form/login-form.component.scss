@@ -1,0 +1,14 @@
+@import '../../../../../mixins';
+@import '../../../../../colors';
+
+.login-form {
+  width: 368px;
+
+  .card__footer {
+    justify-content: space-between;
+
+    .button--login {
+      width: 80px;
+    }
+  }
+}

@@ -1,4 +1,10 @@
-.content-wrapper {
-  height: calc(100vh - 184px); //viewport height minus the heights of header, footer and breadcrumbs
-  overflow-y: auto;
+.main-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .content-wrapper {
+    flex: 1;
+    overflow-y: auto;
+  }
 }

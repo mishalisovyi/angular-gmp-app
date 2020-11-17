@@ -1,14 +1,14 @@
 @import '../../../mixins';
 
-.courses-page-container {
+.courses-page {
   @include padding-offset;
 
-  .actions-section-container {
+  &__actions {
     margin: 21px 0 17px;
-  
-    .add-course-container {
-      display: flex;
-      justify-content: flex-end;
-    }
+  }
+
+  &__add-button {
+    display: flex;
+    justify-content: flex-end;
   }
 }

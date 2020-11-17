@@ -1,10 +1,10 @@
-<div class="user-actions-container">
-  <div class="user-login-label">
-    <fa-icon class="user-action-icon" [icon]="iconUser"></fa-icon>
-    <span>User login</span>
+<div class="user-panel">
+  <div class="user-panel__login-label">
+    <fa-icon class="user-panel__action-icon" [icon]="iconUser"></fa-icon>
+    <span>{{ userName$ | async }}</span>
   </div>
-  <button class="button button--header">
-    <fa-icon class="user-action-icon" [icon]="iconSignOut"></fa-icon>
+  <button class="button button--header" (click)="logout()">
+    <fa-icon class="user-panel__action-icon" [icon]="iconSignOut"></fa-icon>
     <span>Log out</span>
   </button>
 </div>

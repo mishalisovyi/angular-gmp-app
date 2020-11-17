@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CoursesPageModule } from './pages/courses-page/courses-page.module';
+import { LoginPageModule } from './pages/login-page/login-page.module';
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -15,6 +16,7 @@ import { CoursesPageModule } from './pages/courses-page/courses-page.module';
     AppRoutingModule,
     CoreModule,
     CoursesPageModule,
+    LoginPageModule,
   ],
   providers: [ SearchByPipe ],
   bootstrap: [ AppComponent ],

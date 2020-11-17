@@ -1,18 +1,18 @@
 @import '../../../../../colors';
 @import '../../../../../mixins';
 
-.user-actions-container {
+.user-panel {
   @include font-regular;
   color: $white;
   font-size: 14px;
   display: flex;
   align-items: center;
 
-  .user-login-label {
+  &__login-label {
     margin-right: 24px;
   }
 
-  .user-action-icon {
+  &__action-icon {
     margin-right: 8px;
   }
 }

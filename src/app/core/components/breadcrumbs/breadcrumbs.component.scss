@@ -1,7 +1,7 @@
 @import "../../../../colors";
 @import "../../../../mixins";
 
-.breadcrumbs-container {
+.breadcrumbs {
   @include padding-offset;
   @include font-bold;
   height: 64px;
@@ -9,7 +9,7 @@
   align-items: center;
   background-color: $white;
 
-  .breadcrumbs-text {
+  &__text {
     color: $gray-dark-2;
     font-size: 14px;
   }

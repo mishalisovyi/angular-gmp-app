@@ -1,3 +1,3 @@
-<nav class="breadcrumbs-container">
-  <div class="breadcrumbs-text">Courses</div>
+<nav *ngIf="showComponent$ | async" class="breadcrumbs">
+  <div class="breadcrumbs__text">Courses</div>
 </nav>

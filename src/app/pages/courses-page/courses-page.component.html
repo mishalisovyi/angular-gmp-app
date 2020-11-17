@@ -1,8 +1,8 @@
-<section class="courses-page-container">
-  <div class="actions-section-container">
+<section [hidden]="isLoading$ | async" class="courses-page">
+  <div class="courses-page__actions">
     <app-search-input (search)="onCourseSearch($event)"></app-search-input>
 
-    <div class="add-course-container">
+    <div class="courses-page__add-button">
       <button class="button button--large button--blue" (click)="onCourseAddClick()">
         <fa-icon [icon]="iconPlus"></fa-icon>
         <span>Add course</span>
