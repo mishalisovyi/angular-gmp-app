@@ -15,7 +15,11 @@ export class LoginFormComponent {
 
   constructor(private router: Router, private authService: AuthService) { }
 
-  login() {
+  onFormSubmit() {
+    this.login();
+  }
+
+  private login() {
     this.authService.login$(this.email, this.password).subscribe(
       () => this.router.navigate([ AppRoutePath.Courses ]),
       () => alert('An error has occured during the logging in'),

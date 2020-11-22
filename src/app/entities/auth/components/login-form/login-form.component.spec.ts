@@ -44,7 +44,7 @@ describe('LoginFormComponent', () => {
 
   it('should properly handle logging in', () => {
     const authServiceLoginSpy = spyOn(authService, 'login$').and.callThrough();
-    component.login();
+    component.onFormSubmit();
 
     expect(authServiceLoginSpy).toHaveBeenCalledWith(MOCK_EMAIL, MOCK_PASSWORD);
   });
