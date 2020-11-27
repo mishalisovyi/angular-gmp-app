@@ -38,7 +38,7 @@ describe('UserPanelComponent', () => {
   });
 
   it('should properly handle logging out', () => {
-    const authServiceLogoutSpy = spyOn(authService, 'logout$').and.callThrough();
+    const authServiceLogoutSpy = spyOn(authService, 'logout').and.callThrough();
     component.logout();
 
     expect(authServiceLogoutSpy).toHaveBeenCalled();

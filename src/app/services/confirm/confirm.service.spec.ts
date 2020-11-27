@@ -18,7 +18,7 @@ describe('ConfirmService', () => {
     const windowConfirmSpy = spyOn(window, 'confirm');
     const mockMessage = 'some test message';
 
-    service.confirm$(mockMessage).subscribe(() => {
+    service.confirm(mockMessage).subscribe(() => {
       expect(windowConfirmSpy).toHaveBeenCalledWith(mockMessage);
     })
   }));

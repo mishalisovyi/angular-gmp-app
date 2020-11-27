@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { ConfirmService } from './confirm.service';
 
 class MockConfirmService {
-  confirm$() {
+  confirm() {
     return of(true)
   }
 }

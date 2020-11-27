@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
+
+import { ConfirmMessage } from '@app/enums/confirm-message.enum';
+import { ErrorMessage } from '@app/enums/error-message.enum';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
-import { Course } from '../../interfaces/course.interface';
+import { Course } from '../../interfaces/entities/course.interface';
 import { ConfirmService } from '../../services/confirm/confirm.service';
 import { CoursesService } from '../../services/courses/courses.service';
 import { LoadingService } from '../../services/loading/loading.service';
 
 const FIELD_NAME_FOR_COURSE_SEARCH = 'title';
-const DELETE_COURSE_CONFIRM_MESSAGE = 'Do you really want to delete this course?';
 
 @Component({
   selector: 'app-courses-page',
@@ -33,7 +35,7 @@ export class CoursesPageComponent implements OnInit {
   }
 
   onCourseSearch(searchString: string) {
-    this.courses$ = this.coursesService.getList$({ field: FIELD_NAME_FOR_COURSE_SEARCH, searchString });
+    this.courses$ = this.coursesService.getList({ field: FIELD_NAME_FOR_COURSE_SEARCH, searchString });
   }
 
   onCourseAddClick() {
@@ -42,22 +44,16 @@ export class CoursesPageComponent implements OnInit {
   }
 
   onCourseDelete(courseId: number) {
-    let deletionConfirmed = false;
-
-    this.confirmService.confirm$(DELETE_COURSE_CONFIRM_MESSAGE)
-      .pipe(switchMap((confirm: boolean) => {
-        deletionConfirmed = confirm;
-
-        return deletionConfirmed ? this.coursesService.delete$(courseId) : of({});
-      }))
-      .subscribe(
-        () => {
-          if (deletionConfirmed) {
-            this.getCourses()
-          }
-        },
-        () => alert('An error has occured during the courses deleting'),
-      );
+    this.confirmService.confirm(ConfirmMessage.DeleteCourse)
+      .pipe(
+        filter(confirm => confirm),
+        switchMap(() => this.coursesService.delete(courseId)),
+        tap(() => this.getCourses()),
+        take(1),
+      )
+      .subscribe({
+        error: () => alert(ErrorMessage.CourseDelete),
+      });
   }
 
   onLoadMore() {
@@ -66,6 +62,6 @@ export class CoursesPageComponent implements OnInit {
   }
 
   private getCourses() {
-    this.courses$ = this.coursesService.getList$();
+    this.courses$ = this.coursesService.getList();
   }
 }

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
+import { HttpResponse } from '@app/interfaces/helpers/status-code.interface';
+import { LoginData } from '@app/interfaces/parameters/login-data.interface';
+
 const LOCAL_STORAGE_USERNAME_KEY = 'angular_gmp_app_username';
 const LOCAL_STORAGE_AUTH_TOKEN_KEY = 'angular_gmp_app_auth_token';
 
@@ -24,7 +27,7 @@ export class AuthService {
     return this.userName$$.asObservable();
   }
 
-  login$(username: string, password: string): Observable<{ statusCode: number }> {
+  login({ username, password }: LoginData): Observable<HttpResponse> {
     this.setUserDataToLocalStorage(username, this.generateFakeToken(username, password));
     this.emitAuthData();
 
@@ -34,7 +37,7 @@ export class AuthService {
     return of({ statusCode: 200 });
   }
 
-  logout$(): Observable<{ statusCode: number }> {
+  logout(): Observable<HttpResponse> {
     this.removeUserDataFromLocalStorage();
     this.emitAuthData();
 

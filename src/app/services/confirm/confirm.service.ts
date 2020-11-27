@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class ConfirmService {
-  confirm$(message: string): Observable<boolean> {
+  confirm(message: string): Observable<boolean> {
     return of(window.confirm(message));
   }
 }

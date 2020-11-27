@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { iif, Observable, of, throwError } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
 
-import { Course, CourseData } from '@app/interfaces/course.interface';
+import { Course, CourseData } from '@app/interfaces/entities/course.interface';
+import { HttpResponse } from '@app/interfaces/helpers/status-code.interface';
 import { LoadingService } from '@app/services/loading/loading.service';
 import { SearchByPipe, SearchByPipeParams } from '@app/shared/pipes/search-by/search-by.pipe';
 
@@ -57,7 +58,7 @@ export class CoursesService {
 
   constructor(private loadingService: LoadingService, private searchByPipe: SearchByPipe) { }
 
-  getList$(searchByPipeParams: SearchByPipeParams = null): Observable<Course[]> {
+  getList(searchByPipeParams: SearchByPipeParams = null): Observable<Course[]> {
     this.loadingService.startLoading();
 
     return of(searchByPipeParams ? this.searchByPipe.transform(this.COURSES, searchByPipeParams) : this.COURSES).pipe(
@@ -66,7 +67,7 @@ export class CoursesService {
     );
   }
 
-  create$(courseData: CourseData): Observable<{ statusCode: number }> {
+  create(courseData: CourseData): Observable<HttpResponse> {
     const newCourse = {
       id: new Date().valueOf(),
       ...courseData,
@@ -76,7 +77,7 @@ export class CoursesService {
     return of({ statusCode: 200 });
   }
 
-  getById$(courseId: number): Observable<Course> {
+  getById(courseId: number): Observable<Course> {
     const course = this.COURSES.find(({ id }) => id === courseId)
 
     return iif(
@@ -86,7 +87,7 @@ export class CoursesService {
     )
   }
 
-  update$(courseId: number, newCourseData: CourseData): Observable<{ statusCode: number }> {
+  update(courseId: number, newCourseData: CourseData): Observable<HttpResponse> {
     const courseIndex = this.COURSES.findIndex(({ id }) => id === courseId);
     if (!Number.isInteger(courseIndex)) {
       return throwError({ statusCode: 400, statusMessage: 'No data found by passed ID' })
@@ -101,7 +102,7 @@ export class CoursesService {
     return of({ statusCode: 200 });
   }
 
-  delete$(courseId: number): Observable<{ statusCode: number }> {
+  delete(courseId: number): Observable<HttpResponse> {
     this.COURSES = this.COURSES.filter(({ id }) => id !== courseId);
 
     return of({ statusCode: 200 });

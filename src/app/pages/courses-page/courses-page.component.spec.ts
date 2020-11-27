@@ -49,7 +49,7 @@ describe('CoursesPageComponent', () => {
   });
 
   it('should call method from service for courses loading', () => {
-    const getCoursesSpy = spyOn(coursesService, 'getList$').and.callThrough();
+    const getCoursesSpy = spyOn(coursesService, 'getList').and.callThrough();
     component.ngOnInit();
 
     expect(getCoursesSpy).toHaveBeenCalled();

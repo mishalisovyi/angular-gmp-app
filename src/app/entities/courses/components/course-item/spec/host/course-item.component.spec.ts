@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Course } from '@app/interfaces/course.interface';
+import { Course } from '@app/interfaces/entities/course.interface';
 
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector } from '../../../../../../util/util';

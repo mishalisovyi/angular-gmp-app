@@ -3,12 +3,16 @@ import { of } from 'rxjs';
 import { AuthService } from '@app/services/auth/auth.service';
 
 class MockAuthService {
-  login$() {
+  login() {
     return of({});
   }
 
-  logout$() {
+  logout() {
     return of({});
+  }
+
+  get isAuthenticated$() {
+    return of(true);
   }
 }
 

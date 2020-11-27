@@ -32,7 +32,7 @@ describe('LoginFormComponent', () => {
     authService = TestBed.inject(AuthService);
 
     component = fixture.componentInstance;
-    component.email = MOCK_EMAIL;
+    component.username = MOCK_EMAIL;
     component.password = MOCK_PASSWORD;
 
     fixture.detectChanges();
@@ -43,9 +43,9 @@ describe('LoginFormComponent', () => {
   });
 
   it('should properly handle logging in', () => {
-    const authServiceLoginSpy = spyOn(authService, 'login$').and.callThrough();
+    const authServiceLoginSpy = spyOn(authService, 'login').and.callThrough();
     component.onFormSubmit();
 
-    expect(authServiceLoginSpy).toHaveBeenCalledWith(MOCK_EMAIL, MOCK_PASSWORD);
+    expect(authServiceLoginSpy).toHaveBeenCalledWith({ username: MOCK_EMAIL, password: MOCK_PASSWORD });
   });
 });

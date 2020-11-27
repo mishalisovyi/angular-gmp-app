@@ -1,6 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { Course } from '@app/interfaces/course.interface';
+import { Course } from '@app/interfaces/entities/course.interface';
 import { mockCourses } from '@app/services/courses/courses.service.mock';
 import { SearchByPipe } from '@app/shared/pipes/search-by/search-by.pipe';
 
@@ -29,7 +29,7 @@ describe('CoursesService', () => {
   });
 
   it('should load courses list', waitForAsync(() => {
-    service.getList$().subscribe((courses: Course[]) => {
+    service.getList().subscribe((courses: Course[]) => {
       expect(courses.length).toBeGreaterThan(0);
     })
   }));
@@ -37,7 +37,7 @@ describe('CoursesService', () => {
   it('should create course', waitForAsync(() => {
     const [ mockCourse ] = mockCourses;
 
-    service.create$(mockCourse).subscribe(() => {
+    service.create(mockCourse).subscribe(() => {
       expect(service.COURSES).toContain(mockCourse);
     })
   }));
@@ -48,7 +48,7 @@ describe('CoursesService', () => {
 
     service.COURSES = [ ...mockCourses ]
 
-    service.getById$(testCourseId).subscribe(course => {
+    service.getById(testCourseId).subscribe(course => {
       expect(course).toEqual(mockCourse);
     })
   }));
@@ -58,7 +58,7 @@ describe('CoursesService', () => {
 
     service.COURSES = [ ...mockCourses ]
 
-    service.update$(testCourseId, MOCK_COURSE_DATA).subscribe(() => {
+    service.update(testCourseId, MOCK_COURSE_DATA).subscribe(() => {
       const updatedCourse = service.COURSES.find(({ id }) => id === testCourseId)
       expect(updatedCourse).toEqual({ id: testCourseId, ...MOCK_COURSE_DATA });
     })
@@ -70,7 +70,7 @@ describe('CoursesService', () => {
 
     service.COURSES = [ ...mockCourses ]
 
-    service.delete$(testCourseId).subscribe(() => {
+    service.delete(testCourseId).subscribe(() => {
       expect(service.COURSES).not.toContain(mockCourse);
     })
   }));

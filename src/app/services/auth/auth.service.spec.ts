@@ -15,12 +15,12 @@ describe('AuthService', () => {
   });
 
   it('should properly handle login', waitForAsync(() => {
-    const mockEmail = 'test@mail.com';
+    const mockUsername = 'test@mail.com';
     const mockPassword = 'abc123';
 
     const localStorageSetItemSpy = spyOn(localStorage, 'setItem');
 
-    service.login$(mockEmail, mockPassword).subscribe(() => {
+    service.login({ username: mockUsername, password: mockPassword }).subscribe(() => {
       expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
     })
   }));
@@ -28,7 +28,7 @@ describe('AuthService', () => {
   it('should properly handle logout', waitForAsync(() => {
     const localStorageRemoveItemSpy = spyOn(localStorage, 'removeItem');
 
-    service.logout$().subscribe(() => {
+    service.logout().subscribe(() => {
       expect(localStorageRemoveItemSpy).toHaveBeenCalledTimes(2);
     })
   }));

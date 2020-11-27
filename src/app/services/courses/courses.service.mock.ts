@@ -26,11 +26,11 @@ export const mockCourses = [ {
 } ]
 
 class MockCoursesService {
-  getList$() {
+  getList() {
     return of(mockCourses);
   }
 
-  delete$() {
+  delete() {
     return of({ statusCode: 200 })
   }
 }
