@@ -1,18 +1,18 @@
 @import '../../../../../colors';
 @import '../../../../../mixins';
 
-.logo-container {
+.logo {
   color: $white;
   display: flex;
   align-items: center;
 
-  .logo-image {
+  &__image {
     font-size: 28px;
     line-height: 28px;  
     margin-right: 12px;
   }
   
-  .logo-title {
+  &__title {
     @include font-bold;
     font-size: 18px;
   }

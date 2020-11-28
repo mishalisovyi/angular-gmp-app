@@ -1,8 +1,7 @@
 @import '../../../../../colors';
 @import '../../../../../mixins';
 
-.load-more-container {
-  @include card-style;
+.load-more-panel {
   width: 100%;
   height: 36px;
   display: flex;

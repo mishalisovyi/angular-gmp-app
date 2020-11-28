@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { faCalendar, faClock, faPen, faStar, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-import { Course } from '../../../../interfaces/course.interface';
+import { Course } from '../../../../interfaces/entities/course.interface';
 
 @Component({
   selector: 'app-course-item',

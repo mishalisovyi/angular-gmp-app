@@ -1,11 +1,11 @@
 <ng-container *ngIf="course">
   <section
-    class="course-item"
+    class="course-item card"
     [class.course-item--top-rated]="course.topRated"
     appAvailabilityStatus [availabilityDate]="course.creationDate">
     <div class="course-item__header">
       <div class="course-item__main-info">
-        <h2 class="course-item__title">{{ course?.title | uppercase }}</h2>
+        <h2 class="card__title">{{ course?.title | uppercase }}</h2>
         <fa-icon *ngIf="course.topRated" class="course-item__icon icon--gold" [icon]="topRatedIcon"></fa-icon>
       </div>
 

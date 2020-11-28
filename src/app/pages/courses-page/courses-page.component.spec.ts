@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { mockConfirmServiceProvider } from '@app/services/confirm/confirm.service.mock';
 import { CoursesService } from '@app/services/courses/courses.service';
 import { mockCoursesServiceProvider } from '@app/services/courses/courses.service.mock';
 import { getFixtureDebugElementBySelector } from '@app/util/util';
@@ -27,7 +28,10 @@ describe('CoursesPageComponent', () => {
         MockLoadMorePanelComponent,
         OrderByPipe,
       ],
-      providers: [ mockCoursesServiceProvider ],
+      providers: [
+        mockCoursesServiceProvider,
+        mockConfirmServiceProvider,
+      ],
     })
     .compileComponents();
   });
@@ -45,7 +49,7 @@ describe('CoursesPageComponent', () => {
   });
 
   it('should call method from service for courses loading', () => {
-    const getCoursesSpy = spyOn(coursesService, 'getCourses$').and.callThrough();
+    const getCoursesSpy = spyOn(coursesService, 'getList').and.callThrough();
     component.ngOnInit();
 
     expect(getCoursesSpy).toHaveBeenCalled();
