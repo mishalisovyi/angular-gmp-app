@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { mockConfirmServiceProvider } from '@app/services/confirm/confirm.service.mock';
 import { CoursesService } from '@app/services/courses/courses.service';
 import { mockCoursesServiceProvider } from '@app/services/courses/courses.service.mock';
-import { getFixtureDebugElementBySelector } from '@app/util/util';
+import { getFixtureDebugElementBySelector, mockRouterProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -31,6 +31,7 @@ describe('CoursesPageComponent', () => {
       providers: [
         mockCoursesServiceProvider,
         mockConfirmServiceProvider,
+        mockRouterProvider,
       ],
     })
     .compileComponents();

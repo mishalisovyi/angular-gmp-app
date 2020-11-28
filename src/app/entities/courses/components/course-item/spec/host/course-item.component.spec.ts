@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Course } from '@app/interfaces/entities/course.interface';
 
 import { SharedModule } from '../../../../../../shared/shared.module';
-import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector } from '../../../../../../util/util';
+import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector } from '../../../../../../util/util-test';
 import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';
 import { CourseItemComponent } from '../../course-item.component';
 

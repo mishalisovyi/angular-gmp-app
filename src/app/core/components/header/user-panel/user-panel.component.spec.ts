@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthService } from '@app/services/auth/auth.service';
 import { mockAuthServiceProvider } from '@app/services/auth/auth.service.mock';
-import { mockRouterProvider } from '@app/util/util';
+import { mockRouterProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 

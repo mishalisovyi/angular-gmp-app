@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { getFixtureDebugElementBySelector } from '@app/util/util';
+import { getFixtureDebugElementBySelector } from '@app/util/util-test';
 
 import { SearchInputComponent } from './search-input.component';
 

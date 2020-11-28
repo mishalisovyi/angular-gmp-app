@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { getFixtureDebugElementsArrayBySelector } from '@app/util/util';
+import { getFixtureDebugElementsArrayBySelector } from '@app/util/util-test';
 
 import { SharedModule } from '../../../../../../shared/shared.module';
 import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';

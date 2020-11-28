@@ -48,8 +48,10 @@ export class UserPanelComponent implements OnInit {
   private subscribeOnRouterEvents() {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((navEnd: NavigationEnd) => {
-        this.showUserPanel = navEnd.url !== `/${AppRoutePath.Login}`;
-      })
+      .subscribe(({ url }: NavigationEnd) => this.checkIfShowUserPanel(url))
+  }
+
+  private checkIfShowUserPanel(url: string) {
+    this.showUserPanel = url !== `/${AppRoutePath.Login}`
   }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 
+import { AppRoutePath } from '@app/enums/app-route-path.enum';
 import { ConfirmMessage } from '@app/enums/confirm-message.enum';
 import { ErrorMessage } from '@app/enums/error-message.enum';
 
@@ -26,7 +28,12 @@ export class CoursesPageComponent implements OnInit {
   courses$: Observable<Course[]>;
   iconPlus: IconDefinition = faPlusCircle;
 
-  constructor(private coursesService: CoursesService, private loadingService: LoadingService, private confirmService: ConfirmService) {
+  constructor(
+    private router: Router,
+    private coursesService: CoursesService,
+    private loadingService: LoadingService,
+    private confirmService: ConfirmService,
+  ) {
     this.isLoading$ = this.loadingService.loading$;
   }
 
@@ -39,8 +46,7 @@ export class CoursesPageComponent implements OnInit {
   }
 
   onCourseAddClick() {
-    // tslint:disable-next-line: no-console
-    console.log('On course add');
+    this.navigateToCourseAddPage();
   }
 
   onCourseDelete(courseId: number) {
@@ -63,5 +69,9 @@ export class CoursesPageComponent implements OnInit {
 
   private getCourses() {
     this.courses$ = this.coursesService.getList();
+  }
+
+  private navigateToCourseAddPage() {
+    this.router.navigate([ AppRoutePath.CourseAdd ]);
   }
 }

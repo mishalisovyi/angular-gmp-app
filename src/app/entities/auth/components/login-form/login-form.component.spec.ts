@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthService } from '@app/services/auth/auth.service';
 import { mockAuthServiceProvider } from '@app/services/auth/auth.service.mock';
-import { mockRouterProvider } from '@app/util/util';
+import { mockRouterProvider } from '@app/util/util-test';
 
 import { LoginFormComponent } from './login-form.component';
 
