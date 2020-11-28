@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutePath } from './enums/app-route-path.enum';
-import { CourseAddPageComponent } from './pages/course-add-page/course-add-page.component';
-import { CoursesPageComponent } from './pages/courses-page/courses-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { LoginPageComponent } from './pages/auth/login-page/login-page.component';
+import { CourseAddPageComponent } from './pages/courses/course-add-page/course-add-page.component';
+import { CoursesPageComponent } from './pages/courses/courses-page/courses-page.component';
 
 const routes: Routes = [
   { path: AppRoutePath.CourseAdd, component: CourseAddPageComponent },

@@ -7,14 +7,13 @@ import { filter, switchMap, take, tap } from 'rxjs/operators';
 import { AppRoutePath } from '@app/enums/app-route-path.enum';
 import { ConfirmMessage } from '@app/enums/confirm-message.enum';
 import { ErrorMessage } from '@app/enums/error-message.enum';
+import { Course } from '@app/interfaces/entities/course.interface';
+import { ConfirmService } from '@app/services/confirm/confirm.service';
+import { CoursesService } from '@app/services/courses/courses.service';
+import { LoadingService } from '@app/services/loading/loading.service';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-
-import { Course } from '../../interfaces/entities/course.interface';
-import { ConfirmService } from '../../services/confirm/confirm.service';
-import { CoursesService } from '../../services/courses/courses.service';
-import { LoadingService } from '../../services/loading/loading.service';
 
 const FIELD_NAME_FOR_COURSE_SEARCH = 'title';
 
