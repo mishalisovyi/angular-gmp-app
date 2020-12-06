@@ -15,7 +15,7 @@ import { faSignInAlt, faSignOutAlt, faUser, IconDefinition } from '@fortawesome/
   selector: 'app-user-panel',
   templateUrl: './user-panel.component.html',
   styleUrls: [ './user-panel.component.scss' ],
-  providers: [ SubscriptionService ]
+  providers: [ SubscriptionService ],
 })
 export class UserPanelComponent implements OnInit {
   iconUser: IconDefinition = faUser;
