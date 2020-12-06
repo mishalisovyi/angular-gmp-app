@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutePath } from './enums/app-route-path.enum';
-import { CoursesPageComponent } from './pages/courses-page/courses-page.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { authRoutes } from './pages/auth/auth.routes';
+import { coursesRoutes } from './pages/courses/courses.routes';
 
 const routes: Routes = [
-  { path: AppRoutePath.Courses, component: CoursesPageComponent },
-  { path: AppRoutePath.Login, component: LoginPageComponent },
-  { path: '', redirectTo: AppRoutePath.Login, pathMatch: 'full' },
-  { path: '**', redirectTo: AppRoutePath.Login },
+  ...authRoutes,
+  ...coursesRoutes,
+  { path: '', redirectTo: AppRoutePath.Courses, pathMatch: 'full' },
+  { path: '**', redirectTo: AppRoutePath.Courses },
 ];
 
 @NgModule({

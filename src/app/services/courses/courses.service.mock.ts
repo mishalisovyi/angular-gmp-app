@@ -33,6 +33,10 @@ class MockCoursesService {
   delete() {
     return of({ statusCode: 200 })
   }
+
+  create() {
+    return of({ statusCode: 200 })
+  }
 }
 
 export const mockCoursesServiceProvider = { provide: CoursesService, useClass: MockCoursesService }

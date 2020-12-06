@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockLoginFormComponent } from '@app/entities/auth/components/login-form/login-form.component.mock';
-import { LoginPageComponent } from '@app/pages/login-page/login-page.component';
+
+import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;

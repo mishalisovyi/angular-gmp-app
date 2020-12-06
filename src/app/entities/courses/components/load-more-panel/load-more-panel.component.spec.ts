@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { getFixtureDebugElementBySelector } from '@app/util/util';
+import { getFixtureDebugElementBySelector } from '@app/util/util-test';
 
 import { LoadMorePanelComponent } from './load-more-panel.component';
 

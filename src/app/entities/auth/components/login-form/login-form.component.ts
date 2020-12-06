@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { take, tap } from 'rxjs/operators';
+
 import { AppRoutePath } from '@app/enums/app-route-path.enum';
 import { ErrorMessage } from '@app/enums/error-message.enum';
 import { AuthService } from '@app/services/auth/auth.service';
@@ -21,9 +23,17 @@ export class LoginFormComponent {
   }
 
   private login() {
-    this.authService.login({ username: this.username, password: this.password }).subscribe(
-      () => this.router.navigate([ AppRoutePath.Courses ]),
-      () => alert(ErrorMessage.Login),
-    );
+    this.authService.login({ username: this.username, password: this.password })
+      .pipe(
+        take(1),
+        tap(
+          () => this.navigateToCoursesPage(),
+          () => alert(ErrorMessage.Login),
+      ))
+      .subscribe();
+  }
+
+  private navigateToCoursesPage() {
+    this.router.navigate([ AppRoutePath.Courses ]);
   }
 }

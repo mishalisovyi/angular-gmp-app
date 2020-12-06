@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 
+import { AppRoutePath } from '@app/enums/app-route-path.enum';
 import { ConfirmMessage } from '@app/enums/confirm-message.enum';
 import { ErrorMessage } from '@app/enums/error-message.enum';
+import { Course } from '@app/interfaces/entities/course.interface';
+import { ConfirmService } from '@app/services/confirm/confirm.service';
+import { CoursesService } from '@app/services/courses/courses.service';
+import { LoadingService } from '@app/services/loading/loading.service';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-
-import { Course } from '../../interfaces/entities/course.interface';
-import { ConfirmService } from '../../services/confirm/confirm.service';
-import { CoursesService } from '../../services/courses/courses.service';
-import { LoadingService } from '../../services/loading/loading.service';
 
 const FIELD_NAME_FOR_COURSE_SEARCH = 'title';
 
@@ -26,7 +27,12 @@ export class CoursesPageComponent implements OnInit {
   courses$: Observable<Course[]>;
   iconPlus: IconDefinition = faPlusCircle;
 
-  constructor(private coursesService: CoursesService, private loadingService: LoadingService, private confirmService: ConfirmService) {
+  constructor(
+    private router: Router,
+    private coursesService: CoursesService,
+    private loadingService: LoadingService,
+    private confirmService: ConfirmService,
+  ) {
     this.isLoading$ = this.loadingService.loading$;
   }
 
@@ -39,8 +45,7 @@ export class CoursesPageComponent implements OnInit {
   }
 
   onCourseAddClick() {
-    // tslint:disable-next-line: no-console
-    console.log('On course add');
+    this.navigateToCourseAddPage();
   }
 
   onCourseDelete(courseId: number) {
@@ -48,12 +53,13 @@ export class CoursesPageComponent implements OnInit {
       .pipe(
         filter(confirm => confirm),
         switchMap(() => this.coursesService.delete(courseId)),
-        tap(() => this.getCourses()),
+        tap(
+          () => this.getCourses(),
+          () => alert(ErrorMessage.CourseDelete),
+        ),
         take(1),
       )
-      .subscribe({
-        error: () => alert(ErrorMessage.CourseDelete),
-      });
+      .subscribe();
   }
 
   onLoadMore() {
@@ -63,5 +69,9 @@ export class CoursesPageComponent implements OnInit {
 
   private getCourses() {
     this.courses$ = this.coursesService.getList();
+  }
+
+  private navigateToCourseAddPage() {
+    this.router.navigate([ AppRoutePath.CourseAdd ]);
   }
 }

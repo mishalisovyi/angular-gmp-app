@@ -66,7 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-gmp-app:build"
+            "browserTarget": "angular-gmp-app:build",
+            "aot": true
           },
           "configurations": {
             "production": {

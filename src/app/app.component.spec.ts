@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
@@ -6,9 +6,11 @@ import { MockBreadcrumbsComponent } from './core/components/breadcrumbs/breadcru
 import { MockFooterComponent } from './core/components/footer/footer.component.mock';
 import { MockHeaderComponent } from './core/components/header/header.component.mock';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
-import { mockAuthServiceProvider } from './services/auth/auth.service.mock';
+import { mockRouterProvider } from './util/util-test';
 
 describe('AppComponent', () => {
+  let componentFixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
@@ -19,14 +21,17 @@ describe('AppComponent', () => {
         MockHeaderComponent,
         SpinnerComponent,
       ],
-      providers: [ mockAuthServiceProvider ],
+      providers: [ mockRouterProvider ],
     }).compileComponents();
   });
 
+  beforeEach(() => {
+    componentFixture = TestBed.createComponent(AppComponent);
+    componentFixture.detectChanges();
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const app = fixture.componentInstance;
+    const app = componentFixture.componentInstance;
     expect(app).toBeTruthy();
   });
 });
