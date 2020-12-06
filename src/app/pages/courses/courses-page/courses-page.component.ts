@@ -53,12 +53,13 @@ export class CoursesPageComponent implements OnInit {
       .pipe(
         filter(confirm => confirm),
         switchMap(() => this.coursesService.delete(courseId)),
-        tap(() => this.getCourses()),
+        tap(
+          () => this.getCourses(),
+          () => alert(ErrorMessage.CourseDelete),
+        ),
         take(1),
       )
-      .subscribe({
-        error: () => alert(ErrorMessage.CourseDelete),
-      });
+      .subscribe();
   }
 
   onLoadMore() {

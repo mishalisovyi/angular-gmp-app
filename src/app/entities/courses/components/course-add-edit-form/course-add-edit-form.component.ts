@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { AppRoutePath } from '@app/enums/app-route-path.enum';
+import { ErrorMessage } from '@app/enums/error-message.enum';
 import { CoursesService } from '@app/services/courses/courses.service';
 import { DurationInputComponent } from '@app/shared/components/duration-input/duration-input.component';
 import { getFormattedCurrentDate } from '@app/util/util';
@@ -42,11 +43,14 @@ export class CourseAddEditFormComponent {
       duration: this.duration,
       topRated: false,
     })
-      .pipe(take(1))
-      .subscribe(
-        () => this.navigateToCoursesList(),
-        () => alert('An error has occured during the course creation'),
+      .pipe(
+        take(1),
+        tap(
+          () => this.navigateToCoursesList(),
+          () => alert(ErrorMessage.CourseCreate),
+        ),
       )
+      .subscribe()
   }
 
   private navigateToCoursesList() {

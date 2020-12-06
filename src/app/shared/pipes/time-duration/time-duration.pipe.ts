@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isNumberNegative, isValueNotIntegerNumber } from '@app/util/util';
+import { isInteger, isNumberNegative } from '@app/util/util';
 
 @Pipe({
   name: 'timeDuration',
 })
 export class TimeDurationPipe implements PipeTransform {
   transform(value: number): string {
-    if (isValueNotIntegerNumber(value) || isNumberNegative(value)) {
+    if (!isInteger(value) || isNumberNegative(value)) {
       return '0min';
     }
 
