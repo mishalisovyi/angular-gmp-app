@@ -5,8 +5,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpResponse } from '@app/interfaces/helpers/status-code.interface';
 import { LoginData } from '@app/interfaces/parameters/login-data.interface';
 
-const LOCAL_STORAGE_USERNAME_KEY = 'angular_gmp_app_username';
-const LOCAL_STORAGE_AUTH_TOKEN_KEY = 'angular_gmp_app_auth_token';
+export const LOCAL_STORAGE_USERNAME_KEY = 'angular_gmp_app_username';
+export const LOCAL_STORAGE_AUTH_TOKEN_KEY = 'angular_gmp_app_auth_token';
 
 @Injectable({
   providedIn: 'root',
@@ -31,18 +31,12 @@ export class AuthService {
     this.setUserDataToLocalStorage(username, this.generateFakeToken(username, password));
     this.emitAuthData();
 
-    // tslint:disable-next-line: no-console
-    console.log('Logged in successfully');
-
     return of({ statusCode: 200 });
   }
 
   logout(): Observable<HttpResponse> {
     this.removeUserDataFromLocalStorage();
     this.emitAuthData();
-
-    // tslint:disable-next-line: no-console
-    console.log('Logout');
 
     return of({ statusCode: 200 });
   }

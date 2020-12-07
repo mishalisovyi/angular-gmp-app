@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component } from '@angular/core';
 
-import { filter, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { AppRoutePath } from './enums/app-route-path.enum';
+import { BreadcrumbsStep } from './interfaces/helpers/breadcrumbs-step.interface';
+import { BreadcrumbsService } from './services/breadcrumbs/breadcrumbs.service';
 import { SubscriptionService } from './services/subscription/subscription.service';
 
 @Component({
@@ -12,25 +12,16 @@ import { SubscriptionService } from './services/subscription/subscription.servic
   styleUrls: [ './app.component.scss' ],
   providers: [ SubscriptionService ],
 })
-export class AppComponent implements OnInit {
-  showBreadcrumbs = false;
+export class AppComponent {
+  showBreadcrumbs$: Observable<boolean>;
+  breadcrumbsSteps$: Observable<BreadcrumbsStep[]>;
 
-  constructor(private router: Router, private subscriptionService: SubscriptionService) { }
-
-  ngOnInit() {
-    this.subscribeOnRouterEvents();
+  constructor(private breadcrumbsService: BreadcrumbsService) {
+    this.initBreadcrumbsStreams();
   }
 
-  private subscribeOnRouterEvents() {
-    this.subscriptionService.register = this.router.events
-      .pipe(
-        filter(e => e instanceof NavigationEnd),
-        tap(({ url }: NavigationEnd) => this.checkIfShowBreadcrumbs(url)),
-      )
-      .subscribe()
-  }
-
-  private checkIfShowBreadcrumbs(url: string) {
-    this.showBreadcrumbs = url !== `/${AppRoutePath.Login}`
+  private initBreadcrumbsStreams() {
+    this.showBreadcrumbs$ = this.breadcrumbsService.showBreadcrumbs$;
+    this.breadcrumbsSteps$ = this.breadcrumbsService.breadcrumbsSteps$;
   }
 }

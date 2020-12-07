@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,5 +9,20 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 })
 export class DurationInputComponent {
   clockIcon = faClock;
-  durationValue = 0;
+
+  @Input() duration = 0;
+  @Output() durationChange = new EventEmitter<number>();
+
+  onDurationChange(duration: number) {
+    this.setDuration(duration);
+    this.emitDurationChangeEvent();
+  }
+
+  private setDuration(duration: number) {
+    this.duration = duration;
+  }
+
+  private emitDurationChangeEvent() {
+    this.durationChange.emit(this.duration);
+  }
 }

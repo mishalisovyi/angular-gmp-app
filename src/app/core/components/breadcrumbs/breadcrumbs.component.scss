@@ -3,14 +3,30 @@
 
 .breadcrumbs {
   @include padding-offset;
-  @include font-bold;
+  @include font-regular;
   height: 64px;
   display: flex;
   align-items: center;
   background-color: $white;
+  font-size: 14px;
 
-  &__text {
-    color: $gray-dark-2;
-    font-size: 14px;
+  &__step {
+    color: $gray-light-4;
+
+    &.step--link {
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.is-active {
+      @include font-bold;
+    }
+  }
+
+  &__divider {
+    color: $blue-link;
   }
 }

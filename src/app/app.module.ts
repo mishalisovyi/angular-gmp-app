@@ -7,8 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { LoginPageModule } from './pages/auth/login-page/login-page.module';
-import { CoursesAddPageModule } from './pages/courses/course-add-page/course-add-page.module';
-import { CoursesPageModule } from './pages/courses/courses-page/courses-page.module';
+import { NotFoundPageModule } from './pages/core/not-found-page/not-found-page.module';
+import { CoursesAddPageModule, CoursesEditPageModule, CoursesPageModule } from './pages/courses';
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -17,8 +17,10 @@ import { CoursesPageModule } from './pages/courses/courses-page/courses-page.mod
     AppRoutingModule,
     CoreModule,
     CoursesAddPageModule,
+    CoursesEditPageModule,
     CoursesPageModule,
     LoginPageModule,
+    NotFoundPageModule,
   ],
   providers: [ SearchByPipe ],
   bootstrap: [ AppComponent ],

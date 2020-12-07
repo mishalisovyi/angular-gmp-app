@@ -4,10 +4,10 @@
       <label class="form-group__label">Duration:</label>
       <span class="form-group__hint hint--required">required</span>
     </div>
-    <input type="number" placeholder="minutes" class="form-group__control" min="0" [(ngModel)]="durationValue">
+    <input type="number" placeholder="minutes" class="form-group__control" min="0" [ngModel]="duration" (ngModelChange)="onDurationChange($event)">
   </div>
   <div class="duration-input__formatted-value">
     <fa-icon class="duration-input__icon" [icon]="clockIcon"></fa-icon>
-    <span>{{ durationValue | timeDuration }}</span>
+    <span>{{ duration | timeDuration }}</span>
   </div>
 </div>

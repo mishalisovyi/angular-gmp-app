@@ -6,7 +6,7 @@ import { MockBreadcrumbsComponent } from './core/components/breadcrumbs/breadcru
 import { MockFooterComponent } from './core/components/footer/footer.component.mock';
 import { MockHeaderComponent } from './core/components/header/header.component.mock';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
-import { mockRouterProvider } from './util/util-test';
+import { BreadcrumbsService } from './services/breadcrumbs/breadcrumbs.service';
 
 describe('AppComponent', () => {
   let componentFixture: ComponentFixture<AppComponent>;
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
         MockHeaderComponent,
         SpinnerComponent,
       ],
-      providers: [ mockRouterProvider ],
+      providers: [ BreadcrumbsService ],
     }).compileComponents();
   });
 

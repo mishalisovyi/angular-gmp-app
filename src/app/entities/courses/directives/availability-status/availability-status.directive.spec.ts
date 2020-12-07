@@ -3,9 +3,9 @@ import { AvailabilityStatusDirective, COLORS } from './availability-status.direc
 const CURRENT_DATE = new Date();
 const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
 
-const OLD_DATE = new Date(CURRENT_DATE.getTime() - ONE_DAY_IN_MILLISECONDS * 30);
-const RECENT_DATE = new Date(CURRENT_DATE.getTime() - ONE_DAY_IN_MILLISECONDS * 7);
-const FUTURE_DATE = new Date(CURRENT_DATE.getTime() + ONE_DAY_IN_MILLISECONDS * 7);
+const OLD_DATE = new Date(CURRENT_DATE.getTime() - ONE_DAY_IN_MILLISECONDS * 30).toISOString();
+const RECENT_DATE = new Date(CURRENT_DATE.getTime() - ONE_DAY_IN_MILLISECONDS * 7).toISOString();
+const FUTURE_DATE = new Date(CURRENT_DATE.getTime() + ONE_DAY_IN_MILLISECONDS * 7).toISOString();
 
 describe('AvailabilityStatusDirective', () => {
   let directive: AvailabilityStatusDirective;

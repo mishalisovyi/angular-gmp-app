@@ -11,6 +11,5 @@ import { CourseAddPageComponent } from './course-add-page.component';
     CoursesModule,
   ],
   declarations: [ CourseAddPageComponent ],
-  exports: [ CourseAddPageComponent ],
 })
 export class CoursesAddPageModule { }

@@ -6,7 +6,7 @@ import { AppRoutePath } from '@app/enums/app-route-path.enum';
 import { CoursesService } from '@app/services/courses/courses.service';
 import { mockCoursesServiceProvider } from '@app/services/courses/courses.service.mock';
 import { MockDurationInputComponent } from '@app/shared/components/duration-input/duration-input.component.mock';
-import { getFixtureDebugElementBySelector, mockRouterProvider } from '@app/util/util-test';
+import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider } from '@app/util/util-test';
 
 import { CourseAddEditFormComponent } from './course-add-edit-form.component';
 
@@ -26,6 +26,7 @@ describe('CourseAddEditFormComponent', () => {
       providers: [
         mockCoursesServiceProvider,
         mockRouterProvider,
+        mockActivatedRouteProvider,
       ],
     })
     .compileComponents();
@@ -44,18 +45,12 @@ describe('CourseAddEditFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should properly react on form submitting', () => {
-    const createCourseSpy = spyOn(coursesService, 'create').and.callThrough();
+  it('should properly react on form submitting (edit course)', () => {
+    const createCourseSpy = spyOn(coursesService, 'update').and.callThrough();
 
     getFixtureDebugElementBySelector(fixture, '.course-add-edit-form').triggerEventHandler('submit', null);
 
-    expect(createCourseSpy).toHaveBeenCalledWith({
-      title: component.title,
-      description: component.description,
-      creationDate: new Date(component.creationDate),
-      duration: component.duration,
-      topRated: false,
-    })
+    expect(createCourseSpy).toHaveBeenCalledWith(component.courseId, component.courseData)
   });
 
   it('should properly react on course creation/updating cancel', () => {
