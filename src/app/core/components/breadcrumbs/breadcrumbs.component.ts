@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Observable } from 'rxjs';
 
 import { BreadcrumbsStep } from '@app/interfaces/helpers/breadcrumbs-step.interface';
+import { BreadcrumbsService } from '@app/services/breadcrumbs/breadcrumbs.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -8,5 +11,15 @@ import { BreadcrumbsStep } from '@app/interfaces/helpers/breadcrumbs-step.interf
   styleUrls: [ './breadcrumbs.component.scss' ],
 })
 export class BreadcrumbsComponent {
-  @Input() steps: BreadcrumbsStep[];
+  showBreadcrumbs$: Observable<boolean>;
+  breadcrumbsSteps$: Observable<BreadcrumbsStep[]>;
+
+  constructor(private breadcrumbsService: BreadcrumbsService) {
+    this.initBreadcrumbsStreams();
+  }
+
+  private initBreadcrumbsStreams() {
+    this.showBreadcrumbs$ = this.breadcrumbsService.showBreadcrumbs$;
+    this.breadcrumbsSteps$ = this.breadcrumbsService.breadcrumbsSteps$;
+  }
 }

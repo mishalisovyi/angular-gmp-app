@@ -1,14 +1,16 @@
-<nav class="breadcrumbs">
-  <ng-container *ngFor="let step of steps; last as isLast">
-    <a
-      *ngIf="!isLast && step.routerUrl"
-      class="breadcrumbs__step step--link"
-      routerLink="{{ '/' + step.routerUrl }}"
-      routerLinkActive="is-active"
-      [routerLinkActiveOptions]="{ exact: true }">
-      {{ step.title }}
-    </a>
-    <span *ngIf="isLast || !step.routerUrl" class="breadcrumbs__step is-active">{{ step.title }}</span>
-    <span class="breadcrumbs__divider">{{ isLast ? '' : '&nbsp;/&nbsp;' }}</span>
-  </ng-container>
+<nav [hidden]="!(showBreadcrumbs$ | async)">
+  <div class="breadcrumbs">
+    <ng-container *ngFor="let step of breadcrumbsSteps$ | async; last as isLast">
+      <a
+        *ngIf="!isLast && step.routerUrl"
+        class="breadcrumbs__step step--link"
+        routerLink="{{ '/' + step.routerUrl }}"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        {{ step.title }}
+      </a>
+      <span *ngIf="isLast || !step.routerUrl" class="breadcrumbs__step is-active">{{ step.title }}</span>
+      <span class="breadcrumbs__divider">{{ isLast ? '' : '&nbsp;/&nbsp;' }}</span>
+    </ng-container>
+  </div>
 </nav>
