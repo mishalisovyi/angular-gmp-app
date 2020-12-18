@@ -1,5 +1,5 @@
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { BreadcrumbsStep } from '@app/interfaces/helpers/breadcrumbs-step.interface';
+import { AppRoutePath } from '@app/enums';
+import { BreadcrumbsStep } from '@app/interfaces/helpers';
 
 export const getFormattedCurrentDate = () => getDatePartFromIsoDateString(new Date().toISOString());
 
@@ -15,13 +15,13 @@ export const isNumberNegative = (value: number) => value < 0;
 
 export const getStaticBreadcrumbsStepsByRoutePath = (routePath: AppRoutePath): BreadcrumbsStep[] => {
   return {
-    [AppRoutePath.CourseAdd]: [ {
+    [AppRoutePath.Add]: [ {
       title: 'Courses',
       routerUrl: AppRoutePath.Courses,
     }, {
       title: 'New Course',
     } ],
-    [AppRoutePath.CourseEdit]: [ {
+    [AppRoutePath.Edit]: [ {
       title: 'Courses',
       routerUrl: AppRoutePath.Courses,
     } ],

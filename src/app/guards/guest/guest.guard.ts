@@ -4,8 +4,8 @@ import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AppRoutePath } from '@app/enums';
+import { AuthService } from '@app/services';
 
 @Injectable({
   providedIn: 'root',

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
-import { HttpResponse } from '@app/interfaces/helpers/status-code.interface';
-import { LoginData } from '@app/interfaces/parameters/login-data.interface';
+import { HttpResponse } from '@app/interfaces/helpers';
+import { LoginData } from '@app/interfaces/parameters';
 
 export const LOCAL_STORAGE_USERNAME_KEY = 'angular_gmp_app_username';
 export const LOCAL_STORAGE_AUTH_TOKEN_KEY = 'angular_gmp_app_auth_token';

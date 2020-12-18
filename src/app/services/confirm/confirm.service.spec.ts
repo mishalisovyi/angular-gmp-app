@@ -1,6 +1,6 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { ConfirmService } from '@app/services/confirm/confirm.service';
+import { ConfirmService } from './confirm.service';
 
 describe('ConfirmService', () => {
   let service: ConfirmService;

@@ -1,7 +1,5 @@
-
-import { mockCourses } from '@app/services/courses/courses.service.mock';
-
-import { OrderByPipe } from './order-by.pipe';
+import { mockCourses } from '@app/services';
+import { OrderByPipe } from '@app/shared';
 
 describe('OrderByPipe', () => {
   let pipe: OrderByPipe;

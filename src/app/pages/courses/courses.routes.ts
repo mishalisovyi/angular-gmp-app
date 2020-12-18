@@ -1,33 +1,30 @@
 import { Routes } from '@angular/router';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { AuthGuard } from '@app/guards/auth/auth.guard';
+import { AppRoutePath } from '@app/enums';
 import { getStaticBreadcrumbsStepsByRoutePath } from '@app/util/util';
 
 import { CourseAddPageComponent, CourseEditPageComponent, CoursesPageComponent } from '.';
 
-export const coursesRoutes: Routes = [ {
-  path: AppRoutePath.CourseAdd,
-  component: CourseAddPageComponent,
-  canActivate: [ AuthGuard ],
-  data: {
-    showBreadcrumbs: true,
-    breadcrumbsSteps: getStaticBreadcrumbsStepsByRoutePath(AppRoutePath.CourseAdd),
+export const coursesRoutes: Routes = [
+  {
+    path: AppRoutePath.Empty,
+    data: {
+      breadcrumbsSteps: getStaticBreadcrumbsStepsByRoutePath(AppRoutePath.Courses),
+    },
+    component: CoursesPageComponent,
   },
-}, {
-  path: AppRoutePath.CourseEdit,
-  component: CourseEditPageComponent,
-  canActivate: [ AuthGuard ],
-  data: {
-    showBreadcrumbs: true,
-    breadcrumbsSteps: getStaticBreadcrumbsStepsByRoutePath(AppRoutePath.CourseEdit),
+  {
+    path: AppRoutePath.Add,
+    data: {
+      breadcrumbsSteps: getStaticBreadcrumbsStepsByRoutePath(AppRoutePath.Add),
+    },
+    component: CourseAddPageComponent,
   },
-}, {
-  path: AppRoutePath.Courses,
-  component: CoursesPageComponent,
-  canActivate: [ AuthGuard ],
-  data: {
-    showBreadcrumbs: true,
-    breadcrumbsSteps: getStaticBreadcrumbsStepsByRoutePath(AppRoutePath.Courses),
+  {
+    path: AppRoutePath.Edit,
+    data: {
+      breadcrumbsSteps: getStaticBreadcrumbsStepsByRoutePath(AppRoutePath.Edit),
+    },
+    component: CourseEditPageComponent,
   },
-} ];
+];

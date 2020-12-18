@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { take, tap } from 'rxjs/operators';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { ErrorMessage } from '@app/enums/error-message.enum';
-import { CourseData } from '@app/interfaces/entities/course.interface';
-import { CoursesService } from '@app/services/courses/courses.service';
+import { AppRoutePath, ErrorMessage } from '@app/enums';
+import { CourseData } from '@app/interfaces/entities';
+import { CourseEditData } from '@app/interfaces/parameters';
+import { CoursesService } from '@app/services';
 import { getDatePartFromIsoDateString, getFormattedCurrentDate, isValueIntegerNumber, parseStringToIntegerNumber } from '@app/util/util';
 
 const INITIAL_COURSE_DATA = {
@@ -18,13 +18,16 @@ const INITIAL_COURSE_DATA = {
 }
 
 @Component({
-  selector: 'app-course-add-edit-form',
-  templateUrl: './course-add-edit-form.component.html',
-  styleUrls: [ './course-add-edit-form.component.scss' ],
+  selector: 'app-course-form',
+  templateUrl: './course-form.component.html',
+  styleUrls: [ './course-form.component.scss' ],
 })
-export class CourseAddEditFormComponent implements OnInit {
+export class CourseFormComponent implements OnInit {
   courseData: CourseData = null;
   courseId: number;
+
+  @Output() courseEdit = new EventEmitter<CourseEditData>();
+  @Output() courseCreate = new EventEmitter<CourseData>();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private coursesService: CoursesService) { }
 
@@ -39,7 +42,7 @@ export class CourseAddEditFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitMethodFactory()();
+    this.emitFormSubmitData();
   }
 
   onCancel() {
@@ -60,8 +63,10 @@ export class CourseAddEditFormComponent implements OnInit {
     }
   }
 
-  private submitMethodFactory(): () => void {
-    return this.isEditingMode ? this.editCourse.bind(this) : this.createCourse.bind(this);
+  private emitFormSubmitData() {
+    return this.isEditingMode
+      ? this.courseEdit.emit({ courseId: this.courseId, courseData: this.courseData })
+      : this.courseCreate.emit(this.courseData);
   }
 
   private navigateToCoursesList() {
@@ -80,25 +85,5 @@ export class CourseAddEditFormComponent implements OnInit {
         () => alert(ErrorMessage.CourseGet),
       ),
     ).subscribe();
-  }
-
-  private editCourse() {
-    this.coursesService.update(this.courseId, this.courseData).pipe(
-      take(1),
-      tap(
-        () => this.navigateToCoursesList(),
-        () => alert(ErrorMessage.CourseEdit),
-      ),
-    ).subscribe();
-  }
-
-  private createCourse() {
-    this.coursesService.create(this.courseData).pipe(
-      take(1),
-      tap(
-        () => this.navigateToCoursesList(),
-        () => alert(ErrorMessage.CourseCreate),
-      ),
-    ).subscribe()
   }
 }

@@ -1,6 +1,9 @@
 export enum AppRoutePath {
+  Add = 'new',
   Courses = 'courses',
-  CourseAdd = 'courses/new',
-  CourseEdit = 'courses/:id',
+  Edit = ':id',
+  Empty = '',
+  Error = 'error',
   Login = 'login',
+  NotFound = '404',
 }

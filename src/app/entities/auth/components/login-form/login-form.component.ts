@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 
 import { take, tap } from 'rxjs/operators';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { ErrorMessage } from '@app/enums/error-message.enum';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AppRoutePath, ErrorMessage } from '@app/enums';
+import { AuthService } from '@app/services';
 
 @Component({
   selector: 'app-login-form',

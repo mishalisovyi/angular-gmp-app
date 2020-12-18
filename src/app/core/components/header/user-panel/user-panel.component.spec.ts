@@ -1,12 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthService } from '@app/services/auth/auth.service';
-import { mockAuthServiceProvider } from '@app/services/auth/auth.service.mock';
+import { UserPanelComponent } from '@app/core';
+import { AuthService, mockAuthServiceProvider } from '@app/services';
 import { mockRouterProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import { UserPanelComponent } from './user-panel.component';
 
 describe('UserPanelComponent', () => {
   let component: UserPanelComponent;

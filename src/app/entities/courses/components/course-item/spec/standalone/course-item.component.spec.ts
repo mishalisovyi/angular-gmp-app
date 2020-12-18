@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AvailabilityStatusDirective, CourseItemComponent } from '@app/entities/courses';
+import { SharedModule } from '@app/shared/shared.module';
 import { getFixtureDebugElementsArrayBySelector, mockRouterProvider } from '@app/util/util-test';
-
-import { SharedModule } from '../../../../../../shared/shared.module';
-import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';
-import { CourseItemComponent } from '../../course-item.component';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;

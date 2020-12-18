@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { BreadcrumbsStep } from '@app/interfaces/helpers/breadcrumbs-step.interface';
-import { BreadcrumbsService } from '@app/services/breadcrumbs/breadcrumbs.service';
+import { BreadcrumbsStep } from '@app/interfaces/helpers';
+import { BreadcrumbsService } from '@app/services';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -15,10 +15,6 @@ export class BreadcrumbsComponent {
   breadcrumbsSteps$: Observable<BreadcrumbsStep[]>;
 
   constructor(private breadcrumbsService: BreadcrumbsService) {
-    this.initBreadcrumbsStreams();
-  }
-
-  private initBreadcrumbsStreams() {
     this.showBreadcrumbs$ = this.breadcrumbsService.showBreadcrumbs$;
     this.breadcrumbsSteps$ = this.breadcrumbsService.breadcrumbsSteps$;
   }

@@ -1,10 +1,10 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { Course } from '@app/interfaces/entities/course.interface';
-import { mockCourses } from '@app/services/courses/courses.service.mock';
-import { SearchByPipe } from '@app/shared/pipes/search-by/search-by.pipe';
+import { Course } from '@app/interfaces/entities';
+import { SearchByPipe } from '@app/shared';
 
 import { CoursesService } from './courses.service';
+import { mockCourses } from './courses.service.mock';
 
 const MOCK_COURSE_DATA = {
   title: 'Video Course 1. Name 1',

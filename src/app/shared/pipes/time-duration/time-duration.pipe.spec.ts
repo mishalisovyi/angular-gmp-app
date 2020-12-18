@@ -1,4 +1,4 @@
-import { TimeDurationPipe } from './time-duration.pipe';
+import { TimeDurationPipe } from '@app/shared';
 
 describe('TimeDurationPipe', () => {
   let pipe: TimeDurationPipe;

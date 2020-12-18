@@ -15,14 +15,10 @@ export class DurationInputComponent {
 
   onDurationChange(duration: number) {
     this.setDuration(duration);
-    this.emitDurationChangeEvent();
+    this.durationChange.emit(this.duration);
   }
 
   private setDuration(duration: number) {
     this.duration = duration;
-  }
-
-  private emitDurationChangeEvent() {
-    this.durationChange.emit(this.duration);
   }
 }

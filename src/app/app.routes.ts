@@ -1,17 +1,47 @@
 import { Routes } from '@angular/router';
 
-import { NotFoundPageComponent } from '@app/pages/core/not-found-page/not-found-page.component';
+import { LayoutComponent } from './core';
+import { AppRoutePath } from './enums';
+import { AuthGuard, GuestGuard } from './guards';
 
-import { AppRoutePath } from './enums/app-route-path.enum';
-
-export const appRoutes: Routes = [ {
-  path: '',
-  redirectTo: AppRoutePath.Courses,
-  pathMatch: 'full',
-}, {
-  path: '**',
-  component: NotFoundPageComponent,
-  data: {
-    showBreadcrumbs: false,
+export const appRoutes: Routes = [
+  {
+    path: AppRoutePath.Empty,
+    children: [
+      {
+        path: AppRoutePath.Empty,
+        component: LayoutComponent,
+        canActivate: [ AuthGuard ],
+        children: [
+          {
+            path: AppRoutePath.Empty,
+            redirectTo: AppRoutePath.Courses,
+            pathMatch: 'full',
+          },
+          {
+            path: AppRoutePath.Courses,
+            loadChildren: async () => (await import('app/pages/courses/courses-pages.module')).CoursesPagesModule,
+          },
+        ],
+      },
+      {
+        path: AppRoutePath.Empty,
+        canActivate: [ GuestGuard ],
+        children: [
+          {
+            path: AppRoutePath.Empty,
+            loadChildren: async () => (await import('app/pages/auth/auth-pages.module')).AuthPagesModule,
+          },
+        ],
+      },
+    ],
   },
-} ];
+  {
+    path: '**',
+    redirectTo: AppRoutePath.Error,
+  },
+  {
+    path: AppRoutePath.Error,
+    loadChildren: async () => (await import('app/pages/errors/errors-pages.module')).ErrorsPagesModule,
+  },
+];

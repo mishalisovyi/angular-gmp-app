@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AppRoutePath } from '@app/enums';
+import { AuthService } from '@app/services';
 import { mockRouterProvider } from '@app/util/util-test';
 
 import { GuestGuard } from './guest.guard';

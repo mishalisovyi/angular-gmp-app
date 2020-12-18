@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
+import { SearchInputComponent } from '@app/shared';
 import { getFixtureDebugElementBySelector } from '@app/util/util-test';
-
-import { SearchInputComponent } from './search-input.component';
 
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;

@@ -2,25 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { CoursesService } from '@app/services/courses/courses.service';
-import { mockCoursesServiceProvider } from '@app/services/courses/courses.service.mock';
+import { AppRoutePath } from '@app/enums';
+import { mockCoursesServiceProvider } from '@app/services';
 import { MockDurationInputComponent } from '@app/shared/components/duration-input/duration-input.component.mock';
 import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider } from '@app/util/util-test';
 
-import { CourseAddEditFormComponent } from './course-add-edit-form.component';
+import { CourseFormComponent } from './course-form.component';
 
-describe('CourseAddEditFormComponent', () => {
-  let component: CourseAddEditFormComponent;
-  let fixture: ComponentFixture<CourseAddEditFormComponent>;
-  let coursesService: CoursesService;
+describe('CourseFormComponent', () => {
+  let component: CourseFormComponent;
+  let fixture: ComponentFixture<CourseFormComponent>;
   let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
       declarations: [
-        CourseAddEditFormComponent,
+        CourseFormComponent,
         MockDurationInputComponent,
       ],
       providers: [
@@ -33,11 +31,12 @@ describe('CourseAddEditFormComponent', () => {
   });
 
   beforeEach(() => {
-    coursesService = TestBed.inject(CoursesService);
     router = TestBed.inject(Router);
 
-    fixture = TestBed.createComponent(CourseAddEditFormComponent);
+    fixture = TestBed.createComponent(CourseFormComponent);
     component = fixture.componentInstance;
+    component.courseId = 1;
+
     fixture.detectChanges();
   });
 
@@ -46,11 +45,11 @@ describe('CourseAddEditFormComponent', () => {
   });
 
   it('should properly react on form submitting (edit course)', () => {
-    const createCourseSpy = spyOn(coursesService, 'update').and.callThrough();
+    const courseEditEmitSpy = spyOn(component.courseEdit, 'emit');
 
-    getFixtureDebugElementBySelector(fixture, '.course-add-edit-form').triggerEventHandler('submit', null);
+    component.onSubmit();
 
-    expect(createCourseSpy).toHaveBeenCalledWith(component.courseId, component.courseData)
+    expect(courseEditEmitSpy).toHaveBeenCalledWith({ courseId: component.courseId, courseData: component.courseData });
   });
 
   it('should properly react on course creation/updating cancel', () => {

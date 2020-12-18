@@ -1,13 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MockCourseItemComponent } from '@app/entities/courses/components/course-item/course-item.component.mock';
-import { MockLoadMorePanelComponent } from '@app/entities/courses/components/load-more-panel/load-more-panel.component.mock';
-import { mockConfirmServiceProvider } from '@app/services/confirm/confirm.service.mock';
-import { CoursesService } from '@app/services/courses/courses.service';
-import { mockCoursesServiceProvider } from '@app/services/courses/courses.service.mock';
-import { MockSearchInputComponent } from '@app/shared/components/search-input/search-input.component.mock';
-import { OrderByPipe } from '@app/shared/pipes/order-by/order-by.pipe';
-import { getFixtureDebugElementBySelector, mockRouterProvider } from '@app/util/util-test';
+import { MockCourseItemComponent, MockLoadMorePanelComponent } from '@app/entities/courses';
+import { CoursesService, mockConfirmServiceProvider, mockCoursesServiceProvider } from '@app/services';
+import { MockSearchInputComponent, OrderByPipe } from '@app/shared';
+import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -31,6 +27,7 @@ describe('CoursesPageComponent', () => {
       providers: [
         mockCoursesServiceProvider,
         mockConfirmServiceProvider,
+        mockActivatedRouteProvider,
         mockRouterProvider,
       ],
     })

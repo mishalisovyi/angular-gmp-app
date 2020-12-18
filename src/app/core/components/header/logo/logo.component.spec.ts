@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LogoComponent } from '@app/core';
 
-import { LogoComponent } from './logo.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('LogoComponent', () => {
   let component: LogoComponent;

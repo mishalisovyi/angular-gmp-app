@@ -1,6 +1,5 @@
+import { CourseItemComponent } from '@app/entities/courses';
 import { mockRouter } from '@app/util/util-test';
-
-import { CourseItemComponent } from '../../course-item.component';
 
 describe('CourseItemComponent', () => {
   const courseItem = new CourseItemComponent(mockRouter() as any);

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { LoginFormComponent } from '@app/entities/auth/components/login-form/login-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 @NgModule({
   imports: [

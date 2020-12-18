@@ -2,11 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { SharedModule } from '../../shared/shared.module';
-import { CourseAddEditFormComponent } from './components/course-add-edit-form/course-add-edit-form.component';
-import { CourseItemComponent } from './components/course-item/course-item.component';
-import { LoadMorePanelComponent } from './components/load-more-panel/load-more-panel.component';
-import { AvailabilityStatusDirective } from './directives/availability-status/availability-status.directive';
+import { SharedModule } from '@app/shared/shared.module';
+
+import { AvailabilityStatusDirective, CourseFormComponent, CourseItemComponent, LoadMorePanelComponent } from '.';
 
 @NgModule({
   imports: [
@@ -15,13 +13,13 @@ import { AvailabilityStatusDirective } from './directives/availability-status/av
     SharedModule,
   ],
   declarations: [
-    CourseAddEditFormComponent,
+    CourseFormComponent,
     CourseItemComponent,
     LoadMorePanelComponent,
     AvailabilityStatusDirective,
   ],
   exports: [
-    CourseAddEditFormComponent,
+    CourseFormComponent,
     CourseItemComponent,
     LoadMorePanelComponent,
   ],

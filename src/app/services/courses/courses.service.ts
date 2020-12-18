@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { iif, Observable, of, throwError } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
 
-import { ErrorMessage } from '@app/enums/error-message.enum';
-import { Course, CourseData } from '@app/interfaces/entities/course.interface';
-import { HttpResponse } from '@app/interfaces/helpers/status-code.interface';
-import { LoadingService } from '@app/services/loading/loading.service';
-import { SearchByPipe, SearchByPipeParams } from '@app/shared/pipes/search-by/search-by.pipe';
+import { ErrorMessage } from '@app/enums';
+import { Course, CourseData } from '@app/interfaces/entities';
+import { HttpResponse } from '@app/interfaces/helpers';
+import { SearchByPipe } from '@app/shared';
+import { SearchByPipeParams } from '@app/shared/pipes/search-by/search-by.pipe';
+
+import { LoadingService } from '../loading/loading.service';
 
 @Injectable({
   providedIn: 'root',

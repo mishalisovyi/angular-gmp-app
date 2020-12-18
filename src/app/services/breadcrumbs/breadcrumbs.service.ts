@@ -4,7 +4,7 @@ import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
-import { BreadcrumbsStep } from '@app/interfaces/helpers/breadcrumbs-step.interface';
+import { BreadcrumbsStep } from '@app/interfaces/helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -56,8 +56,10 @@ export class BreadcrumbsService {
     return data;
   }
 
-  private handleBreadcrumbsDataEmiting({ showBreadcrumbs, breadcrumbsSteps }: Data) {
+  private handleBreadcrumbsDataEmiting({ breadcrumbsSteps }: Data) {
+    const showBreadcrumbs = !!breadcrumbsSteps && breadcrumbsSteps.length;
     this.emitShowBreadcrumbs(showBreadcrumbs);
+
     if (!!breadcrumbsSteps) {
       this.emitBreadcrumbsSteps(breadcrumbsSteps);
     }
