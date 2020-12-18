@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { getFixtureDebugElementsArrayBySelector } from '@app/util/util-test';
-
-import { SharedModule } from '../../../../../../shared/shared.module';
-import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';
-import { CourseItemComponent } from '../../course-item.component';
+import { AvailabilityStatusDirective, CourseItemComponent } from '@app/entities/courses';
+import { SharedModule } from '@app/shared/shared.module';
+import { getFixtureDebugElementsArrayBySelector, mockRouterProvider } from '@app/util/util-test';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -17,6 +15,7 @@ describe('CourseItemComponent', () => {
         CourseItemComponent,
         AvailabilityStatusDirective,
       ],
+      providers: [ mockRouterProvider ],
     })
     .compileComponents();
   });
@@ -28,7 +27,7 @@ describe('CourseItemComponent', () => {
     component.course = {
       id: 1,
       title: 'Test title',
-      creationDate: new Date(),
+      creationDate: new Date().toISOString(),
       duration: 100,
       description: 'Test description',
       topRated: true,

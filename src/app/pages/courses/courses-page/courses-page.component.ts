@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 
-import { AppRoutePath } from '@app/enums/app-route-path.enum';
-import { ConfirmMessage } from '@app/enums/confirm-message.enum';
-import { ErrorMessage } from '@app/enums/error-message.enum';
-import { Course } from '@app/interfaces/entities/course.interface';
-import { ConfirmService } from '@app/services/confirm/confirm.service';
-import { CoursesService } from '@app/services/courses/courses.service';
-import { LoadingService } from '@app/services/loading/loading.service';
+import { AppRoutePath, ConfirmMessage, ErrorMessage } from '@app/enums';
+import { Course } from '@app/interfaces/entities';
+import { ConfirmService, CoursesService, LoadingService } from '@app/services';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -29,6 +25,7 @@ export class CoursesPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private coursesService: CoursesService,
     private loadingService: LoadingService,
     private confirmService: ConfirmService,
@@ -72,6 +69,6 @@ export class CoursesPageComponent implements OnInit {
   }
 
   private navigateToCourseAddPage() {
-    this.router.navigate([ AppRoutePath.CourseAdd ]);
+    this.router.navigate([ AppRoutePath.Add ], { relativeTo: this.activatedRoute });
   }
 }

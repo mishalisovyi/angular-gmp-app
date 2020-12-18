@@ -10,7 +10,7 @@ export class MockCourseItemComponent {
   @Input() course: Course;
   @Output() courseDeleted: EventEmitter<number> = new EventEmitter();
 
-  onDeleteButtonClick(e: number) {
+  onDeleteButtonClick(e: any) {
     this.courseDeleted.emit(e);
   }
 }

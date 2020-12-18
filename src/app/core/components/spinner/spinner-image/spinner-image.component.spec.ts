@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpinnerImageComponent } from './spinner-image.component';
+import { SpinnerImageComponent } from '@app/core';
 
 describe('SpinnerImageComponent', () => {
   let component: SpinnerImageComponent;

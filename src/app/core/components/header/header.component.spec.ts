@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HeaderComponent, MockLogoComponent, MockUserPanelComponent } from '@app/core';
 
-import { HeaderComponent } from './header.component';
-import { MockLogoComponent } from './logo/logo.component.mock';
-import { MockUserPanelComponent } from './user-panel/user-panel.component.mock';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

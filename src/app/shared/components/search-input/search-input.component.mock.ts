@@ -7,7 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class MockSearchInputComponent {
   @Output() search: EventEmitter<string> = new EventEmitter();
 
-  onSearchButtonClick(e: string) {
+  onSearchButtonClick(e: any) {
     this.search.emit(e);
   }
 }

@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AppRoutePath } from '@app/enums';
+import { Course } from '@app/interfaces/entities';
 
 import { faCalendar, faClock, faPen, faStar, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-
-import { Course } from '../../../../interfaces/entities/course.interface';
 
 @Component({
   selector: 'app-course-item',
@@ -20,11 +22,21 @@ export class CourseItemComponent {
   deleteCourseIcon: IconDefinition = faTrash;
   topRatedIcon: IconDefinition = faStar;
 
-  constructor() {
+  constructor(private router: Router) {
     this.courseDeleted = new EventEmitter<number>();
+  }
+
+  onCourseEditClick({ id: courseId, title: courseTitle }: Course) {
+    this.navigateToCourseEditPage(courseId, courseTitle);
   }
 
   onCourseDeleteClick(courseId: number) {
     this.courseDeleted.emit(courseId);
+  }
+
+  private navigateToCourseEditPage(courseId: number, courseTitle: string) {
+    this.router.navigate([ `${AppRoutePath.Courses}/${courseId}` ], {
+      state: { breadcrumbsStepTitle: courseTitle },
+    });
   }
 }

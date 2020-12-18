@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Course } from '@app/interfaces/entities/course.interface';
-
-import { SharedModule } from '../../../../../../shared/shared.module';
-import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector } from '../../../../../../util/util-test';
-import { AvailabilityStatusDirective } from '../../../../directives/availability-status/availability-status.directive';
-import { CourseItemComponent } from '../../course-item.component';
+import { AvailabilityStatusDirective, CourseItemComponent } from '@app/entities/courses';
+import { Course } from '@app/interfaces/entities';
+import { SharedModule } from '@app/shared/shared.module';
+import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector, mockRouterProvider } from '@app/util/util-test';
 
 @Component({
   template: `<app-course-item [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>`,
@@ -16,7 +14,7 @@ class HostComponent {
   course: Course = {
     id: 1,
     title: 'Test title',
-    creationDate: new Date(),
+    creationDate: new Date().toISOString(),
     duration: 100,
     description: 'Test description',
     topRated: true,
@@ -40,6 +38,7 @@ describe('CourseItemComponent', () => {
         HostComponent,
         AvailabilityStatusDirective,
       ],
+      providers: [ mockRouterProvider ],
     })
     .compileComponents();
   });

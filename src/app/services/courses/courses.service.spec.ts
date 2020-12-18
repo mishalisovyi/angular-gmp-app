@@ -1,16 +1,16 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { Course } from '@app/interfaces/entities/course.interface';
-import { mockCourses } from '@app/services/courses/courses.service.mock';
-import { SearchByPipe } from '@app/shared/pipes/search-by/search-by.pipe';
+import { Course } from '@app/interfaces/entities';
+import { SearchByPipe } from '@app/shared';
 
 import { CoursesService } from './courses.service';
+import { mockCourses } from './courses.service.mock';
 
 const MOCK_COURSE_DATA = {
   title: 'Video Course 1. Name 1',
   description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
   duration: 59,
-  creationDate: new Date('1995-12-17T03:24:00'),
+  creationDate: new Date().toISOString(),
   topRated: true,
 }
 

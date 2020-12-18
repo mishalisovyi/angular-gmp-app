@@ -2,14 +2,18 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '../shared/shared.module';
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
-import { LogoComponent } from './components/header/logo/logo.component';
-import { UserPanelComponent } from './components/header/user-panel/user-panel.component';
-import { SpinnerImageComponent } from './components/spinner/spinner-image/spinner-image.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SharedModule } from '@app/shared/shared.module';
+
+import {
+  BreadcrumbsComponent,
+  FooterComponent,
+  HeaderComponent,
+  LayoutComponent,
+  LogoComponent,
+  SpinnerComponent,
+  SpinnerImageComponent,
+  UserPanelComponent,
+} from '.';
 
 @NgModule({
   imports: [
@@ -19,17 +23,18 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
   ],
   declarations: [
     BreadcrumbsComponent,
+    FooterComponent,
     HeaderComponent,
     LogoComponent,
     UserPanelComponent,
-    FooterComponent,
-    SpinnerComponent,
+    LayoutComponent,
     SpinnerImageComponent,
+    SpinnerComponent,
   ],
   exports: [
     BreadcrumbsComponent,
-    HeaderComponent,
     FooterComponent,
+    HeaderComponent,
     SpinnerComponent,
   ],
 })

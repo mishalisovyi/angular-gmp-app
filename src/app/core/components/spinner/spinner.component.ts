@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LoadingService } from '@app/services/loading/loading.service';
+import { LoadingService } from '@app/services';
 
 @Component({
   selector: 'app-spinner',

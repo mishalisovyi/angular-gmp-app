@@ -1,7 +1,5 @@
-
-import { mockCourses } from '@app/services/courses/courses.service.mock';
-
-import { SearchByPipe } from './search-by.pipe';
+import { mockCourses } from '@app/services';
+import { SearchByPipe } from '@app/shared';
 
 describe('SearchByPipe', () => {
   let pipe: SearchByPipe;

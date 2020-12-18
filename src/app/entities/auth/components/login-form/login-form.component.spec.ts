@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { AuthService } from '@app/services/auth/auth.service';
-import { mockAuthServiceProvider } from '@app/services/auth/auth.service.mock';
+import { AuthService, mockAuthServiceProvider } from '@app/services';
 import { mockRouterProvider } from '@app/util/util-test';
 
 import { LoginFormComponent } from './login-form.component';

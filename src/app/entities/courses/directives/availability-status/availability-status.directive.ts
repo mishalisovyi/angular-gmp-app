@@ -7,8 +7,8 @@ export const COLORS = {
   TRANSPARENT: 'transparent',
 }
 
-const getColorByDate = (courseCreationDate: Date) => {
-  const courseCreationTimestamp = courseCreationDate.valueOf();
+const getColorByDate = (courseCreationDateString: string) => {
+  const courseCreationTimestamp = new Date(courseCreationDateString).valueOf();
   const nowTimestamp = new Date().valueOf();
 
   if (courseCreationTimestamp > nowTimestamp) {
@@ -30,7 +30,7 @@ export class AvailabilityStatusDirective {
   @HostBinding('style.border-color')
   borderColor = COLORS.TRANSPARENT;
 
-  @Input() set availabilityDate(date: Date) {
-    this.borderColor = getColorByDate(date);
+  @Input() set availabilityDate(dateString: string) {
+    this.borderColor = getColorByDate(dateString);
   }
 }
