@@ -19,8 +19,8 @@ describe('OrderByPipe', () => {
   });
 
   it('should properly sort income array', () => {
-    const pipeResult = pipe.transform([ ...mockCourses ], 'creationDate', 'desc');
-    const [ firstDate, secondDate, thirdDate ] = pipeResult.map(({ creationDate }) => creationDate);
+    const pipeResult = pipe.transform([ ...mockCourses ], 'date', 'desc');
+    const [ firstDate, secondDate, thirdDate ] = pipeResult.map(({ date }) => date);
 
     expect(firstDate > secondDate && secondDate > thirdDate).toBeTrue();
   });

@@ -1,12 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
-import { HttpResponse } from '@app/interfaces/helpers';
+import { environment } from '@env/environment';
+
 import { LoginData } from '@app/interfaces/parameters';
+import { HttpResponseCode, LoginResponse } from '@app/interfaces/responses';
 
 export const LOCAL_STORAGE_USERNAME_KEY = 'angular_gmp_app_username';
 export const LOCAL_STORAGE_AUTH_TOKEN_KEY = 'angular_gmp_app_auth_token';
+
+const { APIUrl } = environment;
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +21,7 @@ export class AuthService {
   private isAuthenticated$$: BehaviorSubject<boolean>;
   private userName$$: BehaviorSubject<string>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.initAuthSubjects();
   }
 
@@ -27,14 +33,19 @@ export class AuthService {
     return this.userName$$.asObservable();
   }
 
-  login({ username, password }: LoginData): Observable<HttpResponse> {
-    this.setUserDataToLocalStorage(username, this.generateFakeToken(username, password));
-    this.emitAuthData();
-
-    return of({ statusCode: 200 });
+  get authToken(): string {
+    return localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY) || '';
   }
 
-  logout(): Observable<HttpResponse> {
+  login({ login, password }: LoginData) {
+    return this.http.post<LoginResponse>(`${APIUrl}/auth/login`, { login, password }).pipe(
+      catchError(({ error }) => throwError(error)),
+      tap(({ token }) => this.setUserDataToLocalStorage(login, token)),
+      tap(() => this.emitAuthData()),
+    )
+  }
+
+  logout(): Observable<HttpResponseCode> {
     this.removeUserDataFromLocalStorage();
     this.emitAuthData();
 
@@ -49,10 +60,6 @@ export class AuthService {
   private setUserDataToLocalStorage(username: string, token: string) {
     localStorage.setItem(LOCAL_STORAGE_USERNAME_KEY, username);
     localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, token);
-  }
-
-  private generateFakeToken(username: string, password: string): string {
-    return btoa(`${username}.${password}`);
   }
 
   private emitAuthData() {

@@ -13,11 +13,11 @@ class HostComponent {
   courseIdMarkedForDeletion: number;
   course: Course = {
     id: 1,
-    title: 'Test title',
-    creationDate: new Date().toISOString(),
-    duration: 100,
+    name: 'Test title',
+    date: new Date().toISOString(),
+    length: 100,
     description: 'Test description',
-    topRated: true,
+    isTopRated: true,
   };
 
   onCourseDelete(courseId: number) {

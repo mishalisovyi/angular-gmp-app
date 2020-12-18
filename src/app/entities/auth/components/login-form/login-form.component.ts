@@ -22,12 +22,12 @@ export class LoginFormComponent {
   }
 
   private login() {
-    this.authService.login({ username: this.username, password: this.password })
+    this.authService.login({ login: this.username, password: this.password })
       .pipe(
         take(1),
         tap(
           () => this.navigateToCoursesPage(),
-          () => alert(ErrorMessage.Login),
+          error => alert(`${ErrorMessage.Login}: ${error}`),
       ))
       .subscribe();
   }

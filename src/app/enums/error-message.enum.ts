@@ -5,5 +5,6 @@ export enum ErrorMessage {
   CourseDelete = 'An error has occured during the courses deleting',
   CourseEdit = 'An error has occured during the courses editing',
   CourseGet = 'An error has occured during the course retrieving',
+  CoursesGet = 'An error has occured during the courses list retrieving',
   NoDataFoundById = 'No data found by passed ID',
 }

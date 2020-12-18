@@ -1,10 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { SearchByPipe } from './shared';
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -12,8 +12,8 @@ import { SearchByPipe } from './shared';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    HttpClientModule,
   ],
-  providers: [ SearchByPipe ],
   bootstrap: [ AppComponent ],
 })
 export class AppModule { }

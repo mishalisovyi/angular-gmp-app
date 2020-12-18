@@ -1,77 +1,95 @@
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { Course } from '@app/interfaces/entities';
-import { SearchByPipe } from '@app/shared';
+import { environment } from '@env/environment';
 
 import { CoursesService } from './courses.service';
 import { mockCourses } from './courses.service.mock';
 
-const MOCK_COURSE_DATA = {
-  title: 'Video Course 1. Name 1',
-  description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-  duration: 59,
-  creationDate: new Date().toISOString(),
-  topRated: true,
-}
+const { APIUrl } = environment;
 
 describe('CoursesService', () => {
   let service: CoursesService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ SearchByPipe ],
+      imports: [ HttpClientTestingModule ],
     });
     service = TestBed.inject(CoursesService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should load courses list', waitForAsync(() => {
-    service.getList().subscribe((courses: Course[]) => {
-      expect(courses.length).toBeGreaterThan(0);
-    })
+  it('should load courses page', waitForAsync(() => {
+    const mockStart = 0;
+    const mockCount = 5;
+    const mockSort = 'date';
+    const mockTextFragment = 'test';
+
+    const endpointURL = `${APIUrl}/courses?start=${mockStart}&count=${mockCount}&sort=${mockSort}&textFragment=${mockTextFragment}`;
+
+    service.getList().subscribe(response => expect(response).toEqual(mockCourses))
+    service.loadCoursesPage({ start: mockStart, count: mockCount, sort: mockSort, textFragment: mockTextFragment })
+
+    const coursesPageRequest = httpTestingController.expectOne(endpointURL);
+    expect(coursesPageRequest.request.method).toBe('GET');
+
+    coursesPageRequest.flush(mockCourses);
   }));
 
   it('should create course', waitForAsync(() => {
-    const [ mockCourse ] = mockCourses;
+    const [ mockCourseData ] = mockCourses;
+    const endpointURL = `${APIUrl}/courses`;
 
-    service.create(mockCourse).subscribe(() => {
-      expect(service.COURSES).toContain(mockCourse);
-    })
+    service.create(mockCourseData).subscribe();
+
+    const coursesCreateRequest = httpTestingController.expectOne(endpointURL);
+    expect(coursesCreateRequest.request.method).toBe('POST');
+    expect(coursesCreateRequest.request.body).toEqual(mockCourseData);
   }));
 
   it('should return course by ID', waitForAsync(() => {
     const testCourseId = 1;
-    const mockCourse = mockCourses.find(({ id }) => id === testCourseId)
+    const [ mockResponseCourse ] = mockCourses;
+    const endpointURL = `${APIUrl}/courses/${testCourseId}`;
 
-    service.COURSES = [ ...mockCourses ]
+    service.getById(testCourseId).subscribe(response => expect(response).toEqual(mockResponseCourse))
 
-    service.getById(testCourseId).subscribe(course => {
-      expect(course).toEqual(mockCourse);
-    })
+    const courseByIdRequest = httpTestingController.expectOne(endpointURL);
+    expect(courseByIdRequest.request.method).toBe('GET');
+
+    courseByIdRequest.flush(mockResponseCourse);
   }));
 
   it('should update course', waitForAsync(() => {
     const testCourseId = 2;
+    const [ mockRequestBodyCourse, mockResponseCourse ] = mockCourses;
+    const endpointURL = `${APIUrl}/courses/${testCourseId}`;
 
-    service.COURSES = [ ...mockCourses ]
+    service.update(testCourseId, mockRequestBodyCourse).subscribe(response => expect(response).toEqual(mockResponseCourse));
 
-    service.update(testCourseId, MOCK_COURSE_DATA).subscribe(() => {
-      const updatedCourse = service.COURSES.find(({ id }) => id === testCourseId)
-      expect(updatedCourse).toEqual({ id: testCourseId, ...MOCK_COURSE_DATA });
-    })
+    const courseUpdateRequest = httpTestingController.expectOne(endpointURL);
+    expect(courseUpdateRequest.request.method).toBe('PATCH');
+    expect(courseUpdateRequest.request.body).toEqual(mockRequestBodyCourse);
+
+    courseUpdateRequest.flush(mockResponseCourse);
   }));
 
   it('should delete course', waitForAsync(() => {
     const testCourseId = 1;
-    const mockCourse = mockCourses.find(({ id }) => id === testCourseId)
+    const endpointURL = `${APIUrl}/courses/${testCourseId}`;
 
-    service.COURSES = [ ...mockCourses ]
+    service.delete(testCourseId).subscribe();
 
-    service.delete(testCourseId).subscribe(() => {
-      expect(service.COURSES).not.toContain(mockCourse);
-    })
+    const courseDeleteRequest = httpTestingController.expectOne(endpointURL);
+    expect(courseDeleteRequest.request.method).toBe('DELETE');
   }));
 });

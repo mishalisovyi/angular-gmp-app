@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AppRoutePath } from '@app/enums';
-import { AuthService } from '@app/services';
+import { AuthService, mockAuthServiceProvider } from '@app/services';
 import { mockRouterProvider } from '@app/util/util-test';
 
 import { GuestGuard } from './guest.guard';
@@ -17,7 +17,10 @@ describe('GuestGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ mockRouterProvider ],
+      providers: [
+        mockRouterProvider,
+        mockAuthServiceProvider,
+      ],
     });
     guard = TestBed.inject(GuestGuard);
     router = TestBed.inject(Router);
@@ -29,7 +32,7 @@ describe('GuestGuard', () => {
   });
 
   it('should trigger navigation to courses in case if authorized', waitForAsync(() => {
-    authService.login({ username: 'test', password: 'test' })
+    authService.login({ login: 'test', password: 'test' })
       .pipe(switchMap(() => guard.canActivate() as Observable<boolean>))
       .subscribe(() => {
         expect(router.navigate).toHaveBeenCalledWith([ AppRoutePath.Courses ]);

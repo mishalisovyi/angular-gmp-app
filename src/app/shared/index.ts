@@ -6,5 +6,4 @@ export { MockDurationInputComponent } from './components/duration-input/duration
 export { MockSearchInputComponent } from './components/search-input/search-input.component.mock';
 
 export { OrderByPipe } from './pipes/order-by/order-by.pipe';
-export { SearchByPipe } from './pipes/search-by/search-by.pipe';
 export { TimeDurationPipe } from './pipes/time-duration/time-duration.pipe';
