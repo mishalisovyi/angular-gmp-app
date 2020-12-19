@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 
 import { LoginData } from '@app/interfaces/parameters';
 import { HttpResponseCode, LoginResponse } from '@app/interfaces/responses';
+import { APP_STORAGE } from '@app/services/storage/storage.service';
 
 export const LOCAL_STORAGE_USERNAME_KEY = 'angular_gmp_app_username';
 export const LOCAL_STORAGE_AUTH_TOKEN_KEY = 'angular_gmp_app_auth_token';
@@ -21,7 +22,7 @@ export class AuthService {
   private isAuthenticated$$: BehaviorSubject<boolean>;
   private userName$$: BehaviorSubject<string>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, @Inject(APP_STORAGE) private storage: Storage) {
     this.initAuthSubjects();
   }
 
@@ -34,7 +35,7 @@ export class AuthService {
   }
 
   get authToken(): string {
-    return localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY) || '';
+    return this.storage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY) || '';
   }
 
   login({ login, password }: LoginData) {
@@ -58,8 +59,8 @@ export class AuthService {
   }
 
   private setUserDataToLocalStorage(username: string, token: string) {
-    localStorage.setItem(LOCAL_STORAGE_USERNAME_KEY, username);
-    localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, token);
+    this.storage.setItem(LOCAL_STORAGE_USERNAME_KEY, username);
+    this.storage.setItem(LOCAL_STORAGE_AUTH_TOKEN_KEY, token);
   }
 
   private emitAuthData() {
@@ -68,16 +69,16 @@ export class AuthService {
   }
 
   private removeUserDataFromLocalStorage() {
-    localStorage.removeItem(LOCAL_STORAGE_USERNAME_KEY);
-    localStorage.removeItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
+    this.storage.removeItem(LOCAL_STORAGE_USERNAME_KEY);
+    this.storage.removeItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
   }
 
   private isLocalStorageContainsUserData(): boolean {
-    return !!localStorage.getItem(LOCAL_STORAGE_USERNAME_KEY) && !!localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
+    return !!this.storage.getItem(LOCAL_STORAGE_USERNAME_KEY) && !!this.storage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
   }
 
   private getUserNameFromLocalStorage(): string {
-    return localStorage.getItem(LOCAL_STORAGE_USERNAME_KEY);
+    return this.storage.getItem(LOCAL_STORAGE_USERNAME_KEY);
   }
 
   private emitIsAuthenticatedValue() {
