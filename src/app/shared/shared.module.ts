@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { DurationInputComponent, MessageComponent, OrderByPipe, SearchByPipe, SearchInputComponent, TimeDurationPipe } from '.';
+import { DurationInputComponent, MessageComponent, OrderByPipe, SearchInputComponent, TimeDurationPipe } from '.';
 
 @NgModule({
   imports: [
@@ -13,7 +13,6 @@ import { DurationInputComponent, MessageComponent, OrderByPipe, SearchByPipe, Se
   declarations: [
     TimeDurationPipe,
     OrderByPipe,
-    SearchByPipe,
     DurationInputComponent,
     SearchInputComponent,
     MessageComponent,
@@ -21,7 +20,6 @@ import { DurationInputComponent, MessageComponent, OrderByPipe, SearchByPipe, Se
   exports: [
     TimeDurationPipe,
     OrderByPipe,
-    SearchByPipe,
     DurationInputComponent,
     SearchInputComponent,
     MessageComponent,

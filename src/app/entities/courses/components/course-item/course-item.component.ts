@@ -26,8 +26,8 @@ export class CourseItemComponent {
     this.courseDeleted = new EventEmitter<number>();
   }
 
-  onCourseEditClick({ id: courseId, title: courseTitle }: Course) {
-    this.navigateToCourseEditPage(courseId, courseTitle);
+  onCourseEditClick({ id: courseId, name: courseName }: Course) {
+    this.navigateToCourseEditPage(courseId, courseName);
   }
 
   onCourseDeleteClick(courseId: number) {

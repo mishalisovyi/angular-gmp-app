@@ -45,6 +45,6 @@ describe('LoginFormComponent', () => {
     const authServiceLoginSpy = spyOn(authService, 'login').and.callThrough();
     component.onFormSubmit();
 
-    expect(authServiceLoginSpy).toHaveBeenCalledWith({ username: MOCK_EMAIL, password: MOCK_PASSWORD });
+    expect(authServiceLoginSpy).toHaveBeenCalledWith({ login: MOCK_EMAIL, password: MOCK_PASSWORD });
   });
 });

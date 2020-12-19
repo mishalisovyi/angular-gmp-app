@@ -1,22 +1,22 @@
 <ng-container *ngIf="course">
   <section
     class="course-item card"
-    [class.course-item--top-rated]="course.topRated"
-    appAvailabilityStatus [availabilityDate]="course.creationDate">
+    [class.course-item--top-rated]="course.isTopRated"
+    appAvailabilityStatus [availabilityDate]="course.date">
     <div class="course-item__header">
       <div class="course-item__main-info">
-        <h2 class="card__title">{{ course?.title | uppercase }}</h2>
-        <fa-icon *ngIf="course.topRated" class="course-item__icon icon--gold" [icon]="topRatedIcon"></fa-icon>
+        <h2 class="card__title">{{ course?.name | uppercase }}</h2>
+        <fa-icon *ngIf="course.isTopRated" class="course-item__icon icon--gold" [icon]="topRatedIcon"></fa-icon>
       </div>
 
       <div class="course-item__additional-info">
         <div class="course-item__duration">
           <fa-icon class="course-item__icon" [icon]="clockIcon"></fa-icon>
-          <span>{{ course?.duration | timeDuration }}</span>
+          <span>{{ course?.length | timeDuration }}</span>
         </div>
         <div class="course-item__creation-date">
           <fa-icon class="course-item__icon" [icon]="calendarIcon"></fa-icon>
-          <span>{{ course?.creationDate | date:'MM/dd/yy' }}</span>
+          <span>{{ course?.date | date:'MM/dd/yy' }}</span>
         </div>
       </div>
     </div>

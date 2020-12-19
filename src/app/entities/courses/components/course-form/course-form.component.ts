@@ -10,11 +10,11 @@ import { CoursesService } from '@app/services';
 import { getDatePartFromIsoDateString, getFormattedCurrentDate, isValueIntegerNumber, parseStringToIntegerNumber } from '@app/util/util';
 
 const INITIAL_COURSE_DATA = {
-  title: '',
+  name: '',
   description: '',
-  duration: 0,
-  creationDate: getFormattedCurrentDate(),
-  topRated: false,
+  length: 0,
+  date: getFormattedCurrentDate(),
+  isTopRated: false,
 }
 
 @Component({
@@ -74,7 +74,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   private setCourseData(courseData: CourseData) {
-    this.courseData = { ...courseData, creationDate: getDatePartFromIsoDateString(courseData.creationDate) };
+    this.courseData = { ...courseData, date: getDatePartFromIsoDateString(courseData.date) };
   }
 
   private getCourseById(id: number) {
@@ -82,7 +82,7 @@ export class CourseFormComponent implements OnInit {
       take(1),
       tap(
         course => this.setCourseData(course),
-        () => alert(ErrorMessage.CourseGet),
+        ({ error }) => alert(`${ErrorMessage.CourseGet}: ${error}`),
       ),
     ).subscribe();
   }
