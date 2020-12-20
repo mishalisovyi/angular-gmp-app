@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockCourseItemComponent, MockLoadMorePanelComponent } from '@app/entities/courses';
 import { ConfirmMessage } from '@app/enums';
 import { ConfirmService, CoursesService, mockConfirmServiceProvider, mockCoursesServiceProvider } from '@app/services';
-import { MockSearchInputComponent, OrderByPipe } from '@app/shared';
+import { OrderByPipe, SearchInputComponent } from '@app/shared';
 import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,7 +21,7 @@ describe('CoursesPageComponent', () => {
       imports: [ FontAwesomeModule ],
       declarations: [
         CoursesPageComponent,
-        MockSearchInputComponent,
+        SearchInputComponent,
         MockCourseItemComponent,
         MockLoadMorePanelComponent,
         OrderByPipe,
@@ -54,14 +54,6 @@ describe('CoursesPageComponent', () => {
     component.ngOnInit();
 
     expect(getCoursesSpy).toHaveBeenCalled();
-  });
-
-  it('should proper handle course search event', () => {
-    const onCourseSearchSpy = spyOn(component, 'onCourseSearch').and.callThrough();
-    const textForSearch = 'test'
-    getFixtureDebugElementBySelector(componentFixture, '#course-search-button').triggerEventHandler('click', textForSearch);
-
-    expect(onCourseSearchSpy).toHaveBeenCalledWith(textForSearch);
   });
 
   it('should proper handle course add event', () => {
