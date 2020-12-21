@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
@@ -6,7 +6,8 @@ import { catchError, filter, scan, switchMap, take, tap } from 'rxjs/operators';
 
 import { AppRoutePath, ConfirmMessage, ErrorMessage } from '@app/enums';
 import { Course } from '@app/interfaces/entities';
-import { ConfirmService, CoursesService, LoadingService } from '@app/services';
+import { ConfirmService, CoursesService, LoadingService, SubscriptionService } from '@app/services';
+import { SearchInputComponent } from '@app/shared';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +18,11 @@ export const PAGE_SIZE = 5;
   selector: 'app-courses-page',
   templateUrl: './courses-page.component.html',
   styleUrls: [ './courses-page.component.scss' ],
+  providers: [ SubscriptionService ],
 })
-export class CoursesPageComponent implements OnInit {
+export class CoursesPageComponent implements OnInit, AfterViewInit {
+  @ViewChild(SearchInputComponent) searchInputComponent: SearchInputComponent;
+
   isLoading$: Observable<boolean>;
   courses$: Observable<Course[]>;
   iconPlus: IconDefinition = faPlusCircle;
@@ -29,6 +33,7 @@ export class CoursesPageComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private subscriptionService: SubscriptionService,
     private coursesService: CoursesService,
     private loadingService: LoadingService,
     private confirmService: ConfirmService,
@@ -38,6 +43,10 @@ export class CoursesPageComponent implements OnInit {
 
   ngOnInit() {
     this.refreshCoursesList();
+  }
+
+  ngAfterViewInit() {
+    this.listenToSearchTermChangedEvent();
   }
 
   onCourseSearch(textFragment: string) {
@@ -72,6 +81,12 @@ export class CoursesPageComponent implements OnInit {
     this.resetPaginationParameters();
     this.getCourses();
     this.loadCoursesPage();
+  }
+
+  private listenToSearchTermChangedEvent() {
+    this.subscriptionService.register = this.searchInputComponent.searchTermChanged.pipe(
+      tap(searchTerm => this.onCourseSearch(searchTerm)),
+    ).subscribe();
   }
 
   private setTextFragment(textFragment: string) {

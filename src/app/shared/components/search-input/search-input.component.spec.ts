@@ -1,8 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { SearchInputComponent } from '@app/shared';
 import { getFixtureDebugElementBySelector } from '@app/util/util-test';
+
+const dispatchKeyupEvent = (element: HTMLInputElement, value: string) => {
+  element.value = value;
+  element.dispatchEvent(new Event('keyup'));
+}
 
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
@@ -26,15 +31,18 @@ describe('SearchInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit `search` event when click on `Search` button', () => {
-    const searchEmitSpy = spyOn(component.search, 'emit');
+  it('should emit search term value', waitForAsync(() => {
+    const searchInput = getFixtureDebugElementBySelector(fixture, '.form-group__control');
 
-    const mockSearchString = 'test';
-    component.searchString = mockSearchString;
+    const firstValue = 'a';
+    const secondValue = 'ab';
+    const utimateValue = 'abc';
 
-    const searchButton = getFixtureDebugElementBySelector(fixture, '.button.button--large.button--green')
-    searchButton.triggerEventHandler('click', null);
+    component.searchTermChanged.subscribe(value => expect(value).toBe(utimateValue));
+    component.ngAfterViewInit();
 
-    expect(searchEmitSpy).toHaveBeenCalledWith(mockSearchString);
-  });
+    dispatchKeyupEvent(searchInput.nativeElement, firstValue)
+    dispatchKeyupEvent(searchInput.nativeElement, secondValue)
+    dispatchKeyupEvent(searchInput.nativeElement, utimateValue)
+  }));
 });
