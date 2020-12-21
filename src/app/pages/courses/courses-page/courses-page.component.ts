@@ -1,12 +1,17 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
-import { catchError, filter, scan, switchMap, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { AppRoutePath, ConfirmMessage, ErrorMessage } from '@app/enums';
+import { Observable } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
+
+import { getCourses } from '@app/entities/courses/store';
+import { deleteCourse, loadCourses, loadCoursesPage } from '@app/entities/courses/store/actions/courses.actions';
+import { CoursesState } from '@app/entities/courses/store/reducers/courses.reducer';
+import { AppRoutePath, ConfirmMessage } from '@app/enums';
 import { Course } from '@app/interfaces/entities';
-import { ConfirmService, CoursesService, LoadingService, SubscriptionService } from '@app/services';
+import { ConfirmService, SubscriptionService } from '@app/services';
 import { SearchInputComponent } from '@app/shared';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -23,7 +28,6 @@ export const PAGE_SIZE = 5;
 export class CoursesPageComponent implements OnInit, AfterViewInit {
   @ViewChild(SearchInputComponent) searchInputComponent: SearchInputComponent;
 
-  isLoading$: Observable<boolean>;
   courses$: Observable<Course[]>;
   iconPlus: IconDefinition = faPlusCircle;
   coursesListNewPageStartIndex = 0;
@@ -33,41 +37,29 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private subscriptionService: SubscriptionService,
-    private coursesService: CoursesService,
-    private loadingService: LoadingService,
+    private store: Store<CoursesState>,
     private confirmService: ConfirmService,
-  ) {
-    this.isLoading$ = this.loadingService.loading$;
-  }
+    private subscriptionService: SubscriptionService,
+  ) { }
 
   ngOnInit() {
-    this.refreshCoursesList();
+    this.subscribeOnCoursesList();
+    this.getCoursesList();
   }
 
   ngAfterViewInit() {
     this.listenToSearchTermChangedEvent();
   }
 
-  onCourseSearch(textFragment: string) {
-    this.setTextFragment(textFragment);
-    this.refreshCoursesList();
-  }
-
   onCourseAddClick() {
     this.navigateToCourseAddPage();
   }
 
-  onCourseDelete(courseId: number) {
+  onCourseDelete(id: number) {
     this.confirmService.confirm(ConfirmMessage.DeleteCourse)
       .pipe(
         filter(confirm => confirm),
-        switchMap(() => this.coursesService.delete(courseId)),
-        tap(
-          () => this.refreshCoursesList(),
-          () => alert(ErrorMessage.CourseDelete),
-        ),
-        take(1),
+        tap(() => this.store.dispatch(deleteCourse({ id }))),
       )
       .subscribe();
   }
@@ -77,20 +69,22 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
     this.loadCoursesPage();
   }
 
-  private refreshCoursesList() {
-    this.resetPaginationParameters();
-    this.getCourses();
-    this.loadCoursesPage();
+  private subscribeOnCoursesList() {
+    this.courses$ = this.store.select(getCourses);
+  }
+
+  private getCoursesList() {
+    this.store.dispatch(loadCourses({
+      textFragment: this.textFragment,
+      count: PAGE_SIZE,
+      start: this.coursesListNewPageStartIndex,
+    }));
   }
 
   private listenToSearchTermChangedEvent() {
     this.subscriptionService.register = this.searchInputComponent.searchTermChanged.pipe(
       tap(searchTerm => this.onCourseSearch(searchTerm)),
     ).subscribe();
-  }
-
-  private setTextFragment(textFragment: string) {
-    this.textFragment = textFragment;
   }
 
   private navigateToCourseAddPage() {
@@ -102,25 +96,32 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   }
 
   private loadCoursesPage() {
-    this.coursesService.loadCoursesPage({
+    this.store.dispatch(loadCoursesPage({
       textFragment: this.textFragment,
       count: PAGE_SIZE,
       start: this.coursesListNewPageStartIndex,
-    })
+    }));
+  }
+
+  private onCourseSearch(textFragment: string) {
+    this.setTextFragment(textFragment);
+    this.resetPaginationParameters();
+    this.searchCourses();
+  }
+
+  private setTextFragment(textFragment: string) {
+    this.textFragment = textFragment;
   }
 
   private resetPaginationParameters() {
     this.coursesListNewPageStartIndex = 0;
   }
 
-  private getCourses() {
-    this.courses$ = this.coursesService.getList().pipe(
-      scan((coursesList, newCoursesPage) => [ ...coursesList, ...newCoursesPage ], []),
-      catchError(({ error }) => {
-        alert(`${ErrorMessage.CoursesGet}: ${error}`)
-
-        return of([]);
-      }),
-    );
+  private searchCourses() {
+    this.store.dispatch(loadCourses({
+      textFragment: this.textFragment,
+      count: PAGE_SIZE,
+      start: this.coursesListNewPageStartIndex,
+    }))
   }
 }

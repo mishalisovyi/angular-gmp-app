@@ -1,12 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { AppRoutePath, ErrorMessage } from '@app/enums';
+import { tap } from 'rxjs/operators';
+
+import { getCourseById } from '@app/entities/courses/store';
+import { CoursesState } from '@app/entities/courses/store/reducers/courses.reducer';
+import { AppRoutePath } from '@app/enums';
 import { CourseData } from '@app/interfaces/entities';
 import { CourseEditData } from '@app/interfaces/parameters';
-import { CoursesService } from '@app/services';
+import { SubscriptionService } from '@app/services';
 import { getDatePartFromIsoDateString, getFormattedCurrentDate, isValueIntegerNumber, parseStringToIntegerNumber } from '@app/util/util';
 
 const INITIAL_COURSE_DATA = {
@@ -21,6 +25,7 @@ const INITIAL_COURSE_DATA = {
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
   styleUrls: [ './course-form.component.scss' ],
+  providers: [ SubscriptionService ],
 })
 export class CourseFormComponent implements OnInit {
   courseData: CourseData = null;
@@ -29,7 +34,12 @@ export class CourseFormComponent implements OnInit {
   @Output() courseEdit = new EventEmitter<CourseEditData>();
   @Output() courseCreate = new EventEmitter<CourseData>();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private coursesService: CoursesService) { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private store: Store<CoursesState>,
+    private subscriptionService: SubscriptionService,
+  ) { }
 
   ngOnInit() {
     this.extractCourseIdFromRouteParams();
@@ -78,12 +88,8 @@ export class CourseFormComponent implements OnInit {
   }
 
   private getCourseById(id: number) {
-    this.coursesService.getById(id).pipe(
-      take(1),
-      tap(
-        course => this.setCourseData(course),
-        ({ error }) => alert(`${ErrorMessage.CourseGet}: ${error}`),
-      ),
-    ).subscribe();
+    this.subscriptionService.register = this.store.select(getCourseById, { courseId: id })
+      .pipe(tap(course => this.setCourseData(course)))
+      .subscribe();
   }
 }

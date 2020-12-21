@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { AppRoutePath, ErrorMessage } from '@app/enums';
+import { updateCourse } from '@app/entities/courses/store/actions/courses.actions';
+import { CoursesState } from '@app/entities/courses/store/reducers/courses.reducer';
 import { CourseEditData } from '@app/interfaces/parameters';
-import { CoursesService } from '@app/services';
 
 @Component({
   selector: 'app-course-edit-page',
@@ -13,19 +12,9 @@ import { CoursesService } from '@app/services';
   styleUrls: [ './course-edit-page.component.scss' ],
 })
 export class CourseEditPageComponent {
-  constructor(private router: Router, private coursesService: CoursesService) { }
+  constructor(private store: Store<CoursesState>) { }
 
   onCourseEdit({ courseId, courseData }: CourseEditData) {
-    this.coursesService.update(courseId, courseData).pipe(
-      take(1),
-      tap(
-        () => this.navigateToCoursesList(),
-        () => alert(ErrorMessage.CourseEdit),
-      ),
-    ).subscribe();
-  }
-
-  private navigateToCoursesList() {
-    this.router.navigate([ AppRoutePath.Courses ]);
+    this.store.dispatch(updateCourse({ courseId, courseData }));
   }
 }

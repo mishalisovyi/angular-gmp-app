@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { AppRoutePath, ErrorMessage } from '@app/enums';
-import { AuthService, SubscriptionService } from '@app/services';
+import { Observable } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
+
+import { AppRoutePath } from '@app/enums';
+import { SubscriptionService } from '@app/services';
+import { AuthState, getAuthenticationStatus, getUserName } from '@app/store/auth';
+import { logoutStart } from '@app/store/auth/actions/auth.actions';
 
 import { faSignInAlt, faSignOutAlt, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,30 +26,22 @@ export class UserPanelComponent implements OnInit {
 
   showUserPanel = false;
 
-  constructor(private router: Router, private authService: AuthService, private subscriptionService: SubscriptionService) { }
+  constructor(private router: Router, private store: Store<AuthState>, private subscriptionService: SubscriptionService) { }
 
   ngOnInit() {
     this.subscribeOnRouterEvents();
   }
 
   get isAuthenticated$(): Observable<boolean> {
-    return this.authService.isAuthenticated$;
+    return this.store.select(getAuthenticationStatus);
   }
 
   get userName$(): Observable<string> {
-    return this.authService.userName$;
+    return this.store.select(getUserName)
   }
 
   logout() {
-    this.authService.logout()
-      .pipe(
-        take(1),
-        tap(
-          () => this.navigateToLoginPage(),
-          () => alert(ErrorMessage.Logout),
-        ),
-      )
-      .subscribe();
+    this.store.dispatch(logoutStart());
   }
 
   private subscribeOnRouterEvents() {
@@ -55,10 +51,6 @@ export class UserPanelComponent implements OnInit {
         tap(({ url }: NavigationEnd) => this.checkIfShowUserPanel(url)),
       )
       .subscribe();
-  }
-
-  private navigateToLoginPage() {
-    this.router.navigate([ AppRoutePath.Login ]);
   }
 
   private checkIfShowUserPanel(url: string) {

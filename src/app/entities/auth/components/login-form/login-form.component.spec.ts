@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { AuthService, mockAuthServiceProvider } from '@app/services';
-import { mockRouterProvider } from '@app/util/util-test';
+import { loginStart } from '@app/store/auth/actions/auth.actions';
+import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { LoginFormComponent } from './login-form.component';
 
@@ -12,23 +12,18 @@ const MOCK_PASSWORD = 'abc123';
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
-  let authService: AuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
       declarations: [ LoginFormComponent ],
-      providers: [
-        mockAuthServiceProvider,
-        mockRouterProvider,
-      ],
+      providers: [ mockStoreProvider ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginFormComponent);
-    authService = TestBed.inject(AuthService);
 
     component = fixture.componentInstance;
     component.username = MOCK_EMAIL;
@@ -42,9 +37,8 @@ describe('LoginFormComponent', () => {
   });
 
   it('should properly handle logging in', () => {
-    const authServiceLoginSpy = spyOn(authService, 'login').and.callThrough();
     component.onFormSubmit();
 
-    expect(authServiceLoginSpy).toHaveBeenCalledWith({ login: MOCK_EMAIL, password: MOCK_PASSWORD });
+    expect(MockStore.dispatch).toHaveBeenCalledWith(loginStart({ login: component.username, password: component.password }));
   });
 });

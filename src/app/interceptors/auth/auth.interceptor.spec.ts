@@ -2,23 +2,19 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { environment } from '@env/environment';
 
-import { AuthService } from '@app/services/auth/auth.service';
 import { mockAuthServiceProvider } from '@app/services/auth/auth.service.mock';
 import { CoursesService } from '@app/services/courses/courses.service';
+import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { AuthInterceptor, AUTH_HEADER_KEY } from './auth.interceptor';
-
-const MOCK_LOGIN = 'login';
-const MOCK_PASSWORD = 'password';
 
 const { APIUrl } = environment;
 
 describe('AuthInterceptor', () => {
-  let authService: AuthService;
   let coursesService: CoursesService;
   let interceptor: AuthInterceptor;
   let httpTestingController: HttpTestingController;
@@ -29,6 +25,7 @@ describe('AuthInterceptor', () => {
       AuthInterceptor,
       CoursesService,
       mockAuthServiceProvider,
+      mockStoreProvider,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
@@ -38,10 +35,11 @@ describe('AuthInterceptor', () => {
   }));
 
   beforeEach(() => {
-    authService = TestBed.inject(AuthService);
     coursesService = TestBed.inject(CoursesService);
     interceptor = TestBed.inject(AuthInterceptor)
     httpTestingController = TestBed.inject(HttpTestingController);
+
+    MockStore.select.and.returnValue(of('mock auth token'))
   });
 
   afterEach(() => {
@@ -56,9 +54,7 @@ describe('AuthInterceptor', () => {
     const testCourseId = 1;
     const endpointURL = `${APIUrl}/courses/${testCourseId}`;
 
-    authService.login({ login: MOCK_LOGIN, password: MOCK_PASSWORD })
-      .pipe(switchMap(() => coursesService.getById(testCourseId)))
-      .subscribe();
+    coursesService.delete(testCourseId).subscribe();
 
     const courseByIdRequest = httpTestingController.expectOne(endpointURL);
     expect(courseByIdRequest.request.headers.has(AUTH_HEADER_KEY)).toBeTrue();

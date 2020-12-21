@@ -1,19 +1,22 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { LoadingService } from '@app/services/loading/loading.service';
+import { LoadingState } from '@app/store/loading';
+import { startLoading, stopLoading } from '@app/store/loading/actions/loading.actions';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
 
-  constructor(private loadingService: LoadingService) {}
+  constructor(private store: Store<LoadingState>) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.loadingService.startLoading();
+    this.store.dispatch(startLoading())
 
-    return next.handle(request).pipe(finalize(() => this.loadingService.stopLoading()));
+    return next.handle(request).pipe(finalize(() => this.store.dispatch(stopLoading())));
   }
 }

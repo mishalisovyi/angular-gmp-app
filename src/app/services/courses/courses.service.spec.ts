@@ -36,8 +36,9 @@ describe('CoursesService', () => {
 
     const endpointURL = `${APIUrl}/courses?start=${mockStart}&count=${mockCount}&sort=${mockSort}&textFragment=${mockTextFragment}`;
 
-    service.getList().subscribe(response => expect(response).toEqual(mockCourses))
-    service.loadCoursesPage({ start: mockStart, count: mockCount, sort: mockSort, textFragment: mockTextFragment })
+    service.loadCoursesPage({ start: mockStart, count: mockCount, sort: mockSort, textFragment: mockTextFragment }).subscribe(
+      response => expect(response).toEqual(mockCourses),
+    )
 
     const coursesPageRequest = httpTestingController.expectOne(endpointURL);
     expect(coursesPageRequest.request.method).toBe('GET');
@@ -54,19 +55,6 @@ describe('CoursesService', () => {
     const coursesCreateRequest = httpTestingController.expectOne(endpointURL);
     expect(coursesCreateRequest.request.method).toBe('POST');
     expect(coursesCreateRequest.request.body).toEqual(mockCourseData);
-  }));
-
-  it('should return course by ID', waitForAsync(() => {
-    const testCourseId = 1;
-    const [ mockResponseCourse ] = mockCourses;
-    const endpointURL = `${APIUrl}/courses/${testCourseId}`;
-
-    service.getById(testCourseId).subscribe(response => expect(response).toEqual(mockResponseCourse))
-
-    const courseByIdRequest = httpTestingController.expectOne(endpointURL);
-    expect(courseByIdRequest.request.method).toBe('GET');
-
-    courseByIdRequest.flush(mockResponseCourse);
   }));
 
   it('should update course', waitForAsync(() => {

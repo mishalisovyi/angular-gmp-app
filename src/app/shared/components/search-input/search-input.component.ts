@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
@@ -12,8 +12,6 @@ import { SubscriptionService } from '@app/services';
   providers: [ SubscriptionService ],
 })
 export class SearchInputComponent implements AfterViewInit {
-  @Output() search = new EventEmitter<string>()
-
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>
 
   private searchTerm$$ = new Subject<string>();
@@ -37,5 +35,4 @@ export class SearchInputComponent implements AfterViewInit {
       tap(value => this.searchTerm$$.next(value)),
     ).subscribe()
   }
-
 }

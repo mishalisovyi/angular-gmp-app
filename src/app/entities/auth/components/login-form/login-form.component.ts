@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { of } from 'rxjs';
-import { catchError, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { AppRoutePath, ErrorMessage } from '@app/enums';
-import { AuthService } from '@app/services';
+import { loginStart } from '@app/store/auth/actions/auth.actions';
+import { LoadingState } from '@app/store/loading';
 
 @Component({
   selector: 'app-login-form',
@@ -16,27 +14,13 @@ export class LoginFormComponent {
   username: string;
   password: string;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private store: Store<LoadingState>) { }
 
   onFormSubmit() {
     this.login();
   }
 
   private login() {
-    this.authService.login({ login: this.username, password: this.password })
-      .pipe(
-        take(1),
-        tap(() => this.navigateToCoursesPage()),
-        catchError(error => {
-          alert(`${ErrorMessage.Login}: ${error}`);
-
-          return of({});
-        }),
-      )
-      .subscribe();
-  }
-
-  private navigateToCoursesPage() {
-    this.router.navigate([ AppRoutePath.Courses ]);
+    this.store.dispatch(loginStart({ login: this.username, password: this.password }))
   }
 }

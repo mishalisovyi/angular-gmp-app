@@ -1,35 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockCourseFormComponent } from '@app/entities/courses';
-import { CoursesService, mockCourses, mockCoursesServiceProvider } from '@app/services';
-import { mockRouterProvider } from '@app/util/util-test';
+import { createCourse } from '@app/entities/courses/store/actions/courses.actions';
+import { mockCourses } from '@app/services';
+import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { CourseAddPageComponent } from './course-add-page.component';
 
 describe('CourseAddPageComponent', () => {
   let component: CourseAddPageComponent;
   let fixture: ComponentFixture<CourseAddPageComponent>;
-  let coursesService: CoursesService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
       declarations: [
         MockCourseFormComponent,
         CourseAddPageComponent,
       ],
-      providers: [
-        mockCoursesServiceProvider,
-        mockRouterProvider,
-      ],
+      providers: [ mockStoreProvider ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseAddPageComponent);
-    coursesService = TestBed.inject(CoursesService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -39,11 +33,10 @@ describe('CourseAddPageComponent', () => {
   });
 
   it('should handle course creation', () => {
-    const coursesServiceCreateSpy = spyOn(coursesService, 'create').and.callThrough();
     const [ mockCourseData ] = mockCourses;
 
     component.onCourseCreate(mockCourseData);
 
-    expect(coursesServiceCreateSpy).toHaveBeenCalled();
+    expect(MockStore.dispatch).toHaveBeenCalledWith(createCourse(mockCourseData));
   });
 });

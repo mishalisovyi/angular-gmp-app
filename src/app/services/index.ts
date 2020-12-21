@@ -2,7 +2,6 @@ export { AuthService } from './auth/auth.service';
 export { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 export { ConfirmService } from './confirm/confirm.service';
 export { CoursesService } from './courses/courses.service';
-export { LoadingService } from './loading/loading.service';
 export { SubscriptionService } from './subscription/subscription.service';
 
 export { mockAuthServiceProvider } from './auth/auth.service.mock';

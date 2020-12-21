@@ -2,6 +2,8 @@ import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
 import { BehaviorSubject, of } from 'rxjs';
 
 const routerNavigationEndSubject = new BehaviorSubject(new NavigationEnd(1, 'test', 'test'));
@@ -28,6 +30,11 @@ const mockActivatedRoute = {
   }),
 }
 
+export const MockStore = {
+  select: jasmine.createSpy(),
+  dispatch: jasmine.createSpy(),
+}
+
 export const getFixtureDebugElementBySelector = (fixture: ComponentFixture<any>, cssSelector: string) => {
   return fixture.debugElement.query(By.css(cssSelector));
 }
@@ -39,3 +46,5 @@ export const getFixtureDebugElementsArrayBySelector = (fixture: ComponentFixture
 export const mockRouterProvider = { provide: Router, useValue: mockRouter() }
 
 export const mockActivatedRouteProvider = { provide: ActivatedRoute, useValue: mockActivatedRoute }
+
+export const mockStoreProvider = { provide: Store, useValue: MockStore }
