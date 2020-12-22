@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
-import { catchError, filter, scan, switchMap, take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 
-import { AppRoutePath, ConfirmMessage, ErrorMessage } from '@app/enums';
+import { AppRoutePath, ConfirmMessage } from '@app/enums';
 import { Course } from '@app/interfaces/entities';
-import { ConfirmService, CoursesService, LoadingService, SubscriptionService } from '@app/services';
+import { ConfirmService, CoursesFacade, SubscriptionService } from '@app/services';
 import { SearchInputComponent } from '@app/shared';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -23,7 +23,6 @@ export const PAGE_SIZE = 5;
 export class CoursesPageComponent implements OnInit, AfterViewInit {
   @ViewChild(SearchInputComponent) searchInputComponent: SearchInputComponent;
 
-  isLoading$: Observable<boolean>;
   courses$: Observable<Course[]>;
   iconPlus: IconDefinition = faPlusCircle;
   coursesListNewPageStartIndex = 0;
@@ -33,41 +32,29 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private subscriptionService: SubscriptionService,
-    private coursesService: CoursesService,
-    private loadingService: LoadingService,
+    private coursesFacade: CoursesFacade,
     private confirmService: ConfirmService,
-  ) {
-    this.isLoading$ = this.loadingService.loading$;
-  }
+    private subscriptionService: SubscriptionService,
+  ) { }
 
   ngOnInit() {
-    this.refreshCoursesList();
+    this.subscribeOnCoursesList();
+    this.getCoursesList();
   }
 
   ngAfterViewInit() {
     this.listenToSearchTermChangedEvent();
   }
 
-  onCourseSearch(textFragment: string) {
-    this.setTextFragment(textFragment);
-    this.refreshCoursesList();
-  }
-
   onCourseAddClick() {
     this.navigateToCourseAddPage();
   }
 
-  onCourseDelete(courseId: number) {
+  onCourseDelete(id: number) {
     this.confirmService.confirm(ConfirmMessage.DeleteCourse)
       .pipe(
         filter(confirm => confirm),
-        switchMap(() => this.coursesService.delete(courseId)),
-        tap(
-          () => this.refreshCoursesList(),
-          () => alert(ErrorMessage.CourseDelete),
-        ),
-        take(1),
+        tap(() => this.coursesFacade.deleteCourse(id)),
       )
       .subscribe();
   }
@@ -77,20 +64,22 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
     this.loadCoursesPage();
   }
 
-  private refreshCoursesList() {
-    this.resetPaginationParameters();
-    this.getCourses();
-    this.loadCoursesPage();
+  private subscribeOnCoursesList() {
+    this.courses$ = this.coursesFacade.courses$;
+  }
+
+  private getCoursesList() {
+    this.coursesFacade.loadCourses({
+      textFragment: this.textFragment,
+      count: PAGE_SIZE,
+      start: this.coursesListNewPageStartIndex,
+    });
   }
 
   private listenToSearchTermChangedEvent() {
     this.subscriptionService.register = this.searchInputComponent.searchTermChanged.pipe(
       tap(searchTerm => this.onCourseSearch(searchTerm)),
     ).subscribe();
-  }
-
-  private setTextFragment(textFragment: string) {
-    this.textFragment = textFragment;
   }
 
   private navigateToCourseAddPage() {
@@ -102,25 +91,24 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   }
 
   private loadCoursesPage() {
-    this.coursesService.loadCoursesPage({
+    this.coursesFacade.loadCoursesPage({
       textFragment: this.textFragment,
       count: PAGE_SIZE,
       start: this.coursesListNewPageStartIndex,
-    })
+    });
+  }
+
+  private onCourseSearch(textFragment: string) {
+    this.setTextFragment(textFragment);
+    this.resetPaginationParameters();
+    this.getCoursesList();
+  }
+
+  private setTextFragment(textFragment: string) {
+    this.textFragment = textFragment;
   }
 
   private resetPaginationParameters() {
     this.coursesListNewPageStartIndex = 0;
-  }
-
-  private getCourses() {
-    this.courses$ = this.coursesService.getList().pipe(
-      scan((coursesList, newCoursesPage) => [ ...coursesList, ...newCoursesPage ], []),
-      catchError(({ error }) => {
-        alert(`${ErrorMessage.CoursesGet}: ${error}`)
-
-        return of([]);
-      }),
-    );
   }
 }

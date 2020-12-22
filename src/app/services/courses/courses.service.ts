@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 
@@ -30,18 +29,11 @@ export class CoursesService {
       .set('sort', sort)
       .set('textFragment', textFragment);
 
-    this.http.get<Course[]>(`${APIUrl}/courses`, { params }).pipe(
-      take(1),
-      tap(courses => this.courses$$.next(courses)),
-    ).subscribe();
+    return this.http.get<Course[]>(`${APIUrl}/courses`, { params })
   }
 
   create(courseData: CourseData) {
     return this.http.post<Course[]>(`${APIUrl}/courses`, courseData)
-  }
-
-  getById(courseId: number) {
-    return this.http.get<Course>(`${APIUrl}/courses/${courseId}`)
   }
 
   update(courseId: number, newCourseData: CourseData) {

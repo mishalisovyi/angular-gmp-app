@@ -15,10 +15,6 @@ class MockAuthService {
     return of({});
   }
 
-  get isAuthenticated$() {
-    return of(true);
-  }
-
   get authToken(): string {
     return localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY) || '';
   }

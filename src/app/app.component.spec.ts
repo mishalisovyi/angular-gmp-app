@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
-import { MockBreadcrumbsComponent, MockFooterComponent, MockHeaderComponent, SpinnerComponent } from './core';
+import { MockBreadcrumbsComponent, MockFooterComponent, MockHeaderComponent, SpinnerComponent, SpinnerImageComponent } from './core';
+import { mockStoreProvider } from './util/util-test';
 
 describe('AppComponent', () => {
   let componentFixture: ComponentFixture<AppComponent>;
@@ -16,7 +17,9 @@ describe('AppComponent', () => {
         MockFooterComponent,
         MockHeaderComponent,
         SpinnerComponent,
+        SpinnerImageComponent,
       ],
+      providers: [ mockStoreProvider ],
     }).compileComponents();
   });
 

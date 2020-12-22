@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { LoadingService } from '@app/services';
+import { LoadingFacade } from '@app/services';
 
 @Component({
   selector: 'app-spinner',
@@ -12,7 +12,7 @@ import { LoadingService } from '@app/services';
 export class SpinnerComponent {
   isLoading$: Observable<boolean>
 
-  constructor(private loadingService: LoadingService) {
-    this.isLoading$ = this.loadingService.loading$;
+  constructor(private loadingFacade: LoadingFacade) {
+    this.isLoading$ = this.loadingFacade.isLoading$;
   }
 }

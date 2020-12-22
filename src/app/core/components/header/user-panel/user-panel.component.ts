@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
-import { AppRoutePath, ErrorMessage } from '@app/enums';
-import { AuthService, SubscriptionService } from '@app/services';
+import { AppRoutePath } from '@app/enums';
+import { AuthFacade, SubscriptionService } from '@app/services';
 
 import { faSignInAlt, faSignOutAlt, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,30 +22,22 @@ export class UserPanelComponent implements OnInit {
 
   showUserPanel = false;
 
-  constructor(private router: Router, private authService: AuthService, private subscriptionService: SubscriptionService) { }
+  constructor(private router: Router, private subscriptionService: SubscriptionService, private authFacade: AuthFacade) { }
 
   ngOnInit() {
     this.subscribeOnRouterEvents();
   }
 
   get isAuthenticated$(): Observable<boolean> {
-    return this.authService.isAuthenticated$;
+    return this.authFacade.isAuthenticated$;
   }
 
   get userName$(): Observable<string> {
-    return this.authService.userName$;
+    return this.authFacade.userName$;
   }
 
   logout() {
-    this.authService.logout()
-      .pipe(
-        take(1),
-        tap(
-          () => this.navigateToLoginPage(),
-          () => alert(ErrorMessage.Logout),
-        ),
-      )
-      .subscribe();
+    this.authFacade.logout();
   }
 
   private subscribeOnRouterEvents() {
@@ -55,10 +47,6 @@ export class UserPanelComponent implements OnInit {
         tap(({ url }: NavigationEnd) => this.checkIfShowUserPanel(url)),
       )
       .subscribe();
-  }
-
-  private navigateToLoginPage() {
-    this.router.navigate([ AppRoutePath.Login ]);
   }
 
   private checkIfShowUserPanel(url: string) {

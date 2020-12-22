@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockCourseItemComponent, MockLoadMorePanelComponent } from '@app/entities/courses';
+import { requestGetCourses, requestGetCoursesPage } from '@app/entities/courses/store/actions/courses.actions';
 import { ConfirmMessage } from '@app/enums';
-import { ConfirmService, CoursesService, mockConfirmServiceProvider, mockCoursesServiceProvider } from '@app/services';
+import { ConfirmService, mockConfirmServiceProvider } from '@app/services';
 import { OrderByPipe, SearchInputComponent } from '@app/shared';
-import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider } from '@app/util/util-test';
+import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -13,7 +14,6 @@ import { CoursesPageComponent, PAGE_SIZE } from './courses-page.component';
 describe('CoursesPageComponent', () => {
   let component: CoursesPageComponent;
   let componentFixture: ComponentFixture<CoursesPageComponent>;
-  let coursesService: CoursesService;
   let confirmService: ConfirmService;
 
   beforeEach(async () => {
@@ -27,17 +27,16 @@ describe('CoursesPageComponent', () => {
         OrderByPipe,
       ],
       providers: [
-        mockCoursesServiceProvider,
         mockConfirmServiceProvider,
         mockActivatedRouteProvider,
         mockRouterProvider,
+        mockStoreProvider,
       ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    coursesService = TestBed.inject(CoursesService);
     confirmService = TestBed.inject(ConfirmService);
 
     componentFixture = TestBed.createComponent(CoursesPageComponent);
@@ -49,11 +48,15 @@ describe('CoursesPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call method from service for courses loading', () => {
-    const getCoursesSpy = spyOn(coursesService, 'getList').and.callThrough();
+  it('should dispatch load courses action', () => {
     component.ngOnInit();
 
-    expect(getCoursesSpy).toHaveBeenCalled();
+    expect(MockStore.dispatch).toHaveBeenCalledWith(
+      requestGetCourses({
+        textFragment: component.textFragment,
+        count: PAGE_SIZE,
+        start: component.coursesListNewPageStartIndex,
+      }));
   });
 
   it('should proper handle course add event', () => {
@@ -71,15 +74,14 @@ describe('CoursesPageComponent', () => {
   });
 
   it('should proper handle course load more event', () => {
-    const loadCoursesPageSpy = spyOn(coursesService, 'loadCoursesPage').and.callThrough();
-
     component.onLoadMore();
 
     expect(component.coursesListNewPageStartIndex).toBe(PAGE_SIZE);
-    expect(loadCoursesPageSpy).toHaveBeenCalledWith({
-      textFragment: component.textFragment,
-      count: PAGE_SIZE,
-      start: component.coursesListNewPageStartIndex,
-    })
+    expect(MockStore.dispatch).toHaveBeenCalledWith(
+      requestGetCoursesPage({
+        textFragment: component.textFragment,
+        count: PAGE_SIZE,
+        start: component.coursesListNewPageStartIndex,
+      }))
   });
 });

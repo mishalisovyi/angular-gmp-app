@@ -49,8 +49,7 @@ describe('AuthService', () => {
   it('should properly handle logout', waitForAsync(() => {
     const localStorageRemoveItemSpy = spyOn(localStorage, 'removeItem');
 
-    service.logout().subscribe(() => {
-      expect(localStorageRemoveItemSpy).toHaveBeenCalledTimes(2);
-    })
+    service.logout()
+    expect(localStorageRemoveItemSpy).toHaveBeenCalledTimes(2);
   }));
 });

@@ -4,16 +4,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { LoadingService } from '@app/services/loading/loading.service';
+import { LoadingFacade } from '@app/services';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
 
-  constructor(private loadingService: LoadingService) {}
+  constructor(private loadingFacade: LoadingFacade) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.loadingService.startLoading();
+    this.loadingFacade.startLoading();
 
-    return next.handle(request).pipe(finalize(() => this.loadingService.stopLoading()));
+    return next.handle(request).pipe(finalize(() => this.loadingFacade.stopLoading()));
   }
 }

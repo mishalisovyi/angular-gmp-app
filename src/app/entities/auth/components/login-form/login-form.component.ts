@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { of } from 'rxjs';
-import { catchError, take, tap } from 'rxjs/operators';
-
-import { AppRoutePath, ErrorMessage } from '@app/enums';
-import { AuthService } from '@app/services';
+import { AuthFacade } from '@app/services';
 
 @Component({
   selector: 'app-login-form',
@@ -16,27 +11,13 @@ export class LoginFormComponent {
   username: string;
   password: string;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private authFacade: AuthFacade) { }
 
   onFormSubmit() {
     this.login();
   }
 
   private login() {
-    this.authService.login({ login: this.username, password: this.password })
-      .pipe(
-        take(1),
-        tap(() => this.navigateToCoursesPage()),
-        catchError(error => {
-          alert(`${ErrorMessage.Login}: ${error}`);
-
-          return of({});
-        }),
-      )
-      .subscribe();
-  }
-
-  private navigateToCoursesPage() {
-    this.router.navigate([ AppRoutePath.Courses ]);
+    this.authFacade.login({ login: this.username, password: this.password });
   }
 }
