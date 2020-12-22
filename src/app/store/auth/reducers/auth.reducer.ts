@@ -5,13 +5,11 @@ import * as AuthActions from '@app/store/auth/actions/auth.actions';
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  isAuthenticated: boolean,
   userName: string,
   authToken: string,
 }
 
 export const initialState: AuthState = {
-  isAuthenticated: false,
   userName: '',
   authToken: '',
 };
@@ -24,6 +22,6 @@ export const authReducer = createReducer(
   on(AuthActions.setAuthData, handleSetAuthData),
 );
 
-export const selectAuthenticationStatus = ({ isAuthenticated }: AuthState) => isAuthenticated;
+export const selectAuthenticationStatus = ({ authToken }: AuthState) => !!authToken;
 export const selectUserName = ({ userName }: AuthState) => userName;
 export const selectAuthToken = ({ authToken }: AuthState) => authToken;

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
 
-import { getLoadingStatus, LoadingState } from '@app/store/loading';
+import { LoadingFacade } from '@app/services';
 
 @Component({
   selector: 'app-spinner',
@@ -14,7 +12,7 @@ import { getLoadingStatus, LoadingState } from '@app/store/loading';
 export class SpinnerComponent {
   isLoading$: Observable<boolean>
 
-  constructor(private store: Store<LoadingState>) {
-    this.isLoading$ = this.store.select(getLoadingStatus);
+  constructor(private loadingFacade: LoadingFacade) {
+    this.isLoading$ = this.loadingFacade.isLoading$;
   }
 }

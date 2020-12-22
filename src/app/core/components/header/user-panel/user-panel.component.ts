@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
 import { AppRoutePath } from '@app/enums';
-import { SubscriptionService } from '@app/services';
-import { AuthState, getAuthenticationStatus, getUserName } from '@app/store/auth';
-import { logoutStart } from '@app/store/auth/actions/auth.actions';
+import { AuthFacade, SubscriptionService } from '@app/services';
 
 import { faSignInAlt, faSignOutAlt, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
@@ -26,22 +22,22 @@ export class UserPanelComponent implements OnInit {
 
   showUserPanel = false;
 
-  constructor(private router: Router, private store: Store<AuthState>, private subscriptionService: SubscriptionService) { }
+  constructor(private router: Router, private subscriptionService: SubscriptionService, private authFacade: AuthFacade) { }
 
   ngOnInit() {
     this.subscribeOnRouterEvents();
   }
 
   get isAuthenticated$(): Observable<boolean> {
-    return this.store.select(getAuthenticationStatus);
+    return this.authFacade.isAuthenticated$;
   }
 
   get userName$(): Observable<string> {
-    return this.store.select(getUserName)
+    return this.authFacade.userName$;
   }
 
   logout() {
-    this.store.dispatch(logoutStart());
+    this.authFacade.logout();
   }
 
   private subscribeOnRouterEvents() {

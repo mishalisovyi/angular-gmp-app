@@ -2,13 +2,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { of } from 'rxjs';
-
 import { environment } from '@env/environment';
 
+import { mockAuthFacadeProviderForUser } from '@app/services';
 import { mockAuthServiceProvider } from '@app/services/auth/auth.service.mock';
 import { CoursesService } from '@app/services/courses/courses.service';
-import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { AuthInterceptor, AUTH_HEADER_KEY } from './auth.interceptor';
 
@@ -25,7 +23,7 @@ describe('AuthInterceptor', () => {
       AuthInterceptor,
       CoursesService,
       mockAuthServiceProvider,
-      mockStoreProvider,
+      mockAuthFacadeProviderForUser,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
@@ -38,8 +36,6 @@ describe('AuthInterceptor', () => {
     coursesService = TestBed.inject(CoursesService);
     interceptor = TestBed.inject(AuthInterceptor)
     httpTestingController = TestBed.inject(HttpTestingController);
-
-    MockStore.select.and.returnValue(of('mock auth token'))
   });
 
   afterEach(() => {

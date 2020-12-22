@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockCourseItemComponent, MockLoadMorePanelComponent } from '@app/entities/courses';
-import { loadCourses, loadCoursesPage } from '@app/entities/courses/store/actions/courses.actions';
+import { requestGetCourses, requestGetCoursesPage } from '@app/entities/courses/store/actions/courses.actions';
 import { ConfirmMessage } from '@app/enums';
 import { ConfirmService, mockConfirmServiceProvider } from '@app/services';
 import { OrderByPipe, SearchInputComponent } from '@app/shared';
@@ -52,7 +52,7 @@ describe('CoursesPageComponent', () => {
     component.ngOnInit();
 
     expect(MockStore.dispatch).toHaveBeenCalledWith(
-      loadCourses({
+      requestGetCourses({
         textFragment: component.textFragment,
         count: PAGE_SIZE,
         start: component.coursesListNewPageStartIndex,
@@ -78,7 +78,7 @@ describe('CoursesPageComponent', () => {
 
     expect(component.coursesListNewPageStartIndex).toBe(PAGE_SIZE);
     expect(MockStore.dispatch).toHaveBeenCalledWith(
-      loadCoursesPage({
+      requestGetCoursesPage({
         textFragment: component.textFragment,
         count: PAGE_SIZE,
         start: component.coursesListNewPageStartIndex,

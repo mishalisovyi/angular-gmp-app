@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockCourseFormComponent } from '@app/entities/courses';
-import { createCourse } from '@app/entities/courses/store/actions/courses.actions';
+import { requestCreateCourse } from '@app/entities/courses/store/actions/courses.actions';
 import { mockCourses } from '@app/services';
 import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
@@ -37,6 +37,6 @@ describe('CourseAddPageComponent', () => {
 
     component.onCourseCreate(mockCourseData);
 
-    expect(MockStore.dispatch).toHaveBeenCalledWith(createCourse(mockCourseData));
+    expect(MockStore.dispatch).toHaveBeenCalledWith(requestCreateCourse(mockCourseData));
   });
 });

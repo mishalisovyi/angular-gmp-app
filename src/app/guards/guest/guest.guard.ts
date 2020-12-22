@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 
-import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { AppRoutePath } from '@app/enums';
-import { AuthState, getAuthenticationStatus } from '@app/store/auth';
+import { AuthFacade } from '@app/services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GuestGuard implements CanActivate {
-  constructor(private router: Router, private store: Store<AuthState>) { }
+  constructor(private router: Router, private authFacade: AuthFacade) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.store.select(getAuthenticationStatus).pipe(
+    return this.authFacade.isAuthenticated$.pipe(
       tap(isAuthenticated => {
         if (isAuthenticated) {
           this.router.navigate([ AppRoutePath.Courses ]);

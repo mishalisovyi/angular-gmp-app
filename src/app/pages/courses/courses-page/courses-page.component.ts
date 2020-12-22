@@ -1,17 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
-import { getCourses } from '@app/entities/courses/store';
-import { deleteCourse, loadCourses, loadCoursesPage } from '@app/entities/courses/store/actions/courses.actions';
-import { CoursesState } from '@app/entities/courses/store/reducers/courses.reducer';
 import { AppRoutePath, ConfirmMessage } from '@app/enums';
 import { Course } from '@app/interfaces/entities';
-import { ConfirmService, SubscriptionService } from '@app/services';
+import { ConfirmService, CoursesFacade, SubscriptionService } from '@app/services';
 import { SearchInputComponent } from '@app/shared';
 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -37,7 +32,7 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private store: Store<CoursesState>,
+    private coursesFacade: CoursesFacade,
     private confirmService: ConfirmService,
     private subscriptionService: SubscriptionService,
   ) { }
@@ -59,7 +54,7 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
     this.confirmService.confirm(ConfirmMessage.DeleteCourse)
       .pipe(
         filter(confirm => confirm),
-        tap(() => this.store.dispatch(deleteCourse({ id }))),
+        tap(() => this.coursesFacade.deleteCourse(id)),
       )
       .subscribe();
   }
@@ -70,15 +65,15 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   }
 
   private subscribeOnCoursesList() {
-    this.courses$ = this.store.select(getCourses);
+    this.courses$ = this.coursesFacade.courses$;
   }
 
   private getCoursesList() {
-    this.store.dispatch(loadCourses({
+    this.coursesFacade.loadCourses({
       textFragment: this.textFragment,
       count: PAGE_SIZE,
       start: this.coursesListNewPageStartIndex,
-    }));
+    });
   }
 
   private listenToSearchTermChangedEvent() {
@@ -96,17 +91,17 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
   }
 
   private loadCoursesPage() {
-    this.store.dispatch(loadCoursesPage({
+    this.coursesFacade.loadCoursesPage({
       textFragment: this.textFragment,
       count: PAGE_SIZE,
       start: this.coursesListNewPageStartIndex,
-    }));
+    });
   }
 
   private onCourseSearch(textFragment: string) {
     this.setTextFragment(textFragment);
     this.resetPaginationParameters();
-    this.searchCourses();
+    this.getCoursesList();
   }
 
   private setTextFragment(textFragment: string) {
@@ -115,13 +110,5 @@ export class CoursesPageComponent implements OnInit, AfterViewInit {
 
   private resetPaginationParameters() {
     this.coursesListNewPageStartIndex = 0;
-  }
-
-  private searchCourses() {
-    this.store.dispatch(loadCourses({
-      textFragment: this.textFragment,
-      count: PAGE_SIZE,
-      start: this.coursesListNewPageStartIndex,
-    }))
   }
 }

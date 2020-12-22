@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
-import { loginStart } from '@app/store/auth/actions/auth.actions';
-import { LoadingState } from '@app/store/loading';
+import { AuthFacade } from '@app/services';
 
 @Component({
   selector: 'app-login-form',
@@ -14,13 +11,13 @@ export class LoginFormComponent {
   username: string;
   password: string;
 
-  constructor(private store: Store<LoadingState>) { }
+  constructor(private authFacade: AuthFacade) { }
 
   onFormSubmit() {
     this.login();
   }
 
   private login() {
-    this.store.dispatch(loginStart({ login: this.username, password: this.password }))
+    this.authFacade.login({ login: this.username, password: this.password });
   }
 }

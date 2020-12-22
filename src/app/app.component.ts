@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
-import { AuthState } from '@app/store/auth';
-import { retrieveInitialAuthData } from '@app/store/auth/actions/auth.actions';
+import { AuthFacade } from './services';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +8,9 @@ import { retrieveInitialAuthData } from '@app/store/auth/actions/auth.actions';
   styleUrls: [ './app.component.scss' ],
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store<AuthState>) {}
+  constructor(private authFacade: AuthFacade) {}
 
   ngOnInit() {
-    this.store.dispatch(retrieveInitialAuthData())
+    this.authFacade.retrieveInitialAuthData();
   }
 }

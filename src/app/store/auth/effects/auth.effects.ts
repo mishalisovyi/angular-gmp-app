@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { AppRoutePath, ErrorMessage } from '@app/enums';
 import { AuthService } from '@app/services';
-import { loginStart, logoutStart, retrieveInitialAuthData, setAuthData } from '@app/store/auth/actions/auth.actions';
+import { loginFailure, loginSuccess, logout, requestLogin, retrieveInitialAuthData, setAuthData } from '@app/store/auth/actions/auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -20,33 +20,33 @@ export class AuthEffects {
     map(() => setAuthData(this.authService.retrieveInitialAuthData())),
   );
 
-  loginStart$ = createEffect(() => {
-    let userName = '';
-    let authToken = '';
-
-    return this.actions$.pipe(
-      ofType(loginStart),
-      switchMap(({ login, password }) => {
-        userName = login;
-
-        return this.authService.login({ login, password })
-      }),
-      catchError(({ error }) => {
-        alert(`${ErrorMessage.Login}: ${error}`);
-
-        return throwError(error);
-      }),
-      tap(({ token }) => authToken = token),
-      tap(() => this.router.navigate([ AppRoutePath.Courses ])),
-      map(() => setAuthData({ isAuthenticated: true, userName, authToken })),
-    );
-  })
+  @Effect()
+  loginRequest$ = this.actions$.pipe(
+    ofType(requestLogin),
+    switchMap(({ login: userName, password }) => this.authService.login({ login: userName, password }).pipe(
+      map(({ token: authToken }) => loginSuccess({ userName, authToken })),
+      catchError(({ error }) => of(loginFailure({ errorMessage: `${ErrorMessage.Login}: ${error}` }))),
+    )),
+  );
 
   @Effect()
-  logoutStart$ = this.actions$.pipe(
-    ofType(logoutStart),
+  loginSuccess$ = this.actions$.pipe(
+    ofType(loginSuccess),
+    tap(() => this.router.navigate([ AppRoutePath.Courses ])),
+    map(authData => setAuthData(authData)),
+  );
+
+  @Effect({ dispatch: false })
+  loginFailure$ = this.actions$.pipe(
+    ofType(loginFailure),
+    tap(({ errorMessage }) => alert(errorMessage)),
+  );
+
+  @Effect()
+  logout$ = this.actions$.pipe(
+    ofType(logout),
     tap(() => this.authService.logout()),
     tap(() => this.router.navigate([ AppRoutePath.Login ])),
-    map(() => setAuthData({ isAuthenticated: false, userName: '', authToken: '' })),
+    map(() => setAuthData({ userName: '', authToken: '' })),
   );
 }

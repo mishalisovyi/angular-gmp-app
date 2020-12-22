@@ -33,7 +33,6 @@ export class AuthService {
 
   retrieveInitialAuthData(): AuthState {
     return {
-      isAuthenticated: this.isLocalStorageContainsUserData(),
       userName: this.getUserNameFromLocalStorage(),
       authToken: this.getAuthTokenFromLocalStorage(),
     }
@@ -47,10 +46,6 @@ export class AuthService {
   private removeUserDataFromLocalStorage() {
     this.storage.removeItem(LOCAL_STORAGE_USERNAME_KEY);
     this.storage.removeItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
-  }
-
-  private isLocalStorageContainsUserData(): boolean {
-    return !!this.storage.getItem(LOCAL_STORAGE_USERNAME_KEY) && !!this.storage.getItem(LOCAL_STORAGE_AUTH_TOKEN_KEY);
   }
 
   private getUserNameFromLocalStorage(): string {

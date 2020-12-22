@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockCourseFormComponent } from '@app/entities/courses';
-import { updateCourse } from '@app/entities/courses/store/actions/courses.actions';
+import { requestUpdateCourse } from '@app/entities/courses/store/actions/courses.actions';
 import { mockCourses } from '@app/services';
 import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
@@ -38,6 +38,6 @@ describe('CourseEditPageComponent', () => {
 
     component.onCourseEdit({ courseId: mockCourseId, courseData: mockCourseData });
 
-    expect(MockStore.dispatch).toHaveBeenCalledWith(updateCourse({ courseId: mockCourseId, courseData: mockCourseData }));
+    expect(MockStore.dispatch).toHaveBeenCalledWith(requestUpdateCourse({ courseId: mockCourseId, courseData: mockCourseData }));
   });
 });

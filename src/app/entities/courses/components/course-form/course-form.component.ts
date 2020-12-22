@@ -1,16 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
-
 import { tap } from 'rxjs/operators';
 
-import { getCourseById } from '@app/entities/courses/store';
-import { CoursesState } from '@app/entities/courses/store/reducers/courses.reducer';
 import { AppRoutePath } from '@app/enums';
 import { CourseData } from '@app/interfaces/entities';
 import { CourseEditData } from '@app/interfaces/parameters';
-import { SubscriptionService } from '@app/services';
+import { CoursesFacade, SubscriptionService } from '@app/services';
 import { getDatePartFromIsoDateString, getFormattedCurrentDate, isValueIntegerNumber, parseStringToIntegerNumber } from '@app/util/util';
 
 const INITIAL_COURSE_DATA = {
@@ -37,7 +33,7 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private store: Store<CoursesState>,
+    private coursesFacade: CoursesFacade,
     private subscriptionService: SubscriptionService,
   ) { }
 
@@ -88,7 +84,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   private getCourseById(id: number) {
-    this.subscriptionService.register = this.store.select(getCourseById, { courseId: id })
+    this.subscriptionService.register = this.coursesFacade.getCourseById(id)
       .pipe(tap(course => this.setCourseData(course)))
       .subscribe();
   }

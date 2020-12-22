@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserPanelComponent } from '@app/core';
-import { logoutStart } from '@app/store/auth/actions/auth.actions';
+import { logout } from '@app/store/auth/actions/auth.actions';
 import { mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -35,6 +35,6 @@ describe('UserPanelComponent', () => {
   it('should properly handle logging out', () => {
     component.logout();
 
-    expect(MockStore.dispatch).toHaveBeenCalledWith(logoutStart());
+    expect(MockStore.dispatch).toHaveBeenCalledWith(logout());
   });
 });

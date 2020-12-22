@@ -1,10 +1,11 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { AppRoutePath } from '@app/enums';
-import { mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
+import { mockAuthFacadeProviderForUser } from '@app/services';
+import { mockRouterProvider } from '@app/util/util-test';
 
 import { GuestGuard } from './guest.guard';
 
@@ -16,14 +17,12 @@ describe('GuestGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         mockRouterProvider,
-        mockStoreProvider,
+        mockAuthFacadeProviderForUser,
       ],
     });
     guard = TestBed.inject(GuestGuard);
     router = TestBed.inject(Router);
   });
-
-  beforeEach(() => MockStore.select.and.returnValue(of(true)));
 
   it('should be created', () => {
     expect(guard).toBeTruthy();

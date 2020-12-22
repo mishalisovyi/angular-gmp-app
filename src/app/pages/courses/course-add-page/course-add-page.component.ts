@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
-import { createCourse } from '@app/entities/courses/store/actions/courses.actions';
-import { CoursesState } from '@app/entities/courses/store/reducers/courses.reducer';
 import { CourseData } from '@app/interfaces/entities';
+import { CoursesFacade } from '@app/services';
 
 @Component({
   selector: 'app-course-add-page',
@@ -12,9 +9,9 @@ import { CourseData } from '@app/interfaces/entities';
   styleUrls: [ './course-add-page.component.scss' ],
 })
 export class CourseAddPageComponent {
-  constructor(private store: Store<CoursesState>) { }
+  constructor(private coursesFacade: CoursesFacade) { }
 
   onCourseCreate(courseData: CourseData) {
-    this.store.dispatch(createCourse(courseData))
+    this.coursesFacade.createCourse(courseData);
   }
 }

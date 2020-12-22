@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { loginStart } from '@app/store/auth/actions/auth.actions';
+import { requestLogin } from '@app/store/auth/actions/auth.actions';
 import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { LoginFormComponent } from './login-form.component';
@@ -39,6 +39,6 @@ describe('LoginFormComponent', () => {
   it('should properly handle logging in', () => {
     component.onFormSubmit();
 
-    expect(MockStore.dispatch).toHaveBeenCalledWith(loginStart({ login: component.username, password: component.password }));
+    expect(MockStore.dispatch).toHaveBeenCalledWith(requestLogin({ login: component.username, password: component.password }));
   });
 });
