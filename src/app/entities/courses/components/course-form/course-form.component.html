@@ -11,9 +11,9 @@
       type="text"
       placeholder="Text input"
       class="form-group__control"
-      [class.control--invalid]="formIsSubmitted && courseForm.get('name').invalid"
+      [class.control--invalid]="formIsSubmitted && name.invalid"
       formControlName="name">
-    <div *ngIf="formIsSubmitted && courseForm.get('name').invalid" class="form-group__error-message">
+    <div *ngIf="formIsSubmitted && name.invalid" class="form-group__error-message">
       Title is required and should have length up to 50 symbols
     </div>
   </div>
@@ -25,10 +25,10 @@
     <textarea
       placeholder="Add description"
       class="form-group__control form-group__textarea"
-      [class.control--invalid]="formIsSubmitted && courseForm.get('description').invalid"
+      [class.control--invalid]="formIsSubmitted && description.invalid"
       formControlName="description">
     </textarea>
-    <div *ngIf="formIsSubmitted && courseForm.get('description').invalid" class="form-group__error-message">
+    <div *ngIf="formIsSubmitted && description.invalid" class="form-group__error-message">
       Description is required and should have length up to 500 symbols
     </div>
   </div>
@@ -38,14 +38,14 @@
     placeholder="minutes"
     errorMessage="Duration is required and should be positive number"
     formControlName="length"
-    [showError]="formIsSubmitted && courseForm.get('length').invalid">
+    [showError]="formIsSubmitted && length.invalid">
   </app-duration-input>
   <app-date-input
     label="Date"
     hint="required"
     errorMessage="Date is required"
     formControlName="date"
-    [showError]="formIsSubmitted && courseForm.get('date').invalid">
+    [showError]="formIsSubmitted && date.invalid">
   </app-date-input>
   <app-multi-autocomplete-input
     label="Authors"
@@ -54,7 +54,7 @@
     errorMessage="At least one item is required"
     [arrayForSearch]="authors$ | async"
     formControlName="authors"
-    [showError]="formIsSubmitted && courseForm.get('authors').invalid">
+    [showError]="formIsSubmitted && authors.invalid">
   </app-multi-autocomplete-input>
   <div class="card__footer">
     <button class="button button--large button--gray" type="button" (click)="onCancel()">Cancel</button>

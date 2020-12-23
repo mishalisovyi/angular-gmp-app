@@ -58,6 +58,26 @@ export class CourseFormComponent implements OnInit {
     return isValueIntegerNumber(this.courseId);
   }
 
+  get name() {
+    return this.courseForm.get('name');
+  }
+
+  get description() {
+    return this.courseForm.get('description');
+  }
+
+  get length() {
+    return this.courseForm.get('length');
+  }
+
+  get date() {
+    return this.courseForm.get('date');
+  }
+
+  get authors() {
+    return this.courseForm.get('authors');
+  }
+
   onSubmit() {
     this.formIsSubmitted = true;
 
