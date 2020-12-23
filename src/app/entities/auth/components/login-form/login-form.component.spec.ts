@@ -37,7 +37,7 @@ describe('LoginFormComponent', () => {
   });
 
   it('should properly handle logging in', () => {
-    component.onFormSubmit();
+    component.onFormSubmit(true);
 
     expect(MockStore.dispatch).toHaveBeenCalledWith(requestLogin({ login: component.username, password: component.password }));
   });

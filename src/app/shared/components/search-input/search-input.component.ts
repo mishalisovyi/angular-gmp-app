@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
 import { SubscriptionService } from '@app/services';
 
@@ -12,9 +13,9 @@ import { SubscriptionService } from '@app/services';
   providers: [ SubscriptionService ],
 })
 export class SearchInputComponent implements AfterViewInit {
-  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>
-
   private searchTerm$$ = new Subject<string>();
+
+  searchControl = new FormControl();
 
   constructor(private subscriptionService: SubscriptionService) { }
 
@@ -27,8 +28,7 @@ export class SearchInputComponent implements AfterViewInit {
   }
 
   private listenToInputKeyupEvent() {
-    this.subscriptionService.register = fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      map(event => (event.target as HTMLInputElement).value),
+    this.subscriptionService.register = this.searchControl.valueChanges.pipe(
       filter(value => value.length >= 3 || !value.length),
       debounceTime(400),
       distinctUntilChanged(),

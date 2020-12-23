@@ -1,10 +1,17 @@
 <div class="duration-input">
   <div class="form-group form-group--short">
     <div class="form-group__info">
-      <label class="form-group__label">Duration:</label>
-      <span class="form-group__hint hint--required">required</span>
+      <label class="form-group__label">{{ label }}:</label>
+      <span class="form-group__hint hint--required">{{ hint }}</span>
     </div>
-    <input type="number" placeholder="minutes" class="form-group__control" min="0" [ngModel]="duration" (ngModelChange)="onDurationChange($event)">
+    <input
+      type="number"
+      placeholder="{{ placeholder }}"
+      class="form-group__control"
+      [class.control--invalid]="showError"
+      [ngModel]="duration"
+      (ngModelChange)="onDurationValueChanged($event)">
+    <div *ngIf="showError" class="form-group__error-message">{{ errorMessage }}</div>
   </div>
   <div class="duration-input__formatted-value">
     <fa-icon class="duration-input__icon" [icon]="clockIcon"></fa-icon>

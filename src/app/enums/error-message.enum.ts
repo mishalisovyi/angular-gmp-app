@@ -1,4 +1,5 @@
 export enum ErrorMessage {
+  AuthorsGet = 'An error has occured during the authors list retrieving',
   Logout = 'An error has occured during the logging out',
   Login = 'An error has occured during the logging in',
   CourseCreate = 'An error has occured during the course creation',

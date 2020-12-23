@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { tap } from 'rxjs/operators';
@@ -7,13 +8,16 @@ import { AppRoutePath } from '@app/enums';
 import { CourseData } from '@app/interfaces/entities';
 import { CourseEditData } from '@app/interfaces/parameters';
 import { CoursesFacade, SubscriptionService } from '@app/services';
+import { AuthorsFacade } from '@app/services/store/authors/authors.facade';
+import { MultiAutocompleteInputValidator } from '@app/shared';
 import { getDatePartFromIsoDateString, getFormattedCurrentDate, isValueIntegerNumber, parseStringToIntegerNumber } from '@app/util/util';
 
 const INITIAL_COURSE_DATA = {
   name: '',
   description: '',
-  length: 0,
+  length: 1,
   date: getFormattedCurrentDate(),
+  authors: [],
   isTopRated: false,
 }
 
@@ -24,8 +28,12 @@ const INITIAL_COURSE_DATA = {
   providers: [ SubscriptionService ],
 })
 export class CourseFormComponent implements OnInit {
-  courseData: CourseData = null;
   courseId: number;
+
+  courseForm: FormGroup;
+  formIsSubmitted = false;
+
+  authors$ = this.authorsFacade.authors$;
 
   @Output() courseEdit = new EventEmitter<CourseEditData>();
   @Output() courseCreate = new EventEmitter<CourseData>();
@@ -33,12 +41,15 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private coursesFacade: CoursesFacade,
+    private authorsFacade: AuthorsFacade,
     private subscriptionService: SubscriptionService,
   ) { }
 
   ngOnInit() {
     this.extractCourseIdFromRouteParams();
+    this.buildCourseForm();
     this.setInitialCourseData();
     this.handleCourseLoading();
   }
@@ -47,8 +58,32 @@ export class CourseFormComponent implements OnInit {
     return isValueIntegerNumber(this.courseId);
   }
 
+  get name() {
+    return this.courseForm.get('name');
+  }
+
+  get description() {
+    return this.courseForm.get('description');
+  }
+
+  get length() {
+    return this.courseForm.get('length');
+  }
+
+  get date() {
+    return this.courseForm.get('date');
+  }
+
+  get authors() {
+    return this.courseForm.get('authors');
+  }
+
   onSubmit() {
-    this.emitFormSubmitData();
+    this.formIsSubmitted = true;
+
+    if (this.courseForm.valid) {
+      this.emitFormSubmitData();
+    };
   }
 
   onCancel() {
@@ -59,8 +94,18 @@ export class CourseFormComponent implements OnInit {
     this.courseId = parseStringToIntegerNumber(this.activatedRoute.snapshot.params.id);
   }
 
+  private buildCourseForm() {
+    this.courseForm = this.formBuilder.group({
+      name: [ '', [ Validators.required, Validators.maxLength(50) ] ],
+      description: [ '', [ Validators.required, Validators.maxLength(500) ] ],
+      date: [ '', [ Validators.required ] ],
+      length: [ 0, [ Validators.required, Validators.min(1) ] ],
+      authors: [ [], [ new MultiAutocompleteInputValidator() ] ],
+    });
+  }
+
   private setInitialCourseData() {
-    this.setCourseData(INITIAL_COURSE_DATA);
+    this.courseForm.patchValue(INITIAL_COURSE_DATA);
   }
 
   private handleCourseLoading() {
@@ -71,8 +116,8 @@ export class CourseFormComponent implements OnInit {
 
   private emitFormSubmitData() {
     return this.isEditingMode
-      ? this.courseEdit.emit({ courseId: this.courseId, courseData: this.courseData })
-      : this.courseCreate.emit(this.courseData);
+      ? this.courseEdit.emit({ courseId: this.courseId, courseData: { ...this.courseForm.value } })
+      : this.courseCreate.emit({ ...this.courseForm.value });
   }
 
   private navigateToCoursesList() {
@@ -80,7 +125,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   private setCourseData(courseData: CourseData) {
-    this.courseData = { ...courseData, date: getDatePartFromIsoDateString(courseData.date) };
+    this.courseForm.patchValue({ ...courseData, date: getDatePartFromIsoDateString(courseData.date) });
   }
 
   private getCourseById(id: number) {

@@ -13,8 +13,10 @@ export class LoginFormComponent {
 
   constructor(private authFacade: AuthFacade) { }
 
-  onFormSubmit() {
-    this.login();
+  onFormSubmit(formIsValid: boolean) {
+    if (formIsValid) {
+      this.login();
+    }
   }
 
   private login() {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MockCourseItemComponent, MockLoadMorePanelComponent } from '@app/entities/courses';
 import { requestGetCourses, requestGetCoursesPage } from '@app/entities/courses/store/actions/courses.actions';
@@ -18,7 +19,10 @@ describe('CoursesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FontAwesomeModule ],
+      imports: [
+        FontAwesomeModule,
+        ReactiveFormsModule,
+      ],
       declarations: [
         CoursesPageComponent,
         SearchInputComponent,

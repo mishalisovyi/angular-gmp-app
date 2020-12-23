@@ -1,13 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SearchInputComponent } from '@app/shared';
-import { getFixtureDebugElementBySelector } from '@app/util/util-test';
-
-const dispatchKeyupEvent = (element: HTMLInputElement, value: string) => {
-  element.value = value;
-  element.dispatchEvent(new Event('keyup'));
-}
 
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
@@ -15,7 +9,7 @@ describe('SearchInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [ ReactiveFormsModule ],
       declarations: [ SearchInputComponent ],
     })
     .compileComponents();
@@ -32,8 +26,6 @@ describe('SearchInputComponent', () => {
   });
 
   it('should emit search term value', waitForAsync(() => {
-    const searchInput = getFixtureDebugElementBySelector(fixture, '.form-group__control');
-
     const firstValue = 'a';
     const secondValue = 'ab';
     const utimateValue = 'abc';
@@ -41,8 +33,8 @@ describe('SearchInputComponent', () => {
     component.searchTermChanged.subscribe(value => expect(value).toBe(utimateValue));
     component.ngAfterViewInit();
 
-    dispatchKeyupEvent(searchInput.nativeElement, firstValue)
-    dispatchKeyupEvent(searchInput.nativeElement, secondValue)
-    dispatchKeyupEvent(searchInput.nativeElement, utimateValue)
+    component.searchControl.setValue(firstValue);
+    component.searchControl.setValue(secondValue);
+    component.searchControl.setValue(utimateValue);
   }));
 });
