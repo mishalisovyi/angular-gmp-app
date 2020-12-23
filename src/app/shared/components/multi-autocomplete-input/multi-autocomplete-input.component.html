@@ -1,0 +1,29 @@
+<div class="form-group form-group">
+  <div class="form-group__info">
+    <label class="form-group__label">{{ label }}:</label>
+    <span class="form-group__hint hint--required">{{ hint }}</span>
+  </div>
+  <input
+    class="form-group__control"
+    [class.control--invalid]="showError"
+    placeholder="{{ placeholder }}"
+    #searchInput
+    [formControl]="itemSearchControl"
+    [matAutocomplete]="auto"
+    [matChipInputFor]="chipList"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    (matChipInputTokenEnd)="onInputTokenEnd($event)">
+  <div *ngIf="showError" class="form-group__error-message">{{ errorMessage }}</div>
+</div>
+
+<mat-chip-list #chipList>
+  <mat-chip *ngFor="let item of selectedItems" [selectable]="true" [removable]="true" (removed)="onItemRemoved(item.id)">
+    {{ item.name }}
+    <mat-icon matChipRemove>cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="onItemSelected($event)">
+  <mat-option *ngFor="let item of filteredItems$ | async" [value]="item.id">
+    {{ item.name }}
+  </mat-option>
+</mat-autocomplete>

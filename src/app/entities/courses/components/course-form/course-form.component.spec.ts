@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { of } from 'rxjs';
 
 import { AppRoutePath } from '@app/enums';
 import { mockCourses } from '@app/services';
-import { MockDurationInputComponent } from '@app/shared/components/duration-input/duration-input.component.mock';
+import { MockDateInputComponent, MockDurationInputComponent, MockMultiAutocompleteInputComponent, TimeDurationPipe } from '@app/shared';
 import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { CourseFormComponent } from './course-form.component';
@@ -18,12 +18,19 @@ describe('CourseFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+      ],
       declarations: [
         CourseFormComponent,
         MockDurationInputComponent,
+        MockDateInputComponent,
+        MockMultiAutocompleteInputComponent,
+        TimeDurationPipe,
       ],
       providers: [
+        FormBuilder,
         mockRouterProvider,
         mockActivatedRouteProvider,
         mockStoreProvider,
@@ -53,7 +60,7 @@ describe('CourseFormComponent', () => {
 
     component.onSubmit();
 
-    expect(courseEditEmitSpy).toHaveBeenCalledWith({ courseId: component.courseId, courseData: component.courseData });
+    expect(courseEditEmitSpy).toHaveBeenCalledWith({ courseId: component.courseId, courseData: component.courseForm.value });
   });
 
   it('should properly react on course creation/updating cancel', () => {

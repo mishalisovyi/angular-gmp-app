@@ -58,7 +58,11 @@ body {
     background-color: $gray-light-5;
   }
 
-  &:hover {
+  &--disabled {
+    opacity: .5;
+  }
+
+  &:not(.button--disabled):hover {
     cursor: pointer;
   }
 
@@ -69,7 +73,8 @@ body {
 
 .form-group {
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 32px;
+  position: relative;
 
   &__info {
     width: 100%;
@@ -106,6 +111,10 @@ body {
     padding: 9px 12px;
     box-sizing: border-box;
 
+    &.control--invalid {
+      border-color: $red-orange;
+    }
+
     &::placeholder {
       color: $gray-light-3;
     }
@@ -114,6 +123,16 @@ body {
   &__textarea {
     height: 110px;
     resize: none;
+  }
+
+  &__error-message {
+    @include font-regular;
+    color: $red-orange;
+    font-size: 12px;
+    line-height: 24px;
+    position: absolute;
+    bottom: -24px;
+    white-space: nowrap;
   }
 
   &--short {
@@ -146,3 +165,10 @@ body {
     padding: 0;
   }
 }
+
+/**
+  * Customization of Angular Material
+  */
+  mat-chip {
+    @include font-regular;  
+  }

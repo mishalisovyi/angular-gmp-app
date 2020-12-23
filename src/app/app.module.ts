@@ -12,6 +12,7 @@ import { AuthInterceptor } from '@app/interceptors/auth/auth.interceptor';
 import { LoadingInterceptor } from '@app/interceptors/loading/loading.interceptor';
 import { reducers } from '@app/store';
 import { AuthEffects } from '@app/store/auth/effects/auth.effects';
+import { AuthorsEffects } from '@app/store/authors/effects/authors.effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,7 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([ AuthEffects ]),
+    EffectsModule.forRoot([ AuthEffects, AuthorsEffects ]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [

@@ -13,7 +13,7 @@ export const mockCourses = [ {
   isTopRated: true,
   authors: [
     {
-      id: 1,
+      id: '1',
       name: 'test 1',
     },
   ],
@@ -26,7 +26,7 @@ export const mockCourses = [ {
   isTopRated: false,
   authors: [
     {
-      id: 2,
+      id: '2',
       name: 'test 2',
     },
   ],
@@ -39,7 +39,7 @@ export const mockCourses = [ {
   isTopRated: true,
   authors: [
     {
-      id: 3,
+      id: '3',
       name: 'test 3',
     },
   ],
