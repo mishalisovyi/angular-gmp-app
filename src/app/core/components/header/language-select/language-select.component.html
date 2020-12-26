@@ -1,0 +1,4 @@
+<select class="language-select" (change)="onLanguageSelectChange($event)">
+  <option [value]="Language.En" selected>{{ Language.En | titlecase }}</option>
+  <option [value]="Language.Ru">{{ Language.Ru | titlecase }}</option>
+</select>

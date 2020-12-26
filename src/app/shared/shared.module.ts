@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material.module';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   DateInputComponent,
@@ -23,6 +24,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    TranslateModule,
   ],
   declarations: [
     TimeDurationPipe,
@@ -43,6 +45,7 @@ import {
     MultiAutocompleteInputComponent,
     FontAwesomeModule,
     MaterialModule,
+    TranslateModule,
   ],
 })
 export class SharedModule { }

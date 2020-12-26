@@ -6,6 +6,8 @@ import { Course } from '@app/interfaces/entities';
 import { SharedModule } from '@app/shared/shared.module';
 import { getFixtureDebugElementBySelector, getFixtureDebugElementsArrayBySelector, mockRouterProvider } from '@app/util/util-test';
 
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 @Component({
   template: `<app-course-item [course]="course" (courseDeleted)="onCourseDelete($event)"></app-course-item>`,
 })
@@ -32,7 +34,12 @@ describe('CourseItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ SharedModule ],
+      imports: [
+        SharedModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [
         CourseItemComponent,
         HostComponent,

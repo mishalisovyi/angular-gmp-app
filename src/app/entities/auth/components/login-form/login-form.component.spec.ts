@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { requestLogin } from '@app/store/auth/actions/auth.actions';
 import { MockStore, mockStoreProvider } from '@app/util/util-test';
 
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { LoginFormComponent } from './login-form.component';
 
 const MOCK_EMAIL = 'test@mail.com';
@@ -15,7 +17,12 @@ describe('LoginFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [ LoginFormComponent ],
       providers: [ mockStoreProvider ],
     })

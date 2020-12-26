@@ -1,0 +1,55 @@
+{
+  "COMMON": {
+    "REQUIRED": "required",
+    "LOGIN": "Log in",
+    "LOGOUT": "Log out",
+    "COPYRIGHT": "Copyright",
+    "ALL_RIGHTS_RESERVED": "All rights reserved",
+    "TYPE_TO_SEARCH": "Type to search",
+    "CREATE": "Create",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "LOAD_MORE": "Load more",
+    "CANCEL": "Cancel",
+    "SAVE": "Save"
+  },
+  "PAGES": {
+    "LOGIN": {
+      "LOGIN": "Login",
+      "EMAIL": "Email",
+      "EMAIL_VALIDATION": "Email is required",
+      "PASSWORD": "Password",
+      "PASSWORD_VALIDATION": "Password is required",
+      "FORGOT_PASSWORD": "Forgot password"
+    },
+    "COURSES": {
+      "LIST": {
+        "ADD_COURSE": "Add course",
+        "NO_DATA": "No data. Feel free to add new course"
+      },
+      "FORM": {
+        "COURSE": "course",
+        "TITLE": "Title",
+        "TEXT_INPUT": "Text input",
+        "TITLE_VALIDATION": "Title is required and should have length up to 50 symbols",
+        "DESCRIPTION": "Description",
+        "ADD_DESCRIPTION": "Add description",
+        "DESCRIPTION_VALIDATION": "Description is required and should have length up to 500 symbols",
+        "DURATION": "Duration",
+        "MINUTES": "minutes",
+        "DURATION_VALIDATION": "Duration is required and should be positive number",
+        "DATE": "Date",
+        "DATE_VALIDATION": "Date is required",
+        "AUTHORS": "Authors",
+        "AUTHORS_VALIDATION": "At least one item is required"
+      }
+    },
+    "NOT_FOUND": {
+      "MESSAGE": "This page is not found"
+    }
+  },
+  "BREADCRUMBS": {
+    "COURSES": "Courses",
+    "NEW_COURSE": "New Course"
+  }
+}

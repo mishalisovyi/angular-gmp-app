@@ -1,63 +1,59 @@
 <form class="course-form card" [formGroup]="courseForm" (submit)="onSubmit()">
   <div class="card__header">
-    <h2 class="card__title">{{ isEditingMode ? 'Edit' : 'Create' }} course</h2>
+    <h2 class="card__title">{{ (isEditingMode ? 'COMMON.EDIT' : 'COMMON.CREATE') | translate }} {{ 'PAGES.COURSES.FORM.COURSE' | translate }}</h2>
   </div>
   <div class="form-group">
     <div class="form-group__info">
-      <label class="form-group__label">Title:</label>
-      <span class="form-group__hint hint--required">required</span>
+      <label class="form-group__label">{{ 'PAGES.COURSES.FORM.TITLE' | translate }}:</label>
+      <span class="form-group__hint hint--required">{{ 'COMMON.REQUIRED' | translate }}</span>
     </div>
     <input
       type="text"
-      placeholder="Text input"
+      placeholder="{{ 'PAGES.COURSES.FORM.TEXT_INPUT' | translate }}"
       class="form-group__control"
       [class.control--invalid]="formIsSubmitted && name.invalid"
       formControlName="name">
-    <div *ngIf="formIsSubmitted && name.invalid" class="form-group__error-message">
-      Title is required and should have length up to 50 symbols
-    </div>
+    <div *ngIf="formIsSubmitted && name.invalid" class="form-group__error-message">{{ 'PAGES.COURSES.FORM.TITLE_VALIDATION' | translate }}</div>
   </div>
   <div class="form-group">
     <div class="form-group__info">
-      <label class="form-group__label">Description:</label>
-      <span class="form-group__hint hint--required">required</span>
+      <label class="form-group__label">{{ 'PAGES.COURSES.FORM.DESCRIPTION' | translate }}:</label>
+      <span class="form-group__hint hint--required">{{ 'COMMON.REQUIRED' | translate }}</span>
     </div>
     <textarea
-      placeholder="Add description"
+      placeholder="{{ 'PAGES.COURSES.FORM.ADD_DESCRIPTION' | translate }}"
       class="form-group__control form-group__textarea"
       [class.control--invalid]="formIsSubmitted && description.invalid"
       formControlName="description">
     </textarea>
-    <div *ngIf="formIsSubmitted && description.invalid" class="form-group__error-message">
-      Description is required and should have length up to 500 symbols
-    </div>
+    <div *ngIf="formIsSubmitted && description.invalid" class="form-group__error-message">{{ 'PAGES.COURSES.FORM.DESCRIPTION_VALIDATION' | translate }}</div>
   </div>
   <app-duration-input
-    label="Duration"
-    hint="required"
-    placeholder="minutes"
-    errorMessage="Duration is required and should be positive number"
+    label="{{ 'PAGES.COURSES.FORM.DURATION' | translate }}"
+    hint="{{ 'COMMON.REQUIRED' }}"
+    placeholder="{{ 'PAGES.COURSES.FORM.MINUTES' | translate }}"
+    errorMessage="{{ 'PAGES.COURSES.FORM.DURATION_VALIDATION' | translate }}"
     formControlName="length"
     [showError]="formIsSubmitted && length.invalid">
   </app-duration-input>
   <app-date-input
-    label="Date"
-    hint="required"
-    errorMessage="Date is required"
+    label="{{ 'PAGES.COURSES.FORM.DATE' | translate }}"
+    hint="{{ 'COMMON.REQUIRED' }}"
+    errorMessage="{{ 'PAGES.COURSES.FORM.DATE_VALIDATION' | translate }}"
     formControlName="date"
     [showError]="formIsSubmitted && date.invalid">
   </app-date-input>
   <app-multi-autocomplete-input
-    label="Authors"
-    hint="required"
-    placeholder="Start typing"
-    errorMessage="At least one item is required"
+    label="{{ 'PAGES.COURSES.FORM.AUTHORS' | translate }}"
+    hint="{{ 'COMMON.REQUIRED' }}"
+    placeholder="{{ 'PAGES.COURSES.FORM.TEXT_INPUT' | translate }}"
+    errorMessage="{{ 'PAGES.COURSES.FORM.AUTHORS_VALIDATION' | translate }}"
     [arrayForSearch]="authors$ | async"
     formControlName="authors"
     [showError]="formIsSubmitted && authors.invalid">
   </app-multi-autocomplete-input>
   <div class="card__footer">
-    <button class="button button--large button--gray" type="button" (click)="onCancel()">Cancel</button>
-    <button class="button button--large button--green" type="submit" [class.button--disabled]="formIsSubmitted && courseForm.invalid">Save</button>
+    <button class="button button--large button--gray" type="button" (click)="onCancel()">{{ 'COMMON.CANCEL' | translate }}</button>
+    <button class="button button--large button--green" type="submit" [class.button--disabled]="formIsSubmitted && courseForm.invalid">{{ 'COMMON.SAVE' | translate }}</button>
   </div>
 </form>

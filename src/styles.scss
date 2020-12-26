@@ -87,6 +87,7 @@ body {
     @include font-regular;
     font-size: 12px;
     color: $gray-dark-4;
+    white-space: nowrap;
 
     &.hint--required::before {
       content: '*'

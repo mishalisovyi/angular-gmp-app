@@ -6,6 +6,7 @@ export { LogoComponent } from './components/header/logo/logo.component';
 export { SpinnerComponent } from './components/spinner/spinner.component';
 export { SpinnerImageComponent } from './components/spinner/spinner-image/spinner-image.component';
 export { UserPanelComponent } from './components/header/user-panel/user-panel.component';
+export { LanguageSelectComponent } from './components/header/language-select/language-select.component';
 
 export { MockBreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component.mock';
 export { MockFooterComponent } from './components/footer/footer.component.mock';

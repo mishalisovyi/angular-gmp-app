@@ -9,6 +9,8 @@ import { mockCourses } from '@app/services';
 import { MockDateInputComponent, MockDurationInputComponent, MockMultiAutocompleteInputComponent, TimeDurationPipe } from '@app/shared';
 import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
 
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { CourseFormComponent } from './course-form.component';
 
 describe('CourseFormComponent', () => {
@@ -21,6 +23,9 @@ describe('CourseFormComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
       ],
       declarations: [
         CourseFormComponent,

@@ -1,7 +1,7 @@
 <div class="form-group form-group">
   <div class="form-group__info">
-    <label class="form-group__label">{{ label }}:</label>
-    <span class="form-group__hint hint--required">{{ hint }}</span>
+    <label class="form-group__label">{{ label | translate }}:</label>
+    <span class="form-group__hint hint--required">{{ hint | translate }}</span>
   </div>
   <input
     class="form-group__control"
@@ -13,7 +13,7 @@
     [matChipInputFor]="chipList"
     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
     (matChipInputTokenEnd)="onInputTokenEnd($event)">
-  <div *ngIf="showError" class="form-group__error-message">{{ errorMessage }}</div>
+  <div *ngIf="showError" class="form-group__error-message">{{ errorMessage | translate }}</div>
 </div>
 
 <mat-chip-list #chipList>

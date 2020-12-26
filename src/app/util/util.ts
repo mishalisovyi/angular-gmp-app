@@ -1,5 +1,12 @@
+import { HttpClient } from '@angular/common/http';
+
 import { AppRoutePath } from '@app/enums';
 import { BreadcrumbsStep } from '@app/interfaces/helpers';
+
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+const TRANSLATIONS_PATH = './assets/i18n/';
+const TRANSLATIONS_EXTENSION = '.json';
 
 export const getFormattedCurrentDate = () => getDatePartFromIsoDateString(new Date().toISOString());
 
@@ -16,18 +23,22 @@ export const isNumberNegative = (value: number) => value < 0;
 export const getStaticBreadcrumbsStepsByRoutePath = (routePath: AppRoutePath): BreadcrumbsStep[] => {
   return {
     [AppRoutePath.Add]: [ {
-      title: 'Courses',
+      titleTranslationKey: 'BREADCRUMBS.COURSES',
       routerUrl: AppRoutePath.Courses,
     }, {
-      title: 'New Course',
+      titleTranslationKey: 'BREADCRUMBS.NEW_COURSE',
     } ],
     [AppRoutePath.Edit]: [ {
-      title: 'Courses',
+      titleTranslationKey: 'BREADCRUMBS.COURSES',
       routerUrl: AppRoutePath.Courses,
     } ],
     [AppRoutePath.Courses]: [ {
-      title: 'Courses',
+      titleTranslationKey: 'BREADCRUMBS.COURSES',
       routerUrl: AppRoutePath.Courses,
     } ],
   }[routePath]
+}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, TRANSLATIONS_PATH, TRANSLATIONS_EXTENSION);
 }

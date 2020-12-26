@@ -3,13 +3,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SearchInputComponent } from '@app/shared';
 
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
   let fixture: ComponentFixture<SearchInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule ],
+      imports: [
+        ReactiveFormsModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [ SearchInputComponent ],
     })
     .compileComponents();

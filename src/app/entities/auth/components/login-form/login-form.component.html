@@ -1,41 +1,41 @@
 <form class="login-form card" #form="ngForm" (submit)="onFormSubmit(form.valid)">
   <div class="card__header">
-    <h2 class="card__title">Login</h2>
+    <h2 class="card__title">{{ 'PAGES.LOGIN.LOGIN' | translate }}</h2>
   </div>
   <div class="form-group">
     <div class="form-group__info">
-      <label class="form-group__label">Email:</label>
-      <span class="form-group__hint hint--required">required</span>
+      <label class="form-group__label">{{ 'PAGES.LOGIN.EMAIL' | translate }}:</label>
+      <span class="form-group__hint hint--required">{{ 'COMMON.REQUIRED' | translate }}</span>
     </div>
     <input
       type="text"
       name="email"
-      placeholder="Email"
+      placeholder="{{ 'PAGES.LOGIN.EMAIL' | translate }}"
       class="form-group__control"
       [class.control--invalid]="form.submitted && usernameCtrl.invalid"
       #usernameCtrl="ngModel"
       [(ngModel)]="username"
       required>
-    <div *ngIf="form.submitted && usernameCtrl.invalid" class="form-group__error-message">Email is required</div>
+    <div *ngIf="form.submitted && usernameCtrl.invalid" class="form-group__error-message">{{ 'PAGES.LOGIN.EMAIL_VALIDATION' | translate }}</div>
   </div>
   <div class="form-group">
     <div class="form-group__info">
-      <label class="form-group__label">Password:</label>
-      <span class="form-group__hint hint--required">required</span>
+      <label class="form-group__label">{{ 'PAGES.LOGIN.PASSWORD' | translate }}:</label>
+      <span class="form-group__hint hint--required">{{ 'COMMON.REQUIRED' | translate }}</span>
     </div>
     <input
       type="password"
       name="password"
-      placeholder="Password"
+      placeholder="{{ 'PAGES.LOGIN.PASSWORD' | translate }}"
       class="form-group__control"
       [class.control--invalid]="form.submitted && passwordCtrl.invalid"
       #passwordCtrl="ngModel"
       [(ngModel)]="password"
       required>
-    <div *ngIf="form.submitted && passwordCtrl.invalid" class="form-group__error-message">Password is required</div>
+    <div *ngIf="form.submitted && passwordCtrl.invalid" class="form-group__error-message">{{ 'PAGES.LOGIN.PASSWORD_VALIDATION' | translate }}</div>
   </div>
   <div class="card__footer">
-    <button class="button button--link">Forgot password?</button>
-    <button class="button button--large button--green button--login" type="submit" [class.button--disabled]="form.submitted && form.invalid">Login</button>
+    <button class="button button--link">{{ 'PAGES.LOGIN.FORGOT_PASSWORD' | translate }}?</button>
+    <button class="button button--large button--green button--login" type="submit" [class.button--disabled]="form.submitted && form.invalid">{{ 'PAGES.LOGIN.LOGIN' | translate }}</button>
   </div>
 </form>

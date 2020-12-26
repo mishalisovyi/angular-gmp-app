@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { getFixtureDebugElementBySelector } from '@app/util/util-test';
 
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { LoadMorePanelComponent } from './load-more-panel.component';
 
 describe('LoadMorePanelComponent', () => {
@@ -10,6 +12,11 @@ describe('LoadMorePanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [ LoadMorePanelComponent ],
     })
     .compileComponents();

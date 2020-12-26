@@ -10,4 +10,11 @@
   justify-content: space-between;
   align-items: center;
   background-color: $gray-dark-1;
+
+  &__left-part {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+  }
 }

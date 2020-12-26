@@ -1,32 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import { MaterialModule } from '@app/material.module';
 
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { MultiAutocompleteInputComponent } from './multi-autocomplete-input.component';
+import { LanguageSelectComponent } from './language-select.component';
 
-describe('MultiAutocompleteInputComponent', () => {
-  let component: MultiAutocompleteInputComponent;
-  let fixture: ComponentFixture<MultiAutocompleteInputComponent>;
+describe('LanguageSelectComponent', () => {
+  let component: LanguageSelectComponent;
+  let fixture: ComponentFixture<LanguageSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule,
-        MaterialModule,
         TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
         }),
       ],
-      declarations: [ MultiAutocompleteInputComponent ],
+      declarations: [ LanguageSelectComponent ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiAutocompleteInputComponent);
+    fixture = TestBed.createComponent(LanguageSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

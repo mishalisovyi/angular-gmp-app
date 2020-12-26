@@ -4,13 +4,20 @@ import { AvailabilityStatusDirective, CourseItemComponent } from '@app/entities/
 import { SharedModule } from '@app/shared/shared.module';
 import { getFixtureDebugElementsArrayBySelector, mockRouterProvider } from '@app/util/util-test';
 
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
   let fixture: ComponentFixture<CourseItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ SharedModule ],
+      imports: [
+        SharedModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [
         CourseItemComponent,
         AvailabilityStatusDirective,

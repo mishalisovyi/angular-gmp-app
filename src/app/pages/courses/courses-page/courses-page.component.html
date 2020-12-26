@@ -5,7 +5,7 @@
     <div class="courses-page__add-button">
       <button class="button button--large button--blue" (click)="onCourseAddClick()">
         <fa-icon [icon]="iconPlus"></fa-icon>
-        <span>Add course</span>
+        <span>{{ 'PAGES.COURSES.LIST.ADD_COURSE' | translate }}</span>
       </button>
     </div>
   </div>
@@ -19,5 +19,5 @@
 </section>
 
 <ng-template #noDataTemplate>
-  <app-message message="No data. Feel free to add new course"></app-message>
+  <app-message message="{{ 'PAGES.COURSES.LIST.NO_DATA' | translate }}"></app-message>
 </ng-template>

@@ -1,8 +1,8 @@
 <div class="form-group form-group--short">
   <div class="form-group__info">
-    <label class="form-group__label">{{ label }}:</label>
-    <span class="form-group__hint hint--required">{{ hint }}</span>
+    <label class="form-group__label">{{ label | translate }}:</label>
+    <span class="form-group__hint hint--required">{{ hint | translate }}</span>
   </div>
   <input type="date" name="date" class="form-group__control" [class.control--invalid]="showError" [ngModel]="date" (ngModelChange)="onChange($event)">
-  <div *ngIf="showError" class="form-group__error-message">{{ errorMessage }}</div>
+  <div *ngIf="showError" class="form-group__error-message">{{ errorMessage | translate }}</div>
 </div>

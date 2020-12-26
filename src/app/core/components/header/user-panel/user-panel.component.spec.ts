@@ -5,6 +5,7 @@ import { logout } from '@app/store/auth/actions/auth.actions';
 import { mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 describe('UserPanelComponent', () => {
   let component: UserPanelComponent;
@@ -12,7 +13,12 @@ describe('UserPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FontAwesomeModule ],
+      imports: [
+        FontAwesomeModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [ UserPanelComponent ],
       providers: [
         mockRouterProvider,

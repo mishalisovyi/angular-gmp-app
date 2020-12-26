@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent, MockLogoComponent, MockUserPanelComponent } from '@app/core';
+import { HeaderComponent, LanguageSelectComponent, MockLogoComponent, MockUserPanelComponent } from '@app/core';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -10,11 +11,17 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FontAwesomeModule ],
+      imports: [
+        FontAwesomeModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
+      ],
       declarations: [
         HeaderComponent,
         MockLogoComponent,
         MockUserPanelComponent,
+        LanguageSelectComponent,
       ],
     })
     .compileComponents();
