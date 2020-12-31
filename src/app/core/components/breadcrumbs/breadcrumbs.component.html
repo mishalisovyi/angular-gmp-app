@@ -7,9 +7,9 @@
         routerLink="{{ '/' + step.routerUrl }}"
         routerLinkActive="is-active"
         [routerLinkActiveOptions]="{ exact: true }">
-        {{ step.title }}
+        {{ step.titleTranslationKey | translate }}
       </a>
-      <span *ngIf="isLast || !step.routerUrl" class="breadcrumbs__step is-active">{{ step.title }}</span>
+      <span *ngIf="isLast || !step.routerUrl" class="breadcrumbs__step is-active">{{ step.titleTranslationKey | translate }}</span>
       <span class="breadcrumbs__divider">{{ isLast ? '' : '&nbsp;/&nbsp;' }}</span>
     </ng-container>
   </div>

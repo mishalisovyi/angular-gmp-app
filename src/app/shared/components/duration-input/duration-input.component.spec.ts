@@ -5,6 +5,7 @@ import { DurationInputComponent, TimeDurationPipe } from '@app/shared';
 import { getFixtureDebugElementBySelector } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 const testDurationValue = 100;
 
@@ -17,6 +18,9 @@ describe('DurationInputComponent', () => {
       imports: [
         FontAwesomeModule,
         FormsModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
       ],
       declarations: [
         DurationInputComponent,

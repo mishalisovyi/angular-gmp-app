@@ -1,0 +1,12 @@
+@import '../../../../../colors';
+@import '../../../../../mixins';
+
+.language-select {
+  @include font-regular;
+  font-size: 14px;
+  color: $white;
+  background-color: $gray-dark-1;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

@@ -71,7 +71,7 @@ export class BreadcrumbsService {
 
   private generateBreadcrumbsDynamicStep(): BreadcrumbsStep {
     return {
-      title: this.extractBreadcrumbsStepTitleFromRouteState(),
+      titleTranslationKey: this.extractBreadcrumbsStepTitleFromRouteState(),
     }
   }
 

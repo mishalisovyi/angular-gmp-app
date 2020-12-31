@@ -9,6 +9,7 @@ import { OrderByPipe, SearchInputComponent } from '@app/shared';
 import { getFixtureDebugElementBySelector, mockActivatedRouteProvider, mockRouterProvider, MockStore, mockStoreProvider } from '@app/util/util-test';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CoursesPageComponent, PAGE_SIZE } from './courses-page.component';
 
@@ -22,6 +23,9 @@ describe('CoursesPageComponent', () => {
       imports: [
         FontAwesomeModule,
         ReactiveFormsModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader },
+        }),
       ],
       declarations: [
         CoursesPageComponent,
@@ -35,6 +39,7 @@ describe('CoursesPageComponent', () => {
         mockActivatedRouteProvider,
         mockRouterProvider,
         mockStoreProvider,
+        // TranslateService,
       ],
     })
     .compileComponents();

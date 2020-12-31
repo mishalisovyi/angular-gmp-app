@@ -26,11 +26,11 @@
       <div class="course-item__actions">
         <button class="button button--small button--blue" (click)="onCourseEditClick(course)">
           <fa-icon class="course-item__icon" [icon]="editCourseIcon"></fa-icon>
-          <span>Edit</span>
+          <span>{{ 'COMMON.EDIT' | translate }}</span>
         </button>
         <button class="button button--small button--blue" (click)="onCourseDeleteClick(course.id)">
           <fa-icon class="course-item__icon" [icon]="deleteCourseIcon"></fa-icon>
-          <span>Delete</span>
+          <span>{{ 'COMMON.DELETE' | translate }}</span>
         </button>
       </div>
     </div>
